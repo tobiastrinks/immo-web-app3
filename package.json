@@ -19,6 +19,7 @@
     "contentful": "^10.15.1",
     "nuxt": "^3.13.0",
     "pinia": "^2.2.2",
+    "uuid": "^10.0.0",
     "vue": "latest",
     "vue-router": "latest"
   },

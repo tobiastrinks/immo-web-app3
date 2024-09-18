@@ -6,7 +6,12 @@
 <script>
 import { BLOCKS, INLINES } from '@contentful/rich-text-types'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-export default {
+export default defineNuxtComponent({
+  setup() {
+    return {
+      config: useRuntimeConfig()
+    }
+  },
   props: {
     content: {
       type: Object,
@@ -47,7 +52,7 @@ export default {
     getUri (data) {
       const { uri } = data.data
       if (uri.startsWith('/')) {
-        return `${this.$config.canonicalHostname}${uri}` // TODO
+        return `${this.config.public.canonicalHostname}${uri}`
       } else {
         return uri
       }
@@ -61,7 +66,7 @@ export default {
       }
     }
   }
-}
+})
 </script>
 
 <style lang="scss">

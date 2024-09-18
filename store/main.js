@@ -8,8 +8,21 @@ export const useStore = defineStore('main', {
         },
         mobileNavOpened: false,
         navNoteOpened: false,
-        toast: null
+        toast: null,
+        searchRandomAutocomplete: Math.ceil(Math.random() * 100000).toString()
     }),
+    getters: {
+        maximizedNavHeight ({ navDimensions: { navTopHeight, navBottomHeight, navLocationHeight } }) {
+            return navTopHeight + navBottomHeight + navLocationHeight
+        },
+        navMinifyOffset ({ navMinified, navDimensions: { navBottomHeight } }) {
+            if (navMinified) {
+                return -navBottomHeight
+            } else {
+                return 0
+            }
+        }
+    },
     actions: {
         minifyNav() {
             this.navMinified = true
@@ -31,18 +44,6 @@ export const useStore = defineStore('main', {
         },
         setToast(toast) {
             this.toast = toast
-        }
-    },
-    getters: {
-        maximizedNavHeight ({ navDimensions: { navTopHeight, navBottomHeight, navLocationHeight } }) {
-            return navTopHeight + navBottomHeight + navLocationHeight
-        },
-        navMinifyOffset ({ navMinified, navDimensions: { navBottomHeight } }) {
-            if (navMinified) {
-                return -navBottomHeight
-            } else {
-                return 0
-            }
         }
     }
 })

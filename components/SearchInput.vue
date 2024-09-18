@@ -5,8 +5,8 @@
   >
     <input
       :value="searchInput"
-      :name="randomString()"
-      :autocomplete="randomString()"
+      :name="mainStore.searchRandomAutocomplete"
+      :autocomplete="mainStore.searchRandomAutocomplete"
       class="search-input-field"
       :placeholder="$t('_shared.search.placeholder')"
       @input="setSearchString($event.target.value)"
@@ -60,12 +60,14 @@
 
 <script>
 import {useSearchStore} from "~/store/search.js";
+import {useStore} from "~/store/main.js";
 
 export default defineNuxtComponent({
   setup() {
     return {
       apiFetch: useApiFetch(),
-      searchStore: useSearchStore()
+      mainStore: useStore(),
+      searchStore: useSearchStore(),
     }
   },
   props: {
@@ -128,9 +130,6 @@ export default defineNuxtComponent({
       if (this.searchInput !== '') {
         this.searchStore.search(this.apiFetch, this.searchInput)
       }
-    },
-    randomString () {
-      return Math.ceil(Math.random() * 100000).toString()
     }
   }
 })

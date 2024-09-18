@@ -6,22 +6,6 @@ export const useSearchStore = defineStore('search', {
         zipResults: [],
         noResultsAllowed: false
     }),
-    actions: {
-        async search (fetch, searchInput) {
-            const res = await fetch('/location/search', {
-                method: 'GET',
-                params: {
-                    s: searchInput
-                }
-            })
-            const { stateResults, kreisResults, gemeindeResults, zipResults } = res
-            this.stateResults = stateResults
-            this.kreisResults = kreisResults
-            this.gemeindeResults = gemeindeResults
-            this.zipResults = zipResults
-            this.noResultsAllowed = true
-        }
-    },
     getters: {
         enrichedStateResults ({ stateResults }) {
             return stateResults.map(i => ({
@@ -51,6 +35,22 @@ export const useSearchStore = defineStore('search', {
                     label: `${i.name} ${i.parentName}`
                 }
             })
+        }
+    },
+    actions: {
+        async search (fetch, searchInput) {
+            const res = await fetch('/location/search', {
+                method: 'GET',
+                params: {
+                    s: searchInput
+                }
+            })
+            const { stateResults, kreisResults, gemeindeResults, zipResults } = res
+            this.stateResults = stateResults
+            this.kreisResults = kreisResults
+            this.gemeindeResults = gemeindeResults
+            this.zipResults = zipResults
+            this.noResultsAllowed = true
         }
     }
 })

@@ -1,12 +1,31 @@
 <template>
-  <div>
-    <div class="layout-default">
-      <div class="layout-default-page">
-        <NuxtPage />
-      </div>
-    </div>
-  </div>
+  <NuxtPage />
 </template>
+
+<script>
+export default defineNuxtComponent({
+  setup() {
+    useHead({
+      title: 'Aktuelle Grundstückspreise',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'msapplication-TileColor', content: '#b91d47' },
+        { name: 'msapplication-config', content: '/_favicons/browserconfig.xml' },
+        { name: 'theme-color', content: '#ffffff' }
+      ],
+      link: [
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/_favicons/apple-touch-icon.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/_favicons/favicon-32x32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/_favicons/favicon-16x16.png' },
+        { rel: 'manifest', href: '/_favicons/site.webmanifest' },
+        { rel: 'mask-icon', href: '/_favicons/safari-pinned-tab.svg', color: '#5bbad5' },
+        { rel: 'shortcut icon', href: '/_favicons/favicon.ico' }
+      ]
+    })
+  }
+})
+</script>
 
 <style lang="scss">
 html {
@@ -216,5 +235,3 @@ caption {
   }
 }
 </style>
-<script setup lang="ts">
-</script>
