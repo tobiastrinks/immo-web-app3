@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="robots" content="noindex">
+  <link href="https://widgets.wattfox-server.de/survey-manager/style/A7fTbp23vO" rel="stylesheet" crossorigin="anonymous">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #survey-component {
+      padding: 15px;
+      position: relative;
+      margin: 0 !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+
+    .survey-stoerer {
+      top: -15px;
+      display: block !important;
+    }
+
+    .survey-stoerer i {
+      position: absolute;
+      top: 3px;
+    }
+
+    .survey-stoerer i::after {
+      background-color: #ffffff;
+      padding: 2px 6px 0;
+      border-radius: 10px;
+    }
+
+    .survey-header h2 span {
+      min-height: 0 !important;
+    }
+
+    @media screen and (max-width : 570px) {
+      .survey-header h2 {
+        margin-bottom: 15px !important;
+      }
+    }
+  </style>
+</head>
+<body style="margin: 0">
+<div id="survey-component">
+  <survey
+    id="71"
+    access-token="A7fTbp23vO"
+    additional-survey="46"
+    absolute-url="https://widgets.wattfox-server.de"
+    :origin="window.location.href"
+    :session="'id_' + Math.random().toString(16).slice(2)"
+    redirect="https://www.aktuelle-grundstueckspreise.de/solaranlagen-photovoltaik?submit=1"
+  ></survey>
+</div>
+<script>
+  window.VueData = {};
+  window.initSurvey = function () {
+    new Vue({
+      el: '#survey-component',
+      data: function () { return { shared: {} } },
+      methods: {
+        clearAlert: function () {},
+        setLoadingAlert: function () {},
+        setErrorAlert: function () {},
+        onChange: function () {}
+      }
+    });
+  };
+</script>
+<script>
+  let initialized = false
+
+  let latestHeight = 0
+  const headlineOverwrite = 'Solar-Rechner'
+
+  let currentStep = null
+  const steps = {
+    '_slide-428': 'hausart',
+    '_slide-429': 'flaeche',
+    '_slide-430': 'ausrichtung',
+    '_slide-431': 'stromspeicher',
+    '_slide-432': 'finanzierung',
+    '_slide-433': 'zeitraum',
+    '_slide-434': 'postleitzahl',
+    '_slide-435': 'kontaktformular',
+  }
+  const completedSelector = '.survey-component.survey_complete'
+  const completedStepName = 'submitted'
+
+  function trackCurrentStep() {
+    if (currentStep === completedStepName) {
+      return
+    }
+
+    if (document.querySelector(completedSelector)) {
+      window.parent.postMessage(`WATTFOX_STEP__${completedStepName}`, '*')
+      currentStep = completedStepName
+    } else {
+      const questionElem = document.querySelector('.slide-content .question')
+      if (!questionElem) {
+        return
+      }
+      const slideClasses = [...questionElem.classList.values()]
+        .filter(i => i !== 'question')
+      const step = (() => {
+        for (const stepClass of slideClasses) {
+          if (!!steps[stepClass]) {
+            return steps[stepClass]
+          }
+        }
+      })()
+      if (step && step !== currentStep) {
+        currentStep = step
+        window.parent.postMessage(`WATTFOX_STEP__${step}`, '*')
+      }
+    }
+  }
+
+  window.setInterval(() => {
+    if (!initialized) {
+      const headline = document.querySelector('.survey-header > h2 > span')
+      if (headline && !headline.innerHTML.includes(headlineOverwrite)) {
+        document.querySelector('.survey-header > h2 > span').childNodes[0].remove()
+        document.querySelector('.survey-header > h2 > span').insertAdjacentHTML('afterbegin', headlineOverwrite)
+
+        initialized = true
+      }
+    }
+
+    if (initialized) {
+      const height = document.getElementById('survey-component').offsetHeight
+      if (height !== latestHeight) {
+        console.log(`WATTFOX_HEIGHT__${height}`)
+        window.parent.postMessage(`WATTFOX_HEIGHT__${height}`, '*')
+        latestHeight = height
+      }
+    }
+
+    trackCurrentStep()
+  }, 100)
+
+  window.addEventListener("message", (event) => {
+    if (!!event.data) {
+      console.log(event.data)
+    }
+  }, false);
+</script>
+<script src="https://widgets.wattfox-server.de/survey-manager/script/A7fTbp23vO" crossorigin="anonymous" onload="initSurvey()" defer></script>
+</body>
+</html>

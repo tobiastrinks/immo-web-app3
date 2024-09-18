@@ -1,0 +1,755 @@
+{
+  "_shared": {
+    "nav": {
+      "searchLabel": "Wo suchen Sie?",
+      "calcHeadline": "Renditerechner Immobilien",
+      "calcCancel": "Zurück",
+      "items": {
+        "germany": "Grundstückspreise",
+        "bodenrichtwert": "Bodenrichtwerte",
+        "propertyValue": "Grundstückswert ermitteln",
+        "propertySell": "Grundstück verkaufen",
+        "calculator": "Renditerechner Immobilien"
+      },
+      "ctaButton": "Jetzt Grundstück bewerten",
+      "location": {
+        "home": "Startseite",
+        "/deutschland": "Deutschland",
+        "/grundstueckswert-ermitteln": "Grundstückswert ermitteln",
+        "/grundstueck-verkaufen": "Grundstück verkaufen",
+        "/bodenrichtwerte": "Bodenrichtwerte",
+        "/renditerechner-immobilien": "Renditerechner Immobilien",
+        "/renditerechner-immobilien/rechner": "Renditerechner Immobilien",
+        "/datenschutz": "Datenschutz",
+        "/impressum": "Impressum",
+        "/agb": "AGB"
+      }
+    },
+    "cookieBar": "Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies erhalten Sie in unserer <a href=\"/datenschutz\">Datenschutzerklärung</a>.",
+    "search": {
+      "placeholder": "Stadt, PLZ, Kreis, Bundesland...",
+      "noResults": "Ihre Suche ergab leider keine Ergebnisse... Aktuell sind noch nicht alle Orte deutschlandweit verfügbar."
+    },
+    "ctaBox": {
+      "title": "Sie möchten wissen, was Ihr Grundstück wert ist?",
+      "text": "Erhalten Sie hier kostenlos und unverbindlich eine erste professionelle Bewertung für Ihr Grundstück oder Ihre Immobilie!",
+      "button": "Grundstückswert ermitteln"
+    },
+    "ctaBoxSimple": {
+      "text": "Angaben zum Grundstück machen und präzisen Wert erhalten:",
+      "button": "Grundstückswert berechnen"
+    },
+    "location": {
+      "germanyLocationName": "Deutschland",
+      "tocArrowLabel": "{locationName}<br/>im Vergleich!",
+      "lastUpdated": "Zuletzt aktualisiert: {date}",
+      "affiliateParagraph": "Angaben zum Grundstück machen und präzisen Wert erhalten:"
+    },
+    "locationKPI": {
+      "headline": "Auf einen Blick",
+      "nowLabel": "Ø Quadratmeterpreis aktuell",
+      "explanation": "Wie berechnet sich der Durchschnittspreis?",
+      "withCTA": {
+        "priceLabel": "Aktueller Quadratmeterpreis",
+        "price": "{priceFrom} - {priceTo} €/m²",
+        "priceExplanation": "Wie berechnet sich der Durchschnittspreis?",
+        "ctaText": "Angaben zum Grundstück machen und präzisen Wert erhalten:",
+        "ctaButton": "Grundstückswert ermitteln"
+      }
+    },
+    "locationToc": {
+      "headline": "Inhaltsverzeichnis"
+    },
+    "locationOverviewStats": {
+      "xLabel": {
+        "PLOT_SIZE": "Grundstücksgröße",
+        "BUILDING_PERMISSION": "Baugenehmigung",
+        "DEVELOPMENT_STATUS": "Erschließungsgrad",
+        "CHILD_LOCATION_STATE": "Bundesland",
+        "CHILD_LOCATION_KREIS": "Kreis",
+        "CHILD_LOCATION_GEMEINDE": "Gemeinde",
+        "YEARS": "Jahre"
+      },
+      "yLabel": {
+        "PRICE_PER_SQM": "Ø Quadratmeterpreis",
+        "MARKETING_PERIOD": "Ø Vermarktungsdauer",
+        "PROPERTY_COUNT": "Anzahl Grundstücke"
+      },
+      "plotSizeLabels": {
+        "0-250":  ["0 -", "250 m²"],
+        "250-500":  ["250 -", "500 m²"],
+        "500-1000":  ["500 -", "1000 m²"],
+        "1000-2000":  ["1000 -", "2000 m²"],
+        "2000-5000":  ["2000 -", "5000 m²"],
+        "5000+":  ["über", "5000 m²"]
+      },
+      "buildingPermissionLabels": {
+        "true": "vorhanden",
+        "false": "nicht vorhanden"
+      },
+      "developmentStatusLabels": {
+        "DEVELOPED": "erschlossen",
+        "NOT_DEVELOPED": "unerschlossen",
+        "DEVELOPED_PARTIALLY": ["teilweise", "erschlossen"],
+        "NO_INFORMATION": "unbekannt"
+      },
+      "select": {
+        "headlineYValues": "Wert",
+        "headlineYValuesBrackets": "(Y-Achse)",
+        "headlineXFeatures": "Aufteilung",
+        "headlineXFeaturesBrackets": "(X-Achse)",
+        "blueArrowText": "Grafik <br />anpassen!",
+        "labels": {
+          "YEARS": "Jahre",
+          "PLOT_SIZE": "Grundstücksgröße",
+          "BUILDING_PERMISSION": "Baugenehmigung",
+          "DEVELOPMENT_STATUS": "Erschließungsgrad",
+          "CHILD_LOCATION_STATE": "Bundesland",
+          "CHILD_LOCATION_KREIS": "Kreis",
+          "CHILD_LOCATION_GEMEINDE": "Gemeinde",
+          "PRICE_PER_SQM": "Quadratmeterpreis",
+          "MARKETING_PERIOD": "Vermarktungsdauer",
+          "PROPERTY_COUNT": "Anzahl Grundstücke"
+        }
+      }
+    },
+    "locationCtaWidget": {
+      "title": "Jetzt Ihre Immobilie kostenlos bewerten lassen",
+      "description": "Unser Kooperationspartner <img src='/img/hausgold-logo.svg' style='margin: 0 2px -10px; height: 30px;' /> findet den richtigen Experten für Ihr Grundstück oder Ihre Immobilie vor Ort!",
+      "arrowLabel": "100% kostenlos <br>& unverbindlich"
+    },
+    "locationOverviewParagraph": {
+      "headline": "Zusammenfassung",
+      "paragraphs": [
+        "Die <b>Grundstückspreise in {locationName}</b> liegen im Mittel bei {averagePricePerSqm} Euro pro Quadratmeter, dabei liegt der Preis pro Quadratmeter der <b>teuersten Grundstücke</b> (90% Quantil) bei {percentile90} Euro und der Quadratmeterpreis der <b>günstigsten Grundstücke</b> (10% Quantil) bei {percentile10} Euro.",
+        "Der höchste Quadratmeterpreis wird durchschnittlich für Grundstücke mit einer <b>Grundstücksgröße</b> von {mostExpensivePlotSize} verlangt, der niedrigste Preis pro Quadratmeter findet sich durchschnittlich im Bereich von {leastExpensivePlotSize}.",
+        "Im Schnitt wird für <b>erschlossene Grundstücke</b> ein Preisaufschlag von {developedSurchargeOverDevelopedPartiallyInPercent}% gegenüber <b>teilerschlossenen</b> Grundstücken und {developedSurchargeOverNotDevelopedInPercent}% gegenüber <b>unerschlossenen</b> Grundstücken verlangt.",
+        "Der Durchschnittspreis eines Grundstücks <b>mit Baugenehmigung</b> liegt um {withBuildingPermissionSurchargeOverWithoutBuildingPermissionInPercent}% über dem eines Grundstücks <b>ohne Baugenehmigung.</b>",
+        "{mostAndLeastExpensive}"
+      ],
+      "dataSourceParagraph": "<b>Datengrundlage</b><br/>Es wurden insgesamt {propertyCount} Grundstücke aus den letzten 24 Monaten in die Auswertung einbezogen.{optionalRadius} <br/> Unsere automatisierte Auswertung basiert auf Angebotspreisen. Es kann in vereinzelten Fällen vorkommen, dass auch (teil-)bebaute Grundstücke in die Auswertung einbezogen werden. Die berechneten Durchschnittspreise können vor allem in ländlichen Gebieten stark von den tatsächlichen Transaktionspreisen und den örtlichen Bodenrichtwerten abweichen. Der Wert eines Grundstücks ist an viele Faktoren geknüpft, die letztlich nur durch ein ordentliches Wertermittlungsverfahren überprüft werden können.",
+      "optionalRadius": " Für {locationName} selbst liegen uns leider nur wenige Grundstücke vor. Der Umkreis der Auswertung wurde daher auf {propertyRadius} km erhöht.",
+      "kreisfreiLabel": " (kreisfreie Stadt)"
+    },
+    "locationAnalysis": {
+      "headline": "Auswertung Grundstückspreise",
+      "h3Market": "Aktueller Grundstücksmarkt in {locationName}",
+      "bullets": [
+        "<b>Verteilung:</b> Der durchschnittliche Angebotspreis für Grundstücke in {locationName} beträgt {averagePricePerSqm} Euro pro Quadratmeter, dabei liegt der Preis pro Quadratmeter der teuersten Grundstücke (90% Quantil) bei {percentile90} Euro und der Quadratmeterpreis der günstigsten Grundstücke (10% Quantil) bei {percentile10} Euro.",
+        "<b>Erschließungsgrad:</b> Im Schnitt wird für erschlossene Grundstücke ein Preisaufschlag von {developedSurchargeOverDevelopedPartiallyInPercent}% gegenüber teilerschlossenen Grundstücken und {developedSurchargeOverNotDevelopedInPercent}% gegenüber unerschlossenen Grundstücken verlangt.",
+        "<b>Baugenehmigung:</b> Der Durchschnittspreis eines Grundstücks mit Baugenehmigung liegt um {withBuildingPermissionSurchargeOverWithoutBuildingPermissionInPercent}% über dem eines Grundstücks ohne Baugenehmigung.",
+        "<b>Grundstücksgröße:</b> Der höchste Quadratmeterpreis wird durchschnittlich für Grundstücke mit einer Grundstücksgröße von {mostExpensivePlotSize} verlangt, der niedrigste Preis pro Quadratmeter findet sich durchschnittlich im Bereich von {leastExpensivePlotSize}.",
+        "<b>Vermarktungsdauer:</b> Im Durchschnitt dauert es {averageMarketingPeriodInWeeks} Wochen, bis ein Angebot erfolgreich vermarktet wurde."
+      ],
+      "bulletsChildComparison": {
+        "text": "<b>Vergleich:</b> {mostAndLeastExpensive}",
+        "germany": {
+          "mostAndLeastExpensive3": "Die drei <b>Bundesländer</b>, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1}, {mostExpensive2} und {mostExpensive3}. Die günstigsten Kaufpreise findet man in {leastExpensive1}, {leastExpensive2} und {leastExpensive3}."
+        },
+        "state": {
+          "mostAndLeastExpensive3": "Die drei (Land-)Kreise oder kreisfreien Städte, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1}, {mostExpensive2} und {mostExpensive3}. Die günstigsten Kaufpreise findet man in {leastExpensive1}, {leastExpensive2} und {leastExpensive3}.",
+          "mostAndLeastExpensive2": "Die zwei (Land-)Kreise oder kreisfreien Städte, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1} und {mostExpensive2}. Die günstigsten Kaufpreise findet man in {leastExpensive1} und {leastExpensive2}.",
+          "mostAndLeastExpensive1": "Der (Land-)Kreis oder die kreisfreie Stadt, die durchschnittlich die teuersten Quadratmeterpreise aufweist, ist {mostExpensive1}. Die günstigsten Kaufpreise findet man in {leastExpensive1}."
+        },
+        "kreis": {
+          "mostAndLeastExpensive3": "Die Gemeinden, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1}, {mostExpensive2} und {mostExpensive3}. Die günstigsten Kaufpreise findet man in {leastExpensive1}, {leastExpensive2} und {leastExpensive3}.",
+          "mostAndLeastExpensive2": "Die Gemeinden, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1} und {mostExpensive2}. Die günstigsten Kaufpreise findet man in {leastExpensive1} und {leastExpensive2}.",
+          "mostAndLeastExpensive1": "Die Gemeinde, die durchschnittlich die teuersten Quadratmeterpreise aufweist, ist {mostExpensive1}. Die günstigsten Kaufpreise findet man in {leastExpensive1}."
+        }
+      },
+      "h3PriceOverTime": "Entwicklung der Grundstückspreise in {locationName}",
+      "priceOverTimeText": {
+        "text": "Die Grundstückspreise in {locationName} liegen aktuell im Mittel zwischen <b>{averagePriceFrom} €/m²</b> und <b>{averagePriceTo} €/m²</b>. Der durchschnittliche Preis pro Quadratmeter ist in den letzten <b>12 Monaten</b> um {priceChange1Year}. Auf Sicht von <b>3 Jahren</b> ist der Quadratmeterpreis um {priceChange3Years}.",
+        "priceDecreasing": "<b class=\"decrease\">{percentage} % gefallen</b>",
+        "priceIncreasing": "<b class=\"increase\">+{percentage} % gestiegen</b>"
+      },
+      "h3Ranking": "{locationName} im Grundstückspreise Ranking",
+      "h3Nearby": {
+        "GERMANY": {
+          "main": "Grundstückspreise der Bundesländer",
+          "sub": "Hier finden Sie die aktuellen Grundstückspreise der Bundesländer:"
+        },
+        "STATE": {
+          "main": "Grundstückspreise der Kreise und kreisfreien Städte",
+          "sub": "Hier finden Sie die aktuellen Grundstückspreise in {locationName} auf Ebene der Kreise:"
+        },
+        "KREIS": {
+          "main": "Grundstückspreise der Gemeinden",
+          "sub": "Hier finden Sie die aktuellen Grundstückspreise aller Gemeinden im Kreis {locationName}:"
+        },
+        "GEMEINDE": {
+          "main": "Grundstückspreise der benachbarten Gemeinden",
+          "sub": "Hier finden Sie die aktuellen Grundstückspreise in der Nähe von {locationName}:"
+        }
+      },
+      "h3Data": "Datengrundlage",
+      "dataSourceParagraph": "Es wurden insgesamt {propertyCount} Grundstücke aus den letzten 24 Monaten in die Auswertung einbezogen.{optionalRadius} <br/> Unsere automatisierte Auswertung basiert auf Angebotspreisen. Die berechneten Durchschnittspreise können vor allem in ländlichen Gebieten stark von den tatsächlichen Transaktionspreisen und den örtlichen Bodenrichtwerten abweichen. Der Wert eines Grundstücks ist an viele Faktoren geknüpft, die letztlich nur durch ein ordentliches Wertermittlungsverfahren überprüft werden können.",
+      "optionalRadius": " Für {locationName} selbst liegen uns leider nur wenige Grundstücke vor. Der Umkreis der Auswertung wurde daher auf {propertyRadius} km erhöht."
+    },
+    "locationRanking": {
+      "headline": "Grundstückspreise-Ranking {locationName}",
+      "subHeadline": {
+        "STATE": "{locationName} im Ranking der Bundesländer",
+        "KREIS": "{locationName} im Ranking der Regionen",
+        "GEMEINDE": "{locationName} im Gemeinde-Ranking"
+      },
+      "position": "Rank {position}",
+      "totalCount": "von {count}",
+      "germanySubject": "Deutschland",
+      "article": {
+        "germany": {
+          "template": "Im bundesweiten Vergleich liegen die durchschnittlichen Bodenpreise {location} auf Rank {position}.",
+          "location": {
+            "GEMEINDE": "der Gemeinde {name}",
+            "KREIS": "des Kreises {name}",
+            "STATE": "des Bundeslandes {name}"
+          }
+        },
+        "state": {
+          "template": "Im Vergleich innerhalb von {stateName} liegt {location} auf Rank {position}.",
+          "location": {
+            "GEMEINDE": "die Gemeinde {name}",
+            "KREIS": "der Kreis {name}"
+          }
+        },
+        "kreis": {
+          "template": "Innerhalb des Kreises {kreisName} liegen die Grundstückspreise in {gemeindeName} auf Rank {position}."
+        }
+      },
+      "parentLink": {
+        "text": {
+          "GERMANY": "Hier gelangen Sie zur Übersicht der Grundstückspreise für ganz Deutschland:",
+          "STATE": "Hier gelangen Sie zur Übersicht der Grundstückspreise für ganz {name}:",
+          "KREIS": "Hier gelangen Sie zur Übersicht der Grundstückspreise für den Kreis {name}:"
+        },
+        "buttonLabel": "Grundstückspreise {name}"
+      }
+    },
+    "locationRankingLy2": {
+      "position": "Platz {position}",
+      "totalCount": "von {count}",
+      "germanySubject": "Deutschland",
+      "article": {
+        "kreis": {
+          "template": "Innerhalb des Kreises {kreisName} liegen die Grundstückspreise in {gemeindeName} auf <b>Platz {position}</b> von <b>{total}</b>."
+        },
+        "state": {
+          "template": "Im Vergleich innerhalb von {stateName} liegt {location} auf <b>Platz {position}</b> von <b>{total}</b>.",
+          "location": {
+            "GEMEINDE": "die Gemeinde {name}",
+            "KREIS": "der Kreis {name}"
+          }
+        },
+        "germany": {
+          "template": "Im bundesweiten Vergleich liegen die durchschnittlichen Bodenpreise {location} auf <b>Platz {position}</b> von <b>{total}</b>.",
+          "location": {
+            "GEMEINDE": "der Gemeinde {name}",
+            "KREIS": "des Kreises {name}",
+            "STATE": "des Bundeslandes {name}"
+          }
+        }
+      },
+      "parentLink": {
+        "text": {
+          "GERMANY": "Hier gelangen Sie zur Übersicht der Grundstückspreise für ganz <b>Deutschland</b>:",
+          "STATE": "Hier gelangen Sie zur Übersicht der Grundstückspreise für ganz <b>{name}</b>:",
+          "KREIS": "Hier gelangen Sie zur Übersicht der Grundstückspreise für den Kreis <b>{name}</b>:"
+        },
+        "buttonLabel": "Grundstückspreise {name}"
+      }
+    },
+    "locationTrend": {
+      "headline": "Preisentwicklung und Auffälligkeiten",
+      "GERMANY": {
+        "subHeadline": "Analyse des deutschen Grundstücksmarktes und der Bauwirtschaft"
+      },
+      "STATE": {
+        "subHeadline": "Analyse des Grundstücksmarktes und der Bauwirtschaft in {name}"
+      },
+      "GEMEINDE": {
+        "subHeadline": "Analyse des Grundstücksmarktes und der Bauwirtschaft in {name}"
+      }
+    },
+    "locationComparison": {
+      "headline": {
+        "GERMANY": {
+          "main": "Grundstückspreise der Bundesländer",
+          "sub": "Hier finden Sie die aktuellen Grundstückspreise der Bundesländer:"
+        },
+        "STATE": {
+          "main": "Grundstückspreise der Kreise und kreisfreien Städte",
+          "sub": "Hier finden Sie die aktuellen Grundstückspreise in {locationName} auf Ebene der Kreise:"
+        },
+        "KREIS": {
+          "main": "Grundstückspreise der Gemeinden",
+          "sub": "Hier finden Sie die aktuellen Grundstückspreise aller Gemeinden im Kreis {locationName}:"
+        },
+        "GEMEINDE": {
+          "main": "Grundstückspreise der benachbarten Gemeinden",
+          "sub": "Hier finden Sie die aktuellen Grundstückspreise in der Nähe von {locationName}:"
+        }
+      },
+      "table": {
+        "headLabels": {
+          "STATE": "Bundesland",
+          "KREIS": "Kreis",
+          "GEMEINDE": "Gemeinde",
+          "pricePerSqm": "Ø Grundstücks-<br/>preis pro m²",
+          "totalPlotArea": "Zum Verkauf\n stehende Fläche",
+          "distance": "Entfernung"
+        },
+        "maximizeLabel": "alle anzeigen",
+        "minimizeLabel": "minimieren",
+        "kreisfreiLabel": "(kreisfreie Stadt)"
+      },
+      "search": {
+        "text": {
+          "GEMEINDE": "Für mehr Informationen zu den Grundstückspreisen der einzelnen Gemeinden klicken Sie auf den Link in der Tabelle oder nutzen Sie bequem unsere Suchfunktion:",
+          "KREIS": "Für mehr Informationen zu den Grundstückspreisen der einzelnen Gemeinden klicken Sie auf den Link in der Tabelle oder nutzen Sie bequem unsere Suchfunktion:",
+          "STATE": "Für mehr Informationen zu den Grundstückspreisen der einzelnen Bundesländer klicken Sie auf den Link in der Tabelle oder nutzen Sie bequem unsere Suchfunktion:",
+          "GERMANY": "Für mehr Informationen zu den Grundstückspreisen der einzelnen Bundesländer klicken Sie auf den Link in der Tabelle oder nutzen Sie bequem unsere Suchfunktion:"
+        },
+        "arrowText": "Einfach suchen!"
+      }
+    },
+    "locationMarketReport": {
+      "headline": "Grundstücksmarktbericht {locationName}",
+      "paragraphs": [
+        "Der Grundstücksmarktbericht {zustaendigerGutachterausschussTemplate} bietet detailierte Einblicke in den aktuellen Grundstücksmarkt. Eine unverzichtbare Ressource für Käufer, Verkäufer und Investoren, um fundierte Entscheidungen zu treffen."
+      ],
+      "gutachterAusschussTemplate": {
+        "kreis": "des Gutachterausschusses für Grundstückswerte {zustaendigerGutachterausschuss}",
+        "state": "der Gutachterausschüsse für Grundstückswerte {zustaendigerGutachterausschuss}"
+      },
+      "box": "Den aktuellsten <b>Grundstücksmarktbericht</b> ({year}) können Sie hier {price}einsehen:",
+      "boxPrice": {
+        "free": "kostenlos ",
+        "withFee": ""
+      },
+      "buttonLabel": "<b>Grundstücksmarktbericht</b><br/> {zustaendigerGutachterausschuss}"
+    },
+    "locationBodenrichtwert": {
+      "GERMANY": {
+        "headline": "Bodenrichtwerte Deutschland",
+        "subHeadline": "Der Bodenrichtwert als Durchschnittswert der amtlichen Kaufpreissammlungen"
+      },
+      "STATE": {
+        "headline": "Bodenrichtwerte {name}",
+        "subHeadline": "Das ist der Bodenrichtwert und so ermitteln Sie ihn online über das Internet"
+      },
+      "KREIS": {
+        "headline": "Bodenrichtwerte {name}",
+        "subHeadline": "Das ist der Bodenrichtwert und so ermitteln Sie ihn online über das Internet"
+      },
+      "GEMEINDE": {
+        "headline": "Bodenrichtwerte {name}",
+        "subHeadline": "Das ist der Bodenrichtwert und so ermitteln Sie ihn online über das Internet"
+      }
+    },
+    "locationFaktoren": {
+      "headline": "Welche Faktoren beeinflussen den Grundstückswert?"
+    },
+    "locationPropertyValue": {
+      "headline": "Grundstückswert ermitteln",
+      "text": "Unabhängig, ob Kauf oder Verkauf eines Grundstücks, zu Beginn müssen Sie den Grundstückswert schätzen. <b>Aber wie viel ist ein Grundstück {location} aktuell wert? Welche Verfahren zur Grundstückswertermittlung gibt es überhaupt und welche Faktoren müssen berücksichtigt werden?</b> Wir haben alle Antworten darauf für Sie zusammengestellt und zeigen, wie die Bewertung eines Grundstücks gelingt!",
+      "textLocation": {
+        "GERMANY": "in Deutschland",
+        "STATE": "in {name}",
+        "KREIS": "im Kreis {name}",
+        "GEMEINDE": "in {name}"
+      },
+      "buttonLabel": "Grundstückspreis ermitteln"
+    },
+    "locationPropertySell": {
+      "headline": "Grundstück verkaufen",
+      "text": "<b>Sie möchten Ihr Grundstück {location} verkaufen?</b> Ein Grundstücksverkauf sollte gut organisiert sein, denn es geht in der Regel um viel Geld. Ein erfahrener Makler kann Ihnen viel Zeit und Arbeit sparen und Sie zudem vor teuren Fehlern bewahren. Sie können den Verkauf aber auch selbst in die Hand nehmen. Wir zeigen Ihnen, wie Sie Ihr Grundstück erfolgreich zum Top-Preis verkaufen - mit oder ohne Makler!",
+      "textLocation": {
+        "GERMANY": "in Deutschland",
+        "STATE": "in {name}",
+        "KREIS": "im Kreis {name}",
+        "GEMEINDE": "in {name}"
+      },
+      "buttonLabel": "Grundstück verkaufen"
+    },
+    "locationPropertyBuy": {
+      "headline": "Grundstück in {locationName} kaufen",
+      "text": "Sie sind auf der Suche nach einem Baugrundstück in {locationName}? Wählen Sie ein Immobilienportal aus und gelangen Sie direkt auf die entsprechende Grundstückssuche:",
+      "immoPortals": {
+        "arrowLabel": "Direkt zur<br/>Grundstückssuche!"
+      }
+    },
+    "locationCalc": {
+      "headline": "Cashflow & Rendite Ihrer Immobilie berechnen",
+      "text": "<b>Sie planen den Kauf einer Immobilie in {locationName}?</b> Berechnen Sie in wenigen Schritte den Cashflow und die Rendite Ihrer Immobilie auf 10 Jahre.",
+      "buttonLabel": "Cashflow & Rendite berechnen"
+    },
+    "locationFAQ": {
+      "headline": "Häufig gestellte Fragen"
+    },
+    "locationDisclaimer": {
+      "headline": "Disclaimer",
+      "text": "Die Berechnungen und Grafiken auf dieser Webseite sind eine automatisierte Auswertung unserer Rohdaten zum deutschen Grundstücksmarkt. Teilweise werden Informationen aus Berichten Dritter (Expertenmeinungen) in die Auswertungen einbezogen. Bei allen Preisen handelt es sich um Angebotspreise. Die Visualisierung erfolgt nach eigenem Verfahren. Die automatisierte Auswertung erfolgt nach bestem Wissen und Gewissen. Für Vollständigkeit, Abweichungen, Änderung und Fehler übernehmen wir keine Haftung. Unser Report stellt keine Investment Empfehlung dar."
+    },
+    "infoPage": {
+      "summaryHeadline": "Das Wichtigste in Kürze",
+      "tocArrowLabel": "Direkt zum<br />Thema springen!",
+      "affiliateArrowLabel": "100% kostenlos<br/>& unverbindlich",
+      "inlineSearch": {
+        "text": "Oder nutzen Sie ganz einfach unsere Suche:",
+        "boxText": "oder",
+        "arrowLabel": "Einfach suchen!"
+      },
+      "highlight": {
+        "defaultHeadlines": {
+          "summary": "Das Wichtigste in Kürze",
+          "tip": "Tipp",
+          "hint": "Hinweis",
+          "example": "Beispiel",
+          "attention": "Vorsicht"
+        }
+      },
+      "dropdown": {
+        "arrowLabel": "Ausklappen!"
+      },
+      "tables": {
+        "propertyValueOverview": {
+          "head": [
+            ["Anlass", "Empfohlenes Vorgehen"],
+            ["Selbst bewerten", "Immobilienmakler", "Gutachter"]
+          ],
+          "main": [
+            ["Erste Einschätzung", "✓", "", ""],
+            ["Verkauf",  "", "✓", ""],
+            ["Kauf",  "", "", "✓"],
+            ["Finanzamt\n(Grundsteuer, Grunderwerbssteuer, Schenkung)", "", "", "✓"],
+            ["Rechtsstreit\n(Scheidung, Erbe, Erbengemeinschaft)", "", "", "✓"]
+          ],
+          "description": "Tabelle: Übersicht der empfohlenen Vorgehen bei der Grundstückswertermittlung"
+        },
+        "propertyValueComparisonExample": {
+          "head": ["Grundstücke in der Nähe\n(unbebaut)", "Grundstücksgröße", "GFZ", "Verkaufspreis", "Quadratmeterpreis"],
+          "main": [
+            ["Müllerstraße 23", "520 m²", "1,5", "229.000 €", "440 €/m²"],
+            ["Hauptstraße 104", "470 m²", "1,7", "235.000 €", "500 €/m²"],
+            ["Großer Weg 12", "990 m²", "1,1", "416.000 €", "420 €/m²"],
+            ["...", "...", "...", "...", "..."],
+            ["Krichenstraße 67", "610 m²", "1,4", "250.000 €", "410 €/m²"],
+            ["", "", "", "", " Ø 428 €/m²"]
+          ],
+          "description": "Tabelle: Beispiel vergleichbare Grundstücke für das Vergleichswertverfahren"
+        }
+      }
+    },
+    "footer": {
+      "company": {
+        "headline": "Unternehmen",
+        "imprint": "Impressum",
+        "privacy": "Datenschutz",
+        "agb": "AGB"
+      },
+      "aboutUs": {
+        "headline": "Über uns",
+        "article": "Mit unserer kostenlosen Auskunft über aktuelle Grundstückspreise für ganz Deutschland möchten wir den Immobilienmarkt ein Stück transparenter machen. Sei es für den Kauf oder Verkauf eines Grundstücks oder einer Immobilie, oder auch aus steuerlichen Gründen - bei uns finden Sie immer die aktuellsten Daten!"
+      },
+      "copyright": "© {year} aktuelle-grundstueckspreise.de - Alle Rechte vorbehalten"
+    },
+    "investmentDisclaimer": {
+      "text": "<b>aktuelle-grundstueckspreise.de ist KEINE Anlage- oder Steuerberatung</b><br><br>Alle Berechnungen unterliegen den vom Nutzer getroffenen Annahmen. Es handelt sich lediglich um eine automatisierte Ermittlung von rechnerischen Werten, die der Visualisierung und Vereinfachung dienen. Dieser Rechner ersetzt nicht die persönliche Beratung durch einen Experten. Eine Haftung für die Richtigkeit und Vollständigkeit der Ergebnisse wird deshalb nicht übernommen. Die materielle Entwicklung einer Immobilienanlage kann in der Realität anders verlaufen. Es wird in keinem Fall zum Kauf oder Verkauf irgendwelcher Immobilien aufgefordert.<br><br>Dieser Rechner wird regelmäßig aktualisiert."
+    },
+    "hausgold": {
+      "title": "Jetzt Ihre Immobilie kostenlos bewerten lassen",
+      "description1": "Unser Kooperationspartner",
+      "description2": "findet den richtigen Experten für Ihr Grundstück oder Ihre Immobilie vor Ort!",
+      "features": [
+        "Einfach und unverbindlich Formular ausfüllen",
+        "Kostenlose Expertenbewertung vor Ort",
+        "Sie entscheiden, wie es weiter geht"
+      ],
+      "explanation": {
+        "more": "Mehr erfahren",
+        "headline": "Ihr intelligenter Lotse für den Immobilienverkauf",
+        "description": "Unser Ziel ist es, für Sie den richtigen Experten passend zu Ihrem Immobilientyp und in Ihrer Region zu finden. Mit der kostenlosen Immobilienbewertung lernen Sie bis zu drei unserer Experten unverbindlich kennen und können sich danach in Ruhe entscheiden, ob Sie Ihr Objekt mit einem unserer Partner verkaufen möchten. Der Service von HAUSGOLD ist für Sie kostenlos."
+      }
+    },
+    "solarPopup": {
+      "headline": "Werden Sie zum eigenen Stromproduzenten",
+      "subheadline": "Jetzt langfristig Stromkosten sparen",
+      "description": "Finden Sie heraus, wie Sie mit einer Solaranlage <b>effektiv Kosten sparen</b> und <b>staatliche Förderungen</b> nutzen können!",
+      "bullets": [
+        "Ertrags- und Kostenrechner",
+        "Staatliche Förderungen",
+        "Anbietervergleich"
+      ],
+      "ctaButton": "Mehr Informationen",
+      "closeButton": "Schließen"
+    },
+    "wattfox": {
+      "title": "Jetzt Sparpotenzial online berechnen",
+      "description": "Einfach Online-Solar-Rechner starten und Angebote vergleichen",
+      "features": [
+        "Online Formular absenden",
+        "Einfach passende Anbieter vergleichen",
+        "Geld & Zeit sparen"
+      ],
+      "benefits": {
+        "headline": "Vorteile der eigenen Photovoltaikanlage",
+        "bullets": [
+          "<b>über 7% Rendite</b> auf guten Dächern",
+          "<b>Stromkosten sparen</b> durch Eigenverbrauch, Tag und Nacht mittels Photovoltaik-Speicher",
+          "<b>20 Jahre staatliche Förderung</b> Ihrer Photovoltaikanlage",
+          "Nachhaltige Energie durch Solarstrom produzieren",
+          "Unabhängigkeit von steigenden Strompreisen"
+        ]
+      }
+    },
+    "wattfoxImmo": {
+      "title": "Jetzt Ihre Immobilie kostenlos bewerten lassen",
+      "description": "Unser Kooperationspartner erstellt Ihnen kostenlos und unverbindlich eine erste professionelle Bewertung für Ihr Grundstück oder Ihre Immobilie!",
+      "features": [
+        "Einfach und unverbindlich Formular ausfüllen",
+        "Kostenlose Expertenbewertung vor Ort",
+        "Sie entscheiden, wie es weiter geht"
+      ]
+    },
+    "mieteAktuell": {
+      "title": "Jetzt Ihre Immobilie kostenlos bewerten lassen",
+      "description": "Unser Kooperationspartner erstellt Ihnen kostenlos und unverbindlich eine erste professionelle Bewertung für Ihr Grundstück oder Ihre Immobilie!",
+      "features": [
+        "Einfach und unverbindlich Formular ausfüllen",
+        "Kostenlose Expertenbewertung vor Ort",
+        "Sie entscheiden, wie es weiter geht"
+      ]
+    }
+  },
+  "home": {
+    "headline": "Die aktuellsten Grundstücksdaten\nfür ganz Deutschland",
+    "head": {
+      "features": ["Modernste Technologie", "Umfangreiche Grundstücksdatenbank", "Transparente Auswertung"]
+    },
+    "featureSection": {
+      "headline": "Aktuelle Grundstückspreise",
+      "subHeadline": "Die aktuellsten Grundstücksdaten für ganz Deutschland",
+      "text": "Mit unserer kostenlosen Auskunft über aktuelle Grundstückspreise für ganz Deutschland möchten wir den Immobilienmarkt ein Stück transparenter machen. Sei es für den Kauf oder Verkauf eines Grundstücks oder einer Immobilie oder auch aus steuerlichen Gründen - bei uns finden Sie immer die aktuellsten Daten!",
+      "features": {
+        "headline1": "Modernste Technologie",
+        "text1": "Unsere Technologie erlaubt es uns, große Mengen an Daten zu sammeln und für Sie aktuell und transparent auszuwerten.",
+        "headline2": "Umfangreiche Grundstücksdatenbank",
+        "text2": "Unsere Datenbank umfasst Preise aus verschiedenen Immobilien-portalen, Zeitungsanzeigen und ausgewählten Expertenmeinungen.",
+        "headline3": "Transparente Auswertung",
+        "text3": "Alle veröffentlichten Auswertungen werden transparent und kompakt für Sie dargestellt."
+      }
+    },
+    "section1": {
+      "headline": "Grundstückspreise Deutschland",
+      "subHeadline": "Diese Informationen finden Sie bei uns:",
+      "content": {
+        "headline1": "Grundstückspreise",
+        "text1": "Sie können sich verschiedene Auswertungen zu den aktuellen Grundsückspreisen nach Bundesland, Kreis und Gemeinde anzeigen lassen.",
+        "headline2": "Bodenrichtwerte",
+        "note": "Alle Auswertungen zu den aktuellen Grundstücksdaten finden Sie hier:",
+        "searchText": "Oder verwenden Sie die direkte Suche:",
+        "text2": "Wir helfen Ihnen, die aktuellen Bodenrichtwerte für Ihr Grundstück zu finden. Denn häufig spielt der Bodenrichtwert eine wichtigere Rolle als der aktuelle Quadratmeterpreis auf dem Markt."
+      },
+      "buttonLabel": "Grundstückspreise Deutschland",
+      "buttonLabel2": "Bodenrichtwerte",
+      "arrowText": "Einfach suchen!"
+    },
+    "section2": {
+      "headline": "Grundstückswert ermitteln",
+      "subHeadline": "Wir helfen Ihnen, den Wert Ihres Grundstücks zu bestimmen",
+      "content": {
+        "headline1": "Grundstück selbst bewerten",
+        "text1": "Bei uns finden Sie alle wichtigen Informationen rund um das Thema der Grundstücksbewertung. Mit Hilfe unserer Step-by-step-Anleitung können Sie Ihr Grundstück selbst bewerten.",
+        "headline2": "Grundstück online bewerten lassen",
+        "text2": "Unsere Partner erstellen gerne eine kostenlose Bewertung online für Sie. In nur wenigen Klicks geben Sie die benötigten Informationen ein und erhalten im Anschluss eine automatische Grundstücksbewertung per Email.",
+        "headline3": "Grundstück von einem Experten bewerten lassen",
+        "text3": "Möchten Sie den Grundstückswert ganz und gar von einem Profi bestimmen lassen, können Sie bei einem unserer Partner eine  individuelle Grundstücksbewertung anfragen - auch diese ist für Sie natürlich kostenlos.",
+        "note": "Alles zum Thema “Grundstückswert ermitteln” finden Sie hier:"
+      },
+      "buttonLabel": "Grundstückswert ermitteln"
+    },
+    "section3": {
+      "headline": "Grundstück verkaufen",
+      "subHeadline": "Sie möchten Ihr Grundstück privat oder mit einem Makler verkaufen? Wir weisen Ihnen den richtigen Weg.",
+      "content": {
+        "headline1": "Grundstück privat verkaufen",
+        "text1": "Sie möchten den Grundstücksverkauf selbst in die Hand nehmen? Wir erklären Ihnen, wie der Verkauf abläuft und worauf Sie besonders achten sollten.",
+        "headline2": "Grundstück mit Makler verkaufen",
+        "text2": "Wenn Sie sich über den Verkauf mit einem Makler erkundigen möchten, geben wir Ihnen auch hier gerne Auskunft und erklären Ihnen, worauf Sie bei der Auwahl des Makler achten sollten. Gerne empfehlen wir Ihnen auch einen unserer Maklerpartner, um einen Verkauf mit Ihnen zu prüfen.",
+        "note": "Alles zum Thema “Grundstück verkaufen” finden Sie hier:"
+      },
+      "buttonLabel": "Grundstück verkaufen"
+    }
+  },
+  "germany": {
+    "overview": {
+      "headline": "Grundstückspreise Deutschland",
+      "subHeadline": "Hier finden Sie die aktuellen Grundstückspreise für ganz Deutschland",
+      "overviewArticle": {
+        "locationName": "Deutschland",
+        "mostAndLeastExpensive3": "Die drei <b>Bundesländer</b>, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1}, {mostExpensive2} und {mostExpensive3}. Die günstigsten Kaufpreise findet man in {leastExpensive1}, {leastExpensive2} und {leastExpensive3}."
+      }
+    }
+  },
+  "state": {
+    "overview": {
+      "headline": "Grundstückspreise {state}",
+      "subHeadline": "Hier finden Sie die aktuellen Grundstückspreise für {state}",
+      "overviewArticle": {
+        "mostAndLeastExpensive3": "Die drei (Land-)Kreise oder kreisfreien Städte, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1}, {mostExpensive2} und {mostExpensive3}. Die günstigsten Kaufpreise findet man in {leastExpensive1}, {leastExpensive2} und {leastExpensive3}.",
+        "mostAndLeastExpensive2": "Die zwei (Land-)Kreise oder kreisfreien Städte, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1} und {mostExpensive2}. Die günstigsten Kaufpreise findet man in {leastExpensive1} und {leastExpensive2}.",
+        "mostAndLeastExpensive1": "Der (Land-)Kreis oder die kreisfreie Stadt, die durchschnittlich die teuersten Quadratmeterpreise aufweist, ist {mostExpensive1}. Die günstigsten Kaufpreise findet man in {leastExpensive1}."
+      }
+    }
+  },
+  "kreis": {
+    "overview": {
+      "headline": "Grundstückspreise {kreis}",
+      "subHeadline": "Hier finden Sie die aktuellen Grundstückspreise für den Kreis {kreis}",
+      "overviewArticle": {
+        "mostAndLeastExpensive3": "Die Gemeinden, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1}, {mostExpensive2} und {mostExpensive3}. Die günstigsten Kaufpreise findet man in {leastExpensive1}, {leastExpensive2} und {leastExpensive3}.",
+        "mostAndLeastExpensive2": "Die Gemeinden, die durchschnittlich die teuersten Quadratmeterpreise aufweisen, sind {mostExpensive1} und {mostExpensive2}. Die günstigsten Kaufpreise findet man in {leastExpensive1} und {leastExpensive2}.",
+        "mostAndLeastExpensive1": "Die Gemeinde, die durchschnittlich die teuersten Quadratmeterpreise aufweist, ist {mostExpensive1}. Die günstigsten Kaufpreise findet man in {leastExpensive1}."
+      }
+    }
+  },
+  "gemeinde": {
+    "overview": {
+      "headline": "Grundstückspreise {gemeinde}",
+      "subHeadline": "Hier finden Sie die aktuellen Grundstückspreise für die Gemeinde {gemeinde}"
+    }
+  },
+  "calcSEO": {
+    "teaser": {
+      "description": "Berechnen Sie in wenigen Schritte den Cashflow und die Rendite Ihrer Immobilie auf 10 Jahre.",
+      "features": [
+        "Gewinn- und Verlustrechnung",
+        "Cashflow",
+        "Rendite / IRR"
+      ],
+      "inputs": {
+        "kaufpreisLabel": "Kaufpreis",
+        "mieteinnahmenPaLabel": "Erwartete Mieteinnahmen p.a.",
+        "eigenkapitalLabel": "Eigenkapital"
+      },
+      "newButton": "Neue Berechnung starten",
+      "savedButton": "Gespeicherte Berechnung öffnen",
+      "screenshotLabel": "Beispielrechnung"
+    },
+    "featureBar": [
+      {
+        "icon": "saveCalculations.svg",
+        "textHeadline": "Berechnungen speichern",
+        "textDescription": "Mehrere Berechnungen anlegen, speichern und später fortsetzen."
+      },
+      {
+        "icon": "yearlyDevelopment.svg",
+        "textHeadline": "10-Jahres-Auswertung",
+        "textDescription": "10-Jahres-Darstellung inkl. Diagrammen und Grafiken."
+      },
+      {
+        "icon": "numbers.svg",
+        "textHeadline": "Kennzahlen für Investoren",
+        "textDescription": "Vielzahl an Kennzahlen wie z.B. Bruttoanfangsrendite, Endwerte und IRR."
+      }
+    ]
+  },
+  "calc": {
+    "headline": "Renditerechner Immobilien",
+    "subHeadline": "Kostenlos Cashflow und Rendite für Ihre Kapitalanlage berechnen (auf 10 Jahre)",
+    "calculateButtonLabel": "Jetzt berechnen",
+    "recalculateButtonLabel": "Neu berechnen",
+    "savedCalculations": {
+      "empty": "Keine gespeicherten Berechnungen vorhanden.",
+      "premiumInfo": "Als Premium-Nutzer können Sie Ihre Eingaben bequem speichern und zu einem späteren Zeitpunkt wieder laden.",
+      "ctaButton": "Jetzt Premium-Nutzer werden",
+      "ctaButtonNote": "Preis Premium-Abo 3€/Monat<br/>Monatlich kündbar"
+    },
+    "saveInputs": {
+      "submitNew": "Neue Berechnung speichern",
+      "submitOverwrite": "Bestehende Berechnung aktualisieren",
+      "successfulMessage": "Berechnung wurde als <b>{label}</b> gespeichert.",
+      "labelCannotBeEmptyError": "Bitte geben Sie eine Beschreibung ein.",
+      "labelAlreadyInUseError": "Diese Beschreibung wird bereits für eine andere gespeicherte Berechnung verwendet.",
+      "savePopup": {
+        "title": "Berechnung speichern",
+        "dropdown": "Speichern unter...",
+        "name": "Name (z.B. Adresse der Immobilie)",
+        "submit": "Eingaben speichern"
+      },
+      "editPopup": {
+        "title": "Gespeicherte Berechnung bearbeiten",
+        "label": "Name (z.B. Adresse der Immobilie)",
+        "save": "Speichern",
+        "delete": "Berechnung löschen"
+      }
+    },
+    "saveConfirmation": "Ihre Berechnung wurde gespeichert.",
+    "editSavedCalculationLabel": {
+      "labelCannotBeEmptyError": "Bitte wählen Sie einen Namen für Ihre Berechnung.",
+      "labelAlreadyInUseError": "Dieser Name wird bereits für eine andere gespeicherte Berechnung verwendet."
+    },
+    "cancelFreshCalculationButton": "Zurück",
+    "output": {
+      "head": {
+        "title": "Aktuelle Berechnung:",
+        "titleNotSaved": "Neue Berechnung (nicht gespeichert)",
+        "saveButton": "Berechnung speichern",
+        "newButton": "Neue Berechnung starten"
+      },
+      "kpiHeadline": "Zusammenfassung",
+      "kpiLabels": {
+        "kaufpreis":  "Kaufpreis",
+        "anfaenglicheMieteinnahmenPa": "Anfängliche Mieteinnahmen p.a.",
+        "bruttoAnfangsRendite":  "Bruttoanfangsrendite",
+        "nach10Jahren": "Nach 10 Jahren:",
+        "investiertesKapital": "Investiertes Kapital",
+        "restwertImmobilieInklRuecklagen":  "Restwert der Immobilie inkl. Rücklagenkonto",
+        "netProfit": "Netto-Vermögenszugewinn",
+        "irr": "Interner Zinsfuß (IRR)"
+      },
+      "yearSumLabel": "Summen",
+      "rowLabels": {
+        "year": "Jahr",
+        "gewinnVerlustRechnung": "Gewinn- und Verlustrechnung",
+        "mieteinnahmenVorKosten": "Mieteinnahmen vor Kosten",
+        "bewirtschaftungskosten": "Bewirtschaftungs-kosten",
+        "extraKosten": "Außerordentliche Kosten",
+        "mietausfallwagnis": "Mietausfallwagnis",
+        "mieteinnahmenNachKosten": "Mieteinnahmen nach Kosten",
+        "darlehenszinsen": "Darlehenszinsen",
+        "operativesErgebnis": "Operatives Ergebnis",
+        "abschreibung": "Abschreibung Gebäudewert",
+        "ergebnisVorSteuern": "Ergebnis vor Steuern",
+        "steuernInklSolidaritaetszuschlag": "Steuern (inkl. Solidaritätszuschlag)",
+        "ergebnisNachSteuern": "Ergebnis nach Steuern",
+
+        "freierCashflow": "Freier Cash-Flow",
+        "tilgungDarlehen": "Tilgung Darlehen",
+        "verrechnungRuecklagen": "Verrechnung Rücklagen",
+
+        "ruecklagenJahresAnfang": "Rücklagenkonto (Jahresanfang)",
+        "zufuehrungRuecklagen": "Zuführung Rücklagen",
+        "entnahmeRuecklagen": "Entnahme Rücklagen",
+        "ruecklagenJahresEnde": "Rücklagenkonto (Jahresende)",
+        "defizit": "Defizit (Nachschuss Kapital aus anderer Quelle)",
+
+        "investiertesKapital": "Investiertes Kapital",
+        "einmalkostenKauf": "Einmalkosten Kauf",
+        "investiertesKapitalKumuliert": "Investiertes Kapital (kumuliert)",
+
+        "vermoegensaufbau": "Vermögensaufbau",
+        "marktpreisImmobilie": "Immobilie (aktueller Marktpreis)",
+        "restvalutaDarlehen": "Restvaluta Darlehen",
+        "ruecklagen": "Rücklagen",
+        "restwertImmobilieInklRuecklagen": "Restwert der Immobilie inkl. Rücklagen",
+        "netProfit": "Netto-Vermögenszugewinn (kumuliert)",
+
+        "irr": "Interner Zinsfuß (IRR)",
+        "verkaufImmobilie": "Verkauf Immobilie",
+        "aufloesungRuecklagenkonto": "Auflösung Rücklagenkonto",
+        "cashFlow": "Cash-Flow"
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+$fontPrimary: 'Roboto', sans-serif;
+$fontHeadline: 'Noto Serif', serif;
+$fontBlueArrow: 'Averia Sans Libre', sans-serif;
+
+$colorPrimary: #EC7B2F;
+$colorText: #222222;
+$colorStroke: #C4C4C4;
+$colorLightGreyBg: #F3F3F3;
+
+$greyDark: #333333;
+$grey: #8E8E8E;
+$greyMedium: #F2F2F2;
+$greyLight: #f9f9f9;
+
+$green: #30A168;
+$red: #ED3924;
+
+$blueArrow: #4378AA;
+
+$yellow: #F2C94C;
+$blue2: #2D9CDB;
+$green2: #27AE60;
+$red2: #EB5757;
+
+$minifyNavAnimationSpeed: .5s;
+
+$md: "screen and (min-width : 600px)";
+$lg: "screen and (min-width : 900px)";
+$maxLg: "screen and (max-width : 900px)";
+$xl: "screen and (min-width : 1000px)";
+$xxl: "screen and (min-width : 1200px)";
+
+
+@mixin input-wrapper {
+  display: flex;
+  align-items: flex-end;
+}
+
+@mixin input-field-wrapper {
+  position: relative;
+  margin-top: 10px;
+  padding-top: 10px;
+  flex-grow: 1;
+}
+
+@mixin input-field {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 13px;
+  border: 1px solid #D8DCEE;
+  border-radius: 4px;
+  font-size: 100%;
+  transition: border .4s;
+  background-color: transparent;
+}
+
+@mixin input-field-placeholder {
+  position: absolute;
+  z-index: 2;
+  top: 18px;
+  left: 14px;
+  color: $grey;
+  transition: all .4s;
+  transform-origin: left top;
+  font-size: 90%;
+  white-space: nowrap;
+}
+
+@mixin input-field-bg {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 10px;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+}
+
+@mixin input-field-focussed {
+  border: 1px solid $colorText;
+}
+
+@mixin input-field-focussed-placeholder {
+  transform: translate(-5px, -19px) scale(.8);
+  background-color: #fff;
+  z-index: 4;
+}
+
+@mixin input-field-error {
+  border: 1px solid $red !important;
+  color: $red;
+}
+
+@mixin input-field-error-placeholder {
+  color: $red !important;
+}
+
+@mixin input-info-icon {
+  margin: 0 0 12px 10px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .8;
+  }
+}

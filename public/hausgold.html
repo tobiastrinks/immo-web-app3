@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="robots" content="noindex">
+</head>
+<body style="margin: 0">
+<!-- Insert this container somewhere into your page body
+     to place the HAUSGOLD wizard -->
+<div id="hausgold-wizard"
+     data-wizard="immonowa"
+     data-variant="cta"
+     data-lead-key="AP"
+     data-utm-source="immonowa"
+     data-utm-medium="affiliate" />
+<script src="https://formwizard.hausgold.de/partner.js"></script>
+<script>
+  let debounceTimeout = null
+  let debounceHeight = null
+  window.addEventListener("message", (event) => {
+    if (event.data.type === 'resize') {
+      debounceHeight = event.data.height
+      if (!debounceTimeout) {
+        debounceTimeout = window.setTimeout(() => {
+          window.parent.postMessage(`HAUSGOLD_HEIGHT__${debounceHeight}`, '*')
+          debounceTimeout = null
+        }, 500)
+      }
+    } else if (event.data.type === 'postal_code_entered') {
+      window.parent.postMessage('hausgold_postal_code_entered', '*')
+    } else if (event.data.type === 'lead_submitted') {
+      window.parent.postMessage('hausgold_lead_submitted', '*')
+    }
+  }, false);
+</script>
+</body>
+</html>

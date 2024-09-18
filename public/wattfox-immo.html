@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta name="robots" content="noindex">
+    <script src="https://static.heyflow.com/widget/latest/webview.js"></script>
+  </head>
+  <body style="margin: 0">
+    <div id="heyflow-wrapper">
+      <heyflow-wrapper flow-id="wattfox-leads-immobilien" dynamic-height scroll-up-on-navigation style-config='{"width": "100%"}'></heyflow-wrapper>
+    </div>
+    <script>
+      let currentStep = null
+      let latestHeight = 0
+
+      let heightInitialized = false
+      window.addEventListener('heyflow-init', (event) => {
+        window.setTimeout(() => {
+          heightInitialized = true
+        }, 2000)
+      })
+
+      window.setInterval(() => {
+        if (heightInitialized) {
+          const height = document.getElementById('heyflow-wrapper').offsetHeight
+          if (height !== latestHeight) {
+            window.parent.postMessage(`WATTFOX_IMMO_HEIGHT__${height}`, '*')
+            latestHeight = height
+          }
+        }
+
+        try {
+          const step = document
+            .querySelector('*[flow-id="wattfox-leads-immobilien"]')
+            .shadowRoot
+            .querySelector('*[data-id="heyflow-form"] section[name].visible')
+            .getAttribute('name')
+
+          if (step && step !== currentStep) {
+            window.parent.postMessage(`WATTFOX_IMMO_EVENT__${step}.opened`, '*')
+            currentStep = step
+          }
+        } catch (e) {}
+      }, 100)
+    </script>
+  </body>
+</html>

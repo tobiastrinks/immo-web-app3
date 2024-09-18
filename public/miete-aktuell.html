@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="robots" content="noindex">
+</head>
+<body style="margin: 0; padding: 0; overflow-y: auto">
+  <script>
+    let partner
+    if (location.href.includes('version=2')) {
+      partner = 'aktuelle-grundstueckspreise.de2'
+    } else {
+      partner = 'aktuelle-grundstueckspreise.de'
+    }
+    let zipParam = ''
+    const urlParams = new URLSearchParams(window.location.search);
+    const zip = urlParams.get('zip');
+    if (zip) {
+      zipParam = `&srcplz=${zip}`
+    }
+
+    const iframe = document.createElement('iframe')
+    iframe.id = 'affiliate-iframe'
+    iframe.src = `https://www.miete-aktuell.de/makler-tool/result_start.php?partner=${partner}${zipParam}`
+    iframe.scrolling = 'no'
+    iframe.style.width = '100%'
+    iframe.style.height = '100%'
+    iframe.frameBorder = '0'
+    document.body.appendChild(iframe)
+
+
+    const steps = {
+      'step__start': 'mieteAktuell.step.objektart',
+
+      'step_11': 'mieteAktuell.step.grundstueck1',
+      'step_12': 'mieteAktuell.step.grundstueck2',
+      'step_13': 'mieteAktuell.step.grundstueck3',
+      'step_1_vkaddon': 'mieteAktuell.step.grundstueckZeitraum',
+      'step_1_vkumfang': 'mieteAktuell.step.grundstueckUmfang',
+
+      'step_21': 'mieteAktuell.step.haus1',
+      'step_22': 'mieteAktuell.step.haus2',
+      'step_23': 'mieteAktuell.step.haus3',
+      'step_232': 'mieteAktuell.step.haus4',
+      'step_24': 'mieteAktuell.step.haus5',
+      'step_25': 'mieteAktuell.step.haus6',
+      'step_26': 'mieteAktuell.step.haus7',
+      'step_27': 'mieteAktuell.step.haus8',
+      'step_2_vkaddon': 'mieteAktuell.step.hausZeitraum',
+      'step_2_vkumfang': 'mieteAktuell.step.hausUmfang',
+
+      'step_31': 'mieteAktuell.step.wohnung1',
+      'step_32': 'mieteAktuell.step.wohnung2',
+      'step_33': 'mieteAktuell.step.wohnung3',
+      'step_34': 'mieteAktuell.step.wohnung4',
+      'step_35': 'mieteAktuell.step.wohnung5',
+      'step_36': 'mieteAktuell.step.wohnung6',
+      'step_3_vkaddon': 'mieteAktuell.step.wohnungZeitraum',
+      'step_3_vkumfang': 'mieteAktuell.step.wohnungUmfang',
+
+      'step_41': 'mieteAktuell.step.gewerbe1',
+      'step_42': 'mieteAktuell.step.gewerbe2',
+      'step_43': 'mieteAktuell.step.gewerbe3',
+      'step_44': 'mieteAktuell.step.gewerbe4',
+      'step_4_vkaddon': 'mieteAktuell.step.gewerbeZeitraum',
+      'step_4_vkumfang': 'mieteAktuell.step.gewerbeUmfang',
+
+      'step__final': 'mieteAktuell.step.email',
+      'step__final_tel': 'mieteAktuell.step.nameUndTelefon',
+      'step__final2_tel': 'mieteAktuell.step.rueckruf',
+
+      'step__final3_tel': 'mieteAktuell.submitted',
+    }
+
+    let reducedHeightSteps
+    if (!zipParam) {
+      reducedHeightSteps = [
+        steps.step__start,
+        steps.step_21,
+        steps.step_22,
+        steps.step_23,
+        steps.step_232,
+        steps.step_24,
+        steps.step_25,
+        steps.step_26,
+        steps.step_31,
+        steps.step_32,
+        steps.step_33,
+        steps.step_34,
+        steps.step_35,
+        steps.step_41,
+        steps.step_42,
+        steps.step_43,
+      ]
+    } else {
+      reducedHeightSteps = [
+        steps.step__start
+      ]
+    }
+
+    let iframeLoaded = false
+    let isReducedHeightStep = true
+
+    iframe.onload = function() {
+      console.log('iframe loaded')
+      iframeLoaded = true
+    };
+
+    function setHeight(height) {
+      let adjustedNewHeight = parseInt(height)
+      if (isReducedHeightStep) {
+        adjustedNewHeight = adjustedNewHeight - 100
+      }
+      document.body.style.height = adjustedNewHeight+'px'
+      window.parent.postMessage(`MIETE_AKTUELL_HEIGHT__${adjustedNewHeight}`)
+    }
+
+    // initial height
+    if (zipParam) {
+      setHeight(683)
+    } else {
+      setHeight(564)
+    }
+
+    window.addEventListener("message", (event) => {
+      if (event.data && typeof event.data === 'string') {
+        if (event.data.startsWith('SCROLL_HEIGHT__')) {
+          if (!iframeLoaded) {
+            return
+          }
+          const newHeight = event.data.replace('SCROLL_HEIGHT__', '')
+          setHeight(newHeight)
+        }
+        const step = steps[event.data]
+        if (!!step) {
+          window.parent.postMessage(`MIETE_AKTUELL_STEP__${step}`)
+          isReducedHeightStep = reducedHeightSteps.includes(step);
+        }
+      }
+    }, false);
+  </script>
+</body>
+</html>
