@@ -8,9 +8,11 @@ export default defineNuxtPlugin(() => {
     if (!config.public.gtmEnabled) {
         console.log('GTM not enabled')
         return {
-            gtm: {
-                push (event) {
-                    console.log('disabled GTM: Event: ', event)
+            provide: {
+                gtm: {
+                    push (event) {
+                        console.log('disabled GTM: Event: ', event)
+                    }
                 }
             }
         }
@@ -45,8 +47,10 @@ export default defineNuxtPlugin(() => {
     }
 
     return {
-        gtm: {
-            push
+        provide: {
+            gtm: {
+                push
+            }
         }
     }
 })

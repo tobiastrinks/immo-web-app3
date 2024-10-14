@@ -90,14 +90,11 @@ export const useLocationStore = defineStore('location', {
       this.resetLocation()
       this.gemeinde = res
     },
-    async getMarketReport (fetch, { stateIdName, kreisIdName, gemeindeIdName }) {
-      const res = await fetch('/location/market-report', {
-        method: 'GET',
-        params: {
-          stateIdName,
-          kreisIdName,
-          gemeindeIdName
-        }
+    async getMarketReport (cachedApi, { stateIdName, kreisIdName, gemeindeIdName }) {
+      const res = await cachedApi.request('/location/market-report', {
+        stateIdName,
+        kreisIdName,
+        gemeindeIdName
       })
       if (res) {
         this.marketReport = res

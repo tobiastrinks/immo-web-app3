@@ -62,10 +62,11 @@ export default {
   },
   methods: {
     onClick () {
+      // TODO: use enabledClick in parent components!
       if (this.pending) { return }
       return this.disabled
         ? this.$emit('disabledClick')
-        : this.$emit('click')
+        : this.$emit('enabledClick')
     }
   }
 }

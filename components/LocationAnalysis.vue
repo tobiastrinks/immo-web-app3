@@ -10,7 +10,7 @@
         :headline="$t('_shared.locationAnalysis.h3Ranking', { locationName })"
         :level="3"
       />
-<!--      <LocationRankingLy2 />-->
+      <LocationRankingLy2 />
     </div>
     <div class="location-analysis-nearby">
       <Headline
@@ -25,11 +25,11 @@
         :headline="$t('_shared.locationAnalysis.h3Data', { locationName })"
         :level="3"
       />
-<!--      <TextArticle-->
-<!--        :paragraphs="[dataSourceParagraph]"-->
-<!--        use-raw-html-->
-<!--        small-margin-->
-<!--      />-->
+      <TextArticle
+        :paragraphs="[dataSourceParagraph]"
+        use-raw-html
+        small-margin
+      />
     </div>
   </div>
 </template>

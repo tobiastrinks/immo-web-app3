@@ -50,7 +50,7 @@
           class="nav-mobile-sticky-cta-button"
           :label="$t('_shared.nav.ctaButton')"
           active
-          @click="clickCTA"
+          @enabled-click="clickCTA"
         />
       </CustomNuxtLink>
       <div v-if="mainStore.navNoteOpened" class="nav-mobile-note">

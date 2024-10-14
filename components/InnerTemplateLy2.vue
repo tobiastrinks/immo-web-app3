@@ -28,12 +28,12 @@ import { offsetTop } from 'assets/js/scrollUtils'
 
 export default defineNuxtComponent({
   setup() {
-    const sectionOffsets = ref()
+    const sectionOffsets = ref([])
     const activeTOCItem = ref(null)
     const recalculateSectionOffsetInterval = ref()
 
     const calculateSectionOffsets = () => {
-      sectionOffsets.value = [...document.querySelectorAll('.inner-template-ly2-sections-item *[data-toc]')]
+      sectionOffsets.value = [...document.querySelectorAll('.inner-template-ly2-sections-item[data-toc]')]
           .map(i => ({
             dataToc: i.attributes.getNamedItem('data-toc').value,
             offsetTop: offsetTop(i)

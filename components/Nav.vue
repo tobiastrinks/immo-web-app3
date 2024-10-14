@@ -33,7 +33,7 @@
           </div>
         </div>
         <CustomNuxtLink class="nav-top-cta" :to="PATHS.PROPERTY_VALUE">
-          <Button :label="$t('_shared.nav.ctaButton')" :active="orangeButton" small @click="clickCTA" />
+          <Button :label="$t('_shared.nav.ctaButton')" :active="orangeButton" small @enabled-click="clickCTA" />
         </CustomNuxtLink>
         <div class="nav-calc-headline">
           {{ $t('_shared.nav.calcHeadline') }}
@@ -101,6 +101,7 @@ export default defineNuxtComponent({
       mainStore: useStore(),
       locationStore: useLocationStore(),
       cfStore: useCfStore(),
+      nuxtApp: useNuxtApp()
     }
   },
   data () {
@@ -250,7 +251,7 @@ export default defineNuxtComponent({
     },
     clickCTA () {
       if (!this.$route.path.includes(PATHS.PROPERTY_VALUE)) {
-        this.$gtm.push({ event: 'nav.propertyValueCTA' })
+        this.nuxtApp.$gtm.push({ event: 'nav.propertyValueCTA' })
       }
     }
   }

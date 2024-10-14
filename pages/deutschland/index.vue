@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <GermanyLy2 />
+    <Germany />
   </Layout>
 </template>
 

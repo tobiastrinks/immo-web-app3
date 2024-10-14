@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { PATHS } from '../constants'
+import { PATHS } from './constants'
+import useApiFetch from "~/composables/useApiFetch.js";
 
 export function getPathForLocationIdNames ({ gemeindeIdName, kreisIdName, stateIdName }) {
   if (gemeindeIdName) {
@@ -14,8 +14,8 @@ export function getPathForLocationIdNames ({ gemeindeIdName, kreisIdName, stateI
 }
 
 export async function fetchLocationList (apiBaseUrl) {
-  const res = await axios.get('/location/tree', { baseURL: apiBaseUrl })
-  const locationTree = res.data
+  const apiFetch = useApiFetch()
+  const locationTree = apiFetch.request('/location/tree')
   const locationGermany = {}
   const locationList = [locationGermany]
   locationTree.stateList.forEach((state) => {

@@ -6,29 +6,29 @@
       use-p-headline
       no-outer-margins
     >
-<!--      <template slot="head">-->
-<!--        <Headline-->
-<!--          :headline="headline"-->
-<!--          :sub-headline="subHeadline"-->
-<!--          centered-->
-<!--        />-->
-<!--        <p class="location-inner-ly2-template-head-last-updated">-->
-<!--          {{ lastUpdatedText }}-->
-<!--        </p>-->
-<!--        <LocationKPILy2 />-->
-<!--        <p class="location-inner-ly2-affiliate-paragraph">-->
-<!--          {{ $t('_shared.location.affiliateParagraph') }}-->
-<!--        </p>-->
-<!--        <client-only>-->
-<!--          <div-->
-<!--            v-if="affiliateAbTestType"-->
-<!--            class="location-inner-ly2-affiliate-widget"-->
-<!--          >-->
-<!--            <MieteAktuell v-if="affiliateAbTestType === 'mieteAktuell'" />-->
-<!--            <WattfoxImmo v-else />-->
-<!--          </div>-->
-<!--        </client-only>-->
-<!--      </template>-->
+      <template v-slot:head>
+        <Headline
+          :headline="headline"
+          :sub-headline="subHeadline"
+          centered
+        />
+        <p class="location-inner-ly2-template-head-last-updated">
+          {{ lastUpdatedText }}
+        </p>
+        <LocationKPILy2 />
+        <p class="location-inner-ly2-affiliate-paragraph">
+          {{ $t('_shared.location.affiliateParagraph') }}
+        </p>
+        <client-only>
+          <div
+            v-if="affiliateAbTestType"
+            class="location-inner-ly2-affiliate-widget"
+          >
+            <MieteAktuell v-if="affiliateAbTestType === 'mieteAktuell'" />
+            <WattfoxImmo v-else />
+          </div>
+        </client-only>
+      </template>
       <template v-slot:sections>
         <div
             v-if="tocSection(TOC_SECTIONS.ANALYSIS)"
@@ -45,116 +45,121 @@
             </template>
           </LocationAnalysis>
         </div>
-<!--        <div-->
-<!--            v-if="tocSection(TOC_SECTIONS.TREND)"-->
-<!--            :data-toc="TOC_SECTIONS.TREND"-->
-<!--            class="inner-template-ly2-sections-item"-->
-<!--        >-->
-<!--          <Headline-->
-<!--            :headline="tocSection(TOC_SECTIONS.TREND).headline"-->
-<!--            :sub-headline="$t(`_shared.locationTrend.${locationType}.subHeadline`, { name: locationName })"-->
-<!--            :level="2"-->
-<!--          />-->
-<!--          <LocationTrend />-->
-<!--        </div>-->
-<!--        <div-->
-<!--            v-if="tocSection(TOC_SECTIONS.MARKET_REPORT)"-->
-<!--            :data-toc="TOC_SECTIONS.MARKET_REPORT"-->
-<!--            class="inner-template-ly2-sections-item"-->
-<!--        >-->
-<!--          <Headline-->
-<!--            :headline="tocSection(TOC_SECTIONS.MARKET_REPORT).headline"-->
-<!--            :level="2"-->
-<!--          />-->
-<!--          <LocationMarketReport />-->
-<!--        </div>-->
-<!--        <div-->
-<!--            v-if="tocSection(TOC_SECTIONS.BODENRICHTWERT)"-->
-<!--            :data-toc="TOC_SECTIONS.BODENRICHTWERT"-->
-<!--            class="inner-template-ly2-sections-item"-->
-<!--        >-->
-<!--          <Headline-->
-<!--            :headline="tocSection(TOC_SECTIONS.BODENRICHTWERT).headline"-->
-<!--            :sub-headline="$t(`_shared.locationBodenrichtwert.${locationType}.subHeadline`, { name: locationName })"-->
-<!--            :level="2"-->
-<!--          />-->
-<!--          <LocationBodenrichtwert :bodenrichtwert="bodenrichtwert" />-->
-<!--        </div>-->
-<!--        <div-->
-<!--            v-if="tocSection(TOC_SECTIONS.LOCATION_FAKTOREN)"-->
-<!--            :data-toc="TOC_SECTIONS.LOCATION_FAKTOREN"-->
-<!--            class="inner-template-ly2-sections-item"-->
-<!--        >-->
-<!--          <Headline-->
-<!--            :headline="tocSection(TOC_SECTIONS.LOCATION_FAKTOREN).headline"-->
-<!--            :level="2"-->
-<!--          />-->
-<!--          <CfArticle :content="locationFaktoren.article" />-->
-<!--        </div>-->
-<!--        <div-->
-<!--            :data-toc="TOC_SECTIONS.PROPERTY_VALUE"-->
-<!--            class="inner-template-ly2-sections-item"-->
-<!--        >-->
-<!--          <Headline-->
-<!--            :headline="tocSection(TOC_SECTIONS.PROPERTY_VALUE).headline"-->
-<!--            :level="2"-->
-<!--          />-->
-<!--          &lt;!&ndash; eslint-disable-next-line vue/no-v-html &ndash;&gt;-->
-<!--          <p v-html="$t('_shared.locationPropertyValue.text', { location: $t(`_shared.locationPropertyValue.textLocation.${locationType}`, { name: locationName }) })"></p>-->
-<!--          <CustomNuxtLink :to="PATHS.PROPERTY_VALUE">-->
-<!--            <Button :label="$t('_shared.locationPropertyValue.buttonLabel')" inline-block active @click="clickCTA" />-->
-<!--          </CustomNuxtLink>-->
-<!--        </div>-->
-<!--        <div-->
-<!--            :data-toc="TOC_SECTIONS.PROPERTY_SELL"-->
-<!--            class="inner-template-ly2-sections-item"-->
-<!--        >-->
-<!--          <Headline-->
-<!--            :headline="tocSection(TOC_SECTIONS.PROPERTY_SELL).headline"-->
-<!--            :level="2"-->
-<!--          />-->
-<!--          &lt;!&ndash; eslint-disable-next-line vue/no-v-html &ndash;&gt;-->
-<!--          <p v-html="$t('_shared.locationPropertySell.text', { location: $t(`_shared.locationPropertySell.textLocation.${locationType}`, { name: locationName }) })"></p>-->
-<!--          <CustomNuxtLink :to="PATHS.PROPERTY_SELL">-->
-<!--            <Button :label="$t('_shared.locationPropertySell.buttonLabel')" inline-block active />-->
-<!--          </CustomNuxtLink>-->
-<!--        </div>-->
-<!--        <div-->
-<!--            :data-toc="TOC_SECTIONS.PROPERTY_BUY"-->
-<!--            class="inner-template-ly2-sections-item"-->
-<!--        >-->
-<!--          <Headline-->
-<!--            :headline="tocSection(TOC_SECTIONS.PROPERTY_BUY).headline"-->
-<!--            :level="2"-->
-<!--          />-->
-<!--          <p>{{ $t('_shared.locationPropertyBuy.text', { locationName: locationName }) }}</p>-->
-<!--          <LocationImmoPortals />-->
-<!--        </div>-->
-<!--        <div-->
-<!--            v-if="tocSection(TOC_SECTIONS.CALC)"-->
-<!--            :data-toc="TOC_SECTIONS.CALC"-->
-<!--            class="inner-template-ly2-sections-item"-->
-<!--        >-->
-<!--          <Headline-->
-<!--            :headline="tocSection(TOC_SECTIONS.CALC).headline"-->
-<!--            :level="2"-->
-<!--          />-->
-<!--          <LocationCalc :location-name="locationName" />-->
-<!--          <CustomNuxtLink :to="PATHS.CALC_SEO">-->
-<!--            <Button :label="$t('_shared.locationCalc.buttonLabel')" inline-block active />-->
-<!--          </CustomNuxtLink>-->
-<!--        </div>-->
-<!--        <div-->
-<!--            v-if="tocSection(TOC_SECTIONS.FAQ)"-->
-<!--            :data-toc="TOC_SECTIONS.FAQ"-->
-<!--            class="inner-template-ly2-sections-item"-->
-<!--        >-->
-<!--          <Headline-->
-<!--            :headline="tocSection(TOC_SECTIONS.FAQ).headline"-->
-<!--            :level="2"-->
-<!--          />-->
-<!--          <InfoPageDropdown :items="locationFAQ.faqItems" />-->
-<!--        </div>-->
+        <div
+            v-if="tocSection(TOC_SECTIONS.TREND)"
+            :data-toc="TOC_SECTIONS.TREND"
+            class="inner-template-ly2-sections-item"
+        >
+          <Headline
+            :headline="tocSection(TOC_SECTIONS.TREND).headline"
+            :sub-headline="$t(`_shared.locationTrend.${locationType}.subHeadline`, { name: locationName })"
+            :level="2"
+          />
+          <LocationTrend />
+        </div>
+        <div
+            v-if="tocSection(TOC_SECTIONS.MARKET_REPORT)"
+            :data-toc="TOC_SECTIONS.MARKET_REPORT"
+            class="inner-template-ly2-sections-item"
+        >
+          <Headline
+            :headline="tocSection(TOC_SECTIONS.MARKET_REPORT).headline"
+            :level="2"
+          />
+          <LocationMarketReport />
+        </div>
+        <div
+            v-if="tocSection(TOC_SECTIONS.BODENRICHTWERT)"
+            :data-toc="TOC_SECTIONS.BODENRICHTWERT"
+            class="inner-template-ly2-sections-item"
+        >
+          <Headline
+            :headline="tocSection(TOC_SECTIONS.BODENRICHTWERT).headline"
+            :sub-headline="$t(`_shared.locationBodenrichtwert.${locationType}.subHeadline`, { name: locationName })"
+            :level="2"
+          />
+          <LocationBodenrichtwert :bodenrichtwert="bodenrichtwert" />
+        </div>
+        <div
+            v-if="tocSection(TOC_SECTIONS.LOCATION_FAKTOREN)"
+            :data-toc="TOC_SECTIONS.LOCATION_FAKTOREN"
+            class="inner-template-ly2-sections-item"
+        >
+          <Headline
+            :headline="tocSection(TOC_SECTIONS.LOCATION_FAKTOREN).headline"
+            :level="2"
+          />
+          <CfArticle :content="locationFaktoren.article" />
+        </div>
+        <div
+            :data-toc="TOC_SECTIONS.PROPERTY_VALUE"
+            class="inner-template-ly2-sections-item"
+        >
+          <Headline
+            :headline="tocSection(TOC_SECTIONS.PROPERTY_VALUE).headline"
+            :level="2"
+          />
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <p v-html="$t('_shared.locationPropertyValue.text', { location: $t(`_shared.locationPropertyValue.textLocation.${locationType}`, { name: locationName }) })"></p>
+          <CustomNuxtLink :to="PATHS.PROPERTY_VALUE">
+            <Button
+                :label="$t('_shared.locationPropertyValue.buttonLabel')"
+                inline-block
+                active
+                @enabled-click="clickCTA"
+            />
+          </CustomNuxtLink>
+        </div>
+        <div
+            :data-toc="TOC_SECTIONS.PROPERTY_SELL"
+            class="inner-template-ly2-sections-item"
+        >
+          <Headline
+            :headline="tocSection(TOC_SECTIONS.PROPERTY_SELL).headline"
+            :level="2"
+          />
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <p v-html="$t('_shared.locationPropertySell.text', { location: $t(`_shared.locationPropertySell.textLocation.${locationType}`, { name: locationName }) })"></p>
+          <CustomNuxtLink :to="PATHS.PROPERTY_SELL">
+            <Button :label="$t('_shared.locationPropertySell.buttonLabel')" inline-block active />
+          </CustomNuxtLink>
+        </div>
+        <div
+            :data-toc="TOC_SECTIONS.PROPERTY_BUY"
+            class="inner-template-ly2-sections-item"
+        >
+          <Headline
+            :headline="tocSection(TOC_SECTIONS.PROPERTY_BUY).headline"
+            :level="2"
+          />
+          <p>{{ $t('_shared.locationPropertyBuy.text', { locationName: locationName }) }}</p>
+          <LocationImmoPortals />
+        </div>
+        <div
+            v-if="tocSection(TOC_SECTIONS.CALC)"
+            :data-toc="TOC_SECTIONS.CALC"
+            class="inner-template-ly2-sections-item"
+        >
+          <Headline
+            :headline="tocSection(TOC_SECTIONS.CALC).headline"
+            :level="2"
+          />
+          <LocationCalc :location-name="locationName" />
+          <CustomNuxtLink :to="PATHS.CALC_SEO">
+            <Button :label="$t('_shared.locationCalc.buttonLabel')" inline-block active />
+          </CustomNuxtLink>
+        </div>
+        <div
+            v-if="tocSection(TOC_SECTIONS.FAQ)"
+            :data-toc="TOC_SECTIONS.FAQ"
+            class="inner-template-ly2-sections-item"
+        >
+          <Headline
+            :headline="tocSection(TOC_SECTIONS.FAQ).headline"
+            :level="2"
+          />
+          <InfoPageDropdown :items="locationFAQ.faqItems" />
+        </div>
       </template>
     </InnerTemplateLy2>
   </div>
