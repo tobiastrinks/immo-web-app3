@@ -302,17 +302,27 @@ export default defineNuxtComponent({
 
       const paragraphsKey = '_shared.locationAnalysis.bullets'
 
+      const isValidBulletValue = (value) => {
+        return value && value !== '∞' && value > -100
+      }
+
       const bullets = this.$tm(paragraphsKey)
         .map((_, index) => {
-          const developedSurchargeOverDevelopedPartiallyInPercent = this.$n((developedPricePerSqm / developedPartiallyPricePerSqm * 100) - 100, { maximumFractionDigits: 0 })
-          const developedSurchargeOverNotDevelopedInPercent = this.$n((developedPricePerSqm / notDevelopedPricePerSqm * 100) - 100, { maximumFractionDigits: 0 })
-          const withBuildingPermissionSurchargeOverWithoutBuildingPermissionInPercent = this.$n((withBuildingPermissionPricePerSqm / withoutBuildingPermissionPricePerSqm * 100) - 100, { maximumFractionDigits: 0 })
+          const developedSurchargeOverDevelopedPartiallyInPercent = (developedPricePerSqm && developedPartiallyPricePerSqm)
+              ? this.$n((developedPricePerSqm / developedPartiallyPricePerSqm * 100) - 100, { maximumFractionDigits: 0 })
+              : null
+          const developedSurchargeOverNotDevelopedInPercent = (developedPricePerSqm && notDevelopedPricePerSqm)
+              ? this.$n((developedPricePerSqm / notDevelopedPricePerSqm * 100) - 100, { maximumFractionDigits: 0 })
+              : null
+          const withBuildingPermissionSurchargeOverWithoutBuildingPermissionInPercent = (withBuildingPermissionPricePerSqm && withoutBuildingPermissionPricePerSqm)
+              ? this.$n((withBuildingPermissionPricePerSqm / withoutBuildingPermissionPricePerSqm * 100) - 100, { maximumFractionDigits: 0 })
+              : null
 
           const template = this.$t(`${paragraphsKey}[${index}]`)
           if (
-            (template.includes('{developedSurchargeOverDevelopedPartiallyInPercent}') && (developedSurchargeOverDevelopedPartiallyInPercent <= -100 || developedSurchargeOverDevelopedPartiallyInPercent === '∞')) ||
-            (template.includes('{developedSurchargeOverNotDevelopedInPercent}') && (developedSurchargeOverNotDevelopedInPercent <= -100 || developedSurchargeOverNotDevelopedInPercent === '∞')) ||
-            (template.includes('{withBuildingPermissionSurchargeOverWithoutBuildingPermissionInPercent}') && (withBuildingPermissionSurchargeOverWithoutBuildingPermissionInPercent <= -100 || withBuildingPermissionSurchargeOverWithoutBuildingPermissionInPercent === '∞'))
+            (template.includes('{developedSurchargeOverDevelopedPartiallyInPercent}') && isValidBulletValue(developedSurchargeOverDevelopedPartiallyInPercent)) ||
+            (template.includes('{developedSurchargeOverNotDevelopedInPercent}') && isValidBulletValue(developedSurchargeOverNotDevelopedInPercent)) ||
+            (template.includes('{withBuildingPermissionSurchargeOverWithoutBuildingPermissionInPercent}') && isValidBulletValue(withBuildingPermissionSurchargeOverWithoutBuildingPermissionInPercent))
           ) {
             return null
           }

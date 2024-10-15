@@ -1,28 +1,29 @@
 <script setup>
-import { getCanonical } from 'assets/js/seoUtils'
-import { META_TITLE_MONTHS, X_FEATURES, Y_VALUES } from 'assets/js/constants'
-import {useCfStore} from "~/store/cf.js";
-import {useOverviewStatsStore} from "~/store/overviewStats.js";
-import {useLocationStore} from "~/store/location.js";
-import { useRoute as useNativeRoute } from 'vue-router'
+import { getCanonical } from '~/assets/js/seoUtils'
+import {META_TITLE_MONTHS, X_FEATURES, Y_VALUES} from '~/assets/js/constants'
 import cfLocationFaktoren from '~/assets/cf/cfLocationFaktoren.json'
 import cfLocationFAQ from '~/assets/cf/cfLocationFAQ.json'
+import {useRoute as useNativeRoute} from "#vue-router";
+import {useOverviewStatsStore} from "~/store/overviewStats.js";
+import {useLocationStore} from "~/store/location.js";
+import {useCfStore} from "~/store/cf.js";
+
+const { path, params: { stateIdName, kreisIdName } } = useNativeRoute()
 
 const overviewStatsStore = useOverviewStatsStore()
 const locationStore = useLocationStore()
 const cfStore = useCfStore()
 const cachedApi = useCachedApi()
-const { path, params: { stateIdName } } = useNativeRoute()
 
 const { error } = await useAsyncData(async () => {
   cfStore.resetBodenrichtwert()
   cfStore.locationFaktoren = cfLocationFaktoren
   cfStore.locationFAQ = cfLocationFAQ
 
-  const location = { stateIdName }
+  const location = { stateIdName, kreisIdName }
 
   // do this first to catch 404 errors for invalid locations
-  await locationStore.getState(cachedApi, location)
+  await locationStore.getKreis(cachedApi, location)
 
   const fetchPromises = [
     overviewStatsStore.loadAdditionalStats(cachedApi, location),
@@ -68,8 +69,7 @@ useHead({
 
 <template>
   <Layout>
-    <State v-if="locationStore.state" />
-    <Kreis v-else-if="locationStore.kreis" />
+    <Kreis v-if="locationStore.kreis" />
     <Gemeinde v-else-if="locationStore.gemeinde" />
   </Layout>
 </template>

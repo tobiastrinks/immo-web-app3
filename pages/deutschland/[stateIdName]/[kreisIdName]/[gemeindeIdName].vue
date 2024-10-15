@@ -1,30 +1,30 @@
 <script setup>
-import { getCanonical } from 'assets/js/seoUtils'
-import { META_TITLE_MONTHS, X_FEATURES, Y_VALUES } from 'assets/js/constants'
-import {useCfStore} from "~/store/cf.js";
-import {useOverviewStatsStore} from "~/store/overviewStats.js";
-import {useLocationStore} from "~/store/location.js";
-import { useRoute as useNativeRoute } from 'vue-router'
+import { getCanonical } from '~/assets/js/seoUtils'
+import {META_TITLE_MONTHS, X_FEATURES, Y_VALUES} from '~/assets/js/constants'
 import cfLocationFaktoren from '~/assets/cf/cfLocationFaktoren.json'
 import cfLocationFAQ from '~/assets/cf/cfLocationFAQ.json'
+import {useLocationStore} from "~/store/location.js";
+import {useCfStore} from "~/store/cf.js";
+import {useOverviewStatsStore} from "~/store/overviewStats.js";
+import {useRoute as useNativeRoute} from "#vue-router";
 
 const overviewStatsStore = useOverviewStatsStore()
 const locationStore = useLocationStore()
 const cfStore = useCfStore()
 const cachedApi = useCachedApi()
-const { path, params: { stateIdName } } = useNativeRoute()
+const { path, params: { stateIdName, kreisIdName, gemeindeIdName } } = useNativeRoute()
 
 const { error } = await useAsyncData(async () => {
   cfStore.resetBodenrichtwert()
   cfStore.locationFaktoren = cfLocationFaktoren
   cfStore.locationFAQ = cfLocationFAQ
 
-  const location = { stateIdName }
+  const location = { stateIdName, kreisIdName, gemeindeIdName }
 
   // do this first to catch 404 errors for invalid locations
-  await locationStore.getState(cachedApi, location)
+  await locationStore.getGemeinde(cachedApi, location)
 
-  const fetchPromises = [
+  await Promise.all([
     overviewStatsStore.loadAdditionalStats(cachedApi, location),
     overviewStatsStore.loadPriceOverTimeStats(cachedApi, location),
     overviewStatsStore.loadOverviewStats(cachedApi, { location, xFeature: X_FEATURES.PLOT_SIZE, yValue: Y_VALUES.PRICE_PER_SQM }),
@@ -35,14 +35,7 @@ const { error } = await useAsyncData(async () => {
     cfStore.fetchLocationBodenrichtwert({ ...location, mini: true }),
     cfStore.fetchLocationTrend(location),
     locationStore.getMarketReport(cachedApi, location)
-  ]
-  const { state, kreis } = locationStore
-  if (state || kreis) {
-    fetchPromises.push(
-        overviewStatsStore.loadOverviewStats(cachedApi, { location, xFeature: 'CHILD_LOCATION', yValue: 'PRICE_PER_SQM' })
-    )
-  }
-  await Promise.all(fetchPromises)
+  ])
 
   await overviewStatsStore.selectOverviewStats(cachedApi, { location, xFeature: 'PLOT_SIZE', yValue: 'PRICE_PER_SQM' })
   return true
@@ -68,8 +61,6 @@ useHead({
 
 <template>
   <Layout>
-    <State v-if="locationStore.state" />
-    <Kreis v-else-if="locationStore.kreis" />
-    <Gemeinde v-else-if="locationStore.gemeinde" />
+    <Gemeinde v-if="locationStore.gemeinde" />
   </Layout>
 </template>
