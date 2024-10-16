@@ -22,6 +22,6 @@ useHead({
 
 <template>
   <Layout>
-    <Bodenrichtwert />
+    <InfoPage :cf-data="cfStore.bodenrichtwertPage" />
   </Layout>
 </template>

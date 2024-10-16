@@ -45,10 +45,7 @@ const props = defineProps({
 
 <style lang="scss">
 .info-page-affiliate-wrapper {
-
-  @media #{$md} {
-    margin-bottom: -60px;
-  }
+  margin-bottom: 60px;
 
   .info-page-affiliate {
     text-align: center;

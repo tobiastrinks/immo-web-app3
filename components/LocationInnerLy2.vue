@@ -3,8 +3,6 @@
     <InnerTemplateLy2
       :toc-sections="tocSections"
       :toc-arrow-label="$t('_shared.location.tocArrowLabel', { locationName })"
-      use-p-headline
-      no-outer-margins
     >
       <template v-slot:head>
         <Headline
