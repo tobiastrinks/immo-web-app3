@@ -6,5 +6,12 @@ export default defineI18nConfig(() => ({
     messages: {
         de
     },
-    warnHtmlMessage: false
+    warnHtmlMessage: false,
+    datetimeFormats: {
+        de: {
+            short: {
+                year: 'numeric', month: '2-digit', day: '2-digit'
+            }
+        }
+    }
 }))

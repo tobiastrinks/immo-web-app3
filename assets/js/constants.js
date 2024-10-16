@@ -1,9 +1,9 @@
 export const PATH_TEMPLATES = {
   HOME: '/',
   GERMANY: '/deutschland',
-  STATE: '/deutschland/:stateIdName',
-  KREIS: '/deutschland/:stateIdName/:kreisIdName',
-  GEMEINDE: '/deutschland/:stateIdName/:kreisIdName/:gemeindeIdName'
+  STATE: '/deutschland/:stateIdName()',
+  KREIS: '/deutschland/:stateIdName()/:kreisIdName()',
+  GEMEINDE: '/deutschland/:stateIdName()/:kreisIdName()/:gemeindeIdName()'
 }
 export const PATHS = {
   GERMANY: '/deutschland',

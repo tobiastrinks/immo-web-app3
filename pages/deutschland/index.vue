@@ -58,6 +58,6 @@ useHead({
 
 <template>
   <Layout>
-    <Germany />
+    <Germany v-if="locationStore.germany" />
   </Layout>
 </template>
