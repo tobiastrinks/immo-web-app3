@@ -45,7 +45,7 @@ const infoPopup = computed(() => {
 })
 
 const featureBarItems = computed(() => {
-  return i18n.t('calcSEO.featureBar').map(i => (
+  return i18n.tm('calcSEO.featureBar').map(i => (
       {
         iconSrc: `/img/calcSEO/${i.icon}`,
         title: i.textHeadline,
@@ -63,7 +63,6 @@ const featureBarItems = computed(() => {
         :headline="cfData.headline"
         :sub-headline="cfData.subHeadline"
         centered
-        only-use-paragraphs
       />
       <div class="calc-seo-teaser">
         <div class="calc-seo-teaser-form-wrapper">
@@ -71,39 +70,36 @@ const featureBarItems = computed(() => {
             {{ $t('calcSEO.teaser.description') }}
           </p>
           <p
-            v-for="(feature, index) in $t('calcSEO.teaser.features')"
+            v-for="(feature, index) in $tm('calcSEO.teaser.features')"
             :key="index"
             class="calc-seo-teaser-form-feature"
           >
             <span class="calc-seo-teaser-form-feature-check">✓</span>
             <span>{{ feature }}</span>
           </p>
-<!--          <div class="calc-seo-teaser-form-inputs">-->
-<!--            <InputSt-->
-<!--              type="FLOAT"-->
-<!--              unit="€"-->
-<!--              :placeholder="$t('calcSEO.teaser.inputs.kaufpreisLabel')"-->
-<!--              :value="$store.state.calc.kaufpreis"-->
-<!--              mutation="calc/SET_INPUT"-->
-<!--              mutation-key="kaufpreis"-->
-<!--            />-->
-<!--            <InputSt-->
-<!--              type="FLOAT"-->
-<!--              unit="€"-->
-<!--              :placeholder="$t('calcSEO.teaser.inputs.mieteinnahmenPaLabel')"-->
-<!--              :value="$store.state.calc.mieteinnahmenPa"-->
-<!--              mutation="calc/SET_INPUT"-->
-<!--              mutation-key="mieteinnahmenPa"-->
-<!--            />-->
-<!--            <InputSt-->
-<!--              type="FLOAT"-->
-<!--              unit="€"-->
-<!--              :placeholder="$t('calcSEO.teaser.inputs.eigenkapitalLabel')"-->
-<!--              :value="$store.state.calc.eigenkapital"-->
-<!--              mutation="calc/SET_INPUT"-->
-<!--              mutation-key="eigenkapital"-->
-<!--            />-->
-<!--          </div>-->
+          <div class="calc-seo-teaser-form-inputs">
+            <InputSt
+              type="FLOAT"
+              unit="€"
+              :placeholder="$t('calcSEO.teaser.inputs.kaufpreisLabel')"
+              :value="calcStore.kaufpreis"
+              :mutation="(val) => { calcStore.kaufpreis = val }"
+            />
+            <InputSt
+              type="FLOAT"
+              unit="€"
+              :placeholder="$t('calcSEO.teaser.inputs.mieteinnahmenPaLabel')"
+              :value="calcStore.mieteinnahmenPa"
+              :mutation="(val) => { calcStore.mieteinnahmenPa = val }"
+            />
+            <InputSt
+              type="FLOAT"
+              unit="€"
+              :placeholder="$t('calcSEO.teaser.inputs.eigenkapitalLabel')"
+              :value="calcStore.eigenkapital"
+              :mutation="(val) => { calcStore.eigenkapital = val }"
+            />
+          </div>
           <div class="calc-seo-teaser-form-buttons">
             <Button
               active
@@ -111,14 +107,14 @@ const featureBarItems = computed(() => {
               no-scale-hover-effect
               inline-block
               class="calc-seo-teaser-form-buttons-first"
-              @click="startNewCalculation"
+              @enabledClick="startNewCalculation"
             />
             <Button
               v-if="calcStore.propertyCalculations.length"
               :label="$t('calcSEO.teaser.savedButton')"
               no-scale-hover-effect
               inline-block
-              @click="loadSavedCalculation"
+              @enabledClick="loadSavedCalculation"
             />
           </div>
         </div>
@@ -130,46 +126,47 @@ const featureBarItems = computed(() => {
         </div>
       </div>
     </div>
-<!--    <transition name="scale-fade">-->
-<!--      <Popup-->
-<!--        v-if="infoPopup"-->
-<!--        :title="infoPopup.title"-->
-<!--        :description="infoPopup.description"-->
-<!--        @close="$store.commit('calc/HIDE_INFO_POPUP')"-->
-<!--      />-->
-<!--    </transition>-->
-<!--    <FeatureBar :items="featureBarItems" />-->
-<!--    <div class="inner">-->
-<!--      <InnerTemplate-->
-<!--        :headline="cfData.headline"-->
-<!--        :sub-headline="cfData.subHeadline"-->
-<!--        :toc-sections="tocSections"-->
-<!--        :toc-arrow-label="$t('_shared.infoPage.tocArrowLabel')"-->
-<!--        :toc-arrow-x-offset="200"-->
-<!--      >-->
-<!--        <template slot="head">-->
-<!--          <CfArticle :content="cfData.introText" />-->
-<!--          <InfoPageHighlight-->
-<!--            v-if="!!cfData.introHighlight"-->
-<!--            :type="cfData.introHighlight.type"-->
-<!--            :text="cfData.introHighlight.text"-->
-<!--          />-->
-<!--        </template>-->
-<!--        <template slot="sections">-->
-<!--          <div-->
-<!--            v-for="(infoSection, index) in cfData.infoSections"-->
-<!--            :key="index"-->
-<!--            :data-toc="infoSection.id"-->
-<!--          >-->
-<!--            <InfoSection-->
-<!--              :info-section="infoSection"-->
-<!--              :headline="getTocSection(infoSection.id).headline"-->
-<!--            />-->
-<!--          </div>-->
-<!--        </template>-->
-<!--      </InnerTemplate>-->
-<!--      <InvestmentDisclaimer />-->
-<!--    </div>-->
+    <transition name="scale-fade">
+      <Popup
+        v-if="infoPopup"
+        :title="infoPopup.title"
+        :description="infoPopup.description"
+        @close="calcStore.hideInfoPopup()"
+      />
+    </transition>
+    <FeatureBar :items="featureBarItems" />
+    <div class="calc-seo-info-content">
+      <div class="inner">
+        <InnerTemplateLy2
+            :toc-sections="tocSections"
+            :toc-arrow-label="$t('_shared.infoPage.tocArrowLabel')"
+            :toc-arrow-x-offset="200"
+        >
+          <template v-slot:head>
+            <CfArticle :content="cfData.introText" />
+            <InfoPageHighlight
+                v-if="!!cfData.introHighlight"
+                :type="cfData.introHighlight.type"
+                :text="cfData.introHighlight.text"
+            />
+          </template>
+          <template v-slot:sections>
+            <div
+                v-for="(infoSection, index) in cfData.infoSections"
+                :key="index"
+                :data-toc="infoSection.id"
+                class="inner-template-ly2-sections-item"
+            >
+              <InfoSection
+                  :info-section="infoSection"
+                  :headline="getTocSection(infoSection.id).headline"
+              />
+            </div>
+          </template>
+        </InnerTemplateLy2>
+      </div>
+    </div>
+    <InvestmentDisclaimer />
   </div>
 </template>
 
@@ -239,6 +236,10 @@ const featureBarItems = computed(() => {
         color: #8E8E8E;
       }
     }
+  }
+
+  .calc-seo-info-content {
+    margin: 60px 0;
   }
 }
 </style>

@@ -32,7 +32,7 @@ const sendCTAClickEventIfApplicable = () => {
           :label="props.label"
           inline-block
           active
-          @click="sendCTAClickEventIfApplicable"
+          @enabledClick="sendCTAClickEventIfApplicable"
       />
     </CustomNuxtLink>
     <div v-if="props.withSearchInput" class="info-page-button-search">

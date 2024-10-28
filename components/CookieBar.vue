@@ -2,7 +2,7 @@
   <div class="cookiebar" :class="{ active }">
     <!-- eslint-disable-next-line vue/no-v-html -->
     <p class="cookiebar-text" v-html="$t('_shared.cookieBar')"></p>
-    <Button label="Verstanden" active @click="close" />
+    <Button label="Verstanden" active @enabledClick="close" />
   </div>
 </template>
 

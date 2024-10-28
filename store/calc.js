@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {CALC_CONFIG} from "~/components/Calc/config.js";
+import {CALC_CONFIG, ITEM_TYPES} from "~/components/Calc/config.js";
 
 const DEFAULT_INPUTS = {
     kaufpreis: 100000,
@@ -126,32 +126,32 @@ export const useCalcStore = defineStore('calc', {
                 )
         },
         submissionData ({
-                            kaufpreis,
-                            wertgutachten,
-                            renovierung,
-                            umbau,
-                            bundesland,
-                            grunderwerbssteuer,
-                            notar,
-                            maklerprovision,
-                            verwaltungskostenProEinheit,
-                            instandhaltungskosten,
-                            indexierungBewirtschaftungskosten,
-                            indexierungMieteinnahmen,
-                            mietausfallwagnis,
-                            eigenkapital,
-                            kfwFoerderung,
-                            zinssatzNominal,
-                            anfaenglicheTilgung,
-                            jaehrlicheSondertilgung,
-                            grundstuecksgroesse,
-                            bodenrichtwertProM2,
-                            abschreibungssatz,
-                            persoenlicherSteuersatz,
-                            wohnungen,
-                            stellplaetze,
-                            extraKosten
-                        }) {
+            kaufpreis,
+            wertgutachten,
+            renovierung,
+            umbau,
+            bundesland,
+            grunderwerbssteuer,
+            notar,
+            maklerprovision,
+            verwaltungskostenProEinheit,
+            instandhaltungskosten,
+            indexierungBewirtschaftungskosten,
+            indexierungMieteinnahmen,
+            mietausfallwagnis,
+            eigenkapital,
+            kfwFoerderung,
+            zinssatzNominal,
+            anfaenglicheTilgung,
+            jaehrlicheSondertilgung,
+            grundstuecksgroesse,
+            bodenrichtwertProM2,
+            abschreibungssatz,
+            persoenlicherSteuersatz,
+            wohnungen,
+            stellplaetze,
+            extraKosten
+        }) {
             return {
                 kaufpreis,
                 wertgutachten,
@@ -189,7 +189,7 @@ export const useCalcStore = defineStore('calc', {
         },
         async submitTransient (calc) {
             this.calculationPending = true
-            const transientPropertyCalculation = await calc.submitTransient(submissionData)
+            const transientPropertyCalculation = await calc.submitTransient(this.submissionData)
             this.transientOutput = transientPropertyCalculation.cachedResult
             this.calculationPending = false
             this.freshCalculationCancelPropertyCalculation = null
@@ -216,10 +216,10 @@ export const useCalcStore = defineStore('calc', {
             this.calculationPending = true
             let propertyCalculation
             if (overwriteId) {
-                propertyCalculation = await calc.overwriteSaved(overwriteId, submissionData, label)
+                propertyCalculation = await calc.overwriteSaved(overwriteId, this.submissionData, label)
                 this.updatePropertyCalculation(propertyCalculation)
             } else {
-                propertyCalculation = await calc.saveNew(submissionData, label)
+                propertyCalculation = await calc.saveNew(this.submissionData, label)
                 this.addPropertyCalculation(propertyCalculation)
             }
             this.setActivePropertyCalculation(propertyCalculation)
@@ -344,7 +344,7 @@ export const useCalcStore = defineStore('calc', {
                 this[`${storeKeyPrefix}__form__active`] = false
             }
         },
-        showErrorsGlobally() {
+        setShowErrorsGlobally() {
             this.showErrorsGlobally = true
         },
     }

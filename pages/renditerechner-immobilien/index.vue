@@ -20,6 +20,8 @@ await useAsyncData(async () => {
   return true
 })
 
+const config = useRuntimeConfig()
+
 useHead({
   title: 'Renditerechner Immobilien - kostenlos & online',
   meta: [
@@ -31,5 +33,7 @@ useHead({
 </script>
 
 <template>
-  <CalcSEO />
+  <Layout>
+    <CalcSEO />
+  </Layout>
 </template>
