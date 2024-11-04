@@ -124,14 +124,14 @@ const disabledSubmitClick = () => {
               @enabledClick="calcStore.submitTransient(calc)"
               @disabledClick="disabledSubmitClick"
             />
-<!--            <CalcSaveInputs-->
-<!--              @disabledSubmitClick="disabledSubmitClick"-->
-<!--            />-->
+            <CalcSaveInputs
+              @disabledSubmitClick="disabledSubmitClick"
+            />
           </div>
         </div>
       </div>
       <div id="calc-outputs" class="calc-outputs">
-<!--        <CalcOutput v-if="outputsVisible" />-->
+        <CalcOutput v-if="outputsVisible" />
         <InvestmentDisclaimer />
       </div>
     </div>

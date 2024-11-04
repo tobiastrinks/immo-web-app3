@@ -65,10 +65,10 @@ const errorText = computed(() => {
       :show-error="props.toggleErrors && !!errorText"
       :data-calc-error="errorText"
     />
-<!--    <CalcSavedCalculations-->
-<!--      v-else-if="props.item.type === ITEM_TYPES.SAVED_CALCULATIONS"-->
-<!--      :config="props.item"-->
-<!--    />-->
+    <CalcSavedCalculations
+      v-else-if="props.item.type === ITEM_TYPES.SAVED_CALCULATIONS"
+      :config="props.item"
+    />
   </div>
 </template>
 
