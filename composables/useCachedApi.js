@@ -1,7 +1,16 @@
 export default function () {
     const config =  useRuntimeConfig()
+    const nuxtApp = useNuxtApp()
+
+    let baseURL
+    if (nuxtApp.ssrContext) {
+        baseURL = config.public.apiUrlCachedSSR
+    } else {
+        baseURL = config.public.apiUrlCached
+    }
+
     const cachedApiFetch = $fetch.create({
-        baseURL: config.public.apiUrlCached
+        baseURL
     })
     return {
         async request(url, location, body) {

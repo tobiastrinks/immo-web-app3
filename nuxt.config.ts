@@ -2,6 +2,7 @@ const {
   CANONICAL_HOSTNAME,
   API_URL,
   API_URL_CACHED,
+  API_URL_CACHED_SSR,
   API_URL_PLATFORM,
   GTM_ENABLED,
   BLOCK_SEO_INDEXING
@@ -42,6 +43,7 @@ export default defineNuxtConfig({
       canonicalHostname: CANONICAL_HOSTNAME,
       apiUrl: API_URL,
       apiUrlCached: API_URL_CACHED,
+      apiUrlCachedSSR: API_URL_CACHED_SSR || API_URL_CACHED,
       apiUrlPlatform: API_URL_PLATFORM,
       blockSEOIndexing: BLOCK_SEO_INDEXING,
       gtmEnabled: GTM_ENABLED
