@@ -130,7 +130,7 @@ const hideForm = () => {
           small
           no-scale-hover-effect
           @disabledClick="disabledSubmitClick"
-          @click="submitClick"
+          @enabledClick="submitClick"
         />
         <p v-if="isEdit" class="calc-editable-list-form-button-delete" @click="deleteClick">
           {{ props.config.formButton.editDelete }}

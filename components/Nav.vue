@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
       <div v-if="false" class="nav-note">
         <div class="nav-inner">
           <p class="nav-note-text">
-            <img src="../../../assets/img/_shared/info-icon-orange.svg" />
+            <img src="~/assets/img/_shared/info-icon-orange.svg" />
             <span></span>
           </p>
         </div>

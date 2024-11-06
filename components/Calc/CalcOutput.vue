@@ -64,7 +64,7 @@ watch(() => output.value, () => {
           small
           :disabled="!activePropertyCalculationWasChanged && !!activePropertyCalculation"
           class="calc-output-head-save-button"
-          @click="calcStore.openSaveInputsPopup"
+          @enabledClick="calcStore.openSaveInputsPopup"
           @disabledClick="showSaveConfirmation"
         />
         <Button
@@ -72,7 +72,7 @@ watch(() => output.value, () => {
           no-scale-hover-effect
           active-border
           small
-          @click="calcStore.startFreshCalculation"
+          @enabledClick="calcStore.startFreshCalculation"
         />
       </div>
     </div>

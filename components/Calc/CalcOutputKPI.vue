@@ -4,11 +4,8 @@ import {useCalcStore} from "~/store/calc.js";
 const calcStore = useCalcStore()
 const i18n = useI18n()
 
-const output = (() => {
-  return calcStore.activeOutput
-})
 const kpis = computed(() => {
-  return output.value?.kpis
+  return calcStore.activeOutput?.kpis
 })
 
 const getFormattedValue = (kpi) => {

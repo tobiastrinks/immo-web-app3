@@ -4,6 +4,7 @@ import {useCalcStore} from "~/store/calc.js";
 const calc = useCalc()
 const calcStore = useCalcStore()
 const nuxtApp = useNuxtApp()
+const i18n = useI18n()
 const router = useRouter()
 const route = useRoute()
 
@@ -38,19 +39,13 @@ const overwriteIdOptions = computed(() => {
 const isOverwrite = computed(() => {
   return calcStore.saveInputsOverwriteId !== 'NEW'
 })
-const outputsVisible = computed(() => {
-  return !!calcStore.activeOutput
-})
 
 const throwErrors = () => {
   showErrors.value = true
   nuxtApp.$toast.error(i18n.t(inputErrorLabelKey.value))
 }
-const openSavePopup = () => {
-  calcStore.openSaveInputsPopup()
-}
 const close = () => {
-  calcStore.showSaveInputsPopup = true
+  calcStore.showSaveInputsPopup = false
 }
 const submit = async () => {
   await calcStore.submitAndSave(calc, {
@@ -62,7 +57,7 @@ const submit = async () => {
         : calcStore.saveInputsLabel
   })
   close()
-  nuxtApp.$toast.success(nuxtApp.t('calc.saveConfirmation'))
+  nuxtApp.$toast.success(i18n.t('calc.saveConfirmation'))
   router.push({
     path: route.path,
     query: { loadsaved: '1' }
@@ -101,20 +96,11 @@ const submit = async () => {
             no-scale-hover-effect
             :pending="calcStore.calculationPending"
             :disabled="!!inputErrorLabelKey"
-            @click="submit"
+            @enabledClick="submit"
             @disabledClick="throwErrors"
         />
       </Popup>
     </transition>
-    <div class="calc-save-inputs-entry-section" :class="{ outputsVisible }">
-      <Button
-          :label="$t('calc.saveInputs.savePopup.submit')"
-          no-scale-hover-effect
-          :disabled="calcStore.errorItems.length > 0 || calcStore.calculationPending"
-          @click="openSavePopup"
-          @disabledClick="$emit('disabledSubmitClick')"
-      />
-    </div>
   </div>
 </template>
 
@@ -133,13 +119,6 @@ const submit = async () => {
   .calc-save-inputs-button {
     width: 100%;
     margin-top: 15px;
-  }
-
-  .calc-save-inputs-entry-section {
-
-    @media #{$lg} {
-      display: none;
-    }
   }
 }
 </style>

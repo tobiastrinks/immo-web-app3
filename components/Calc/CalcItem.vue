@@ -27,6 +27,31 @@ const errorText = computed(() => {
       )
   return hasRelatedErrorItem ? props.item.validationError : null
 })
+
+const mutateCalcStore = (storeKey, val) => {
+  calcStore[storeKey] = val
+
+  if (storeKey === 'bundesland') {
+    calcStore.grunderwerbssteuer = ({
+      badenWuerttemberg: 0.05,
+      bayern: 0.035,
+      berlin: 0.06,
+      brandenburg: 0.065,
+      bremen: 0.05,
+      hamburg: 0.045,
+      hessen: 0.06,
+      mecklenburgVorpommern: 0.06,
+      niedersachsen: 0.05,
+      nordrheinWestfalen: 0.065,
+      rheinlandPfalz: 0.05,
+      saarland: 0.065,
+      sachsen: 0.035,
+      sachsenAnhalt: 0.05,
+      schleswigHolstein: 0.065,
+      thueringen: 0.065
+    })[val]
+  }
+}
 </script>
 
 <template>
@@ -40,7 +65,7 @@ const errorText = computed(() => {
       :unit="props.item.unit"
       :placeholder="props.item.placeholder"
       :value="calcStore[props.item.storeKey]"
-      :mutation="(val) => { calcStore[props.item.storeKey] = val }"
+      :mutation="(val) => { mutateCalcStore(props.item.storeKey, val) }"
       :is-required="props.item.required"
       :validator="props.item.validator"
       :info="info"
@@ -52,7 +77,7 @@ const errorText = computed(() => {
       v-else-if="props.item.type === ITEM_TYPES.DROPDOWN"
       :placeholder="props.item.placeholder"
       :value="calcStore[props.item.storeKey]"
-      :mutation="(val) => { calcStore[props.item.storeKey] = val }"
+      :mutation="(val) => { mutateCalcStore(props.item.storeKey, val) }"
       :options="props.item.options"
       :validator="props.item.validator"
       :info="info"

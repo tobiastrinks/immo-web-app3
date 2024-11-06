@@ -3,6 +3,7 @@ import { offsetTop } from 'assets/js/scrollUtils'
 import { CALC_CONFIG } from './config'
 import {useCalcStore} from "~/store/calc.js";
 import useCalc from "~/composables/useCalc.js";
+import CalcSavedCalculationsPopup from "~/components/Calc/CalcSavedCalculationsPopup.vue";
 
 const calcStore = useCalcStore()
 const nuxtApp = useNuxtApp()
@@ -55,6 +56,9 @@ const disabledSubmitClick = () => {
     nuxtApp.$toast.error(firstErrorItem.getAttribute('data-calc-error'))
   }
 }
+const openSavePopup = () => {
+  calcStore.openSaveInputsPopup()
+}
 </script>
 
 <template>
@@ -73,6 +77,8 @@ const disabledSubmitClick = () => {
         @close="calcStore.hideInfoPopup()"
       />
     </transition>
+    <CalcSaveInputsPopup />
+    <CalcSavedCalculationsPopup />
     <div class="calc-inner">
       <div class="calc-inputs">
         <div class="calc-inputs-fresh-cancel">
@@ -124,9 +130,15 @@ const disabledSubmitClick = () => {
               @enabledClick="calcStore.submitTransient(calc)"
               @disabledClick="disabledSubmitClick"
             />
-            <CalcSaveInputs
-              @disabledSubmitClick="disabledSubmitClick"
-            />
+            <div class="calc-save-inputs-entry-section" :class="{ outputsVisible }">
+              <Button
+                  :label="$t('calc.saveInputs.savePopup.submit')"
+                  no-scale-hover-effect
+                  :disabled="calcStore.errorItems.length > 0 || calcStore.calculationPending"
+                  @enabledClick="openSavePopup"
+                  @disabledClick="disabledSubmitClick"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -231,6 +243,13 @@ const disabledSubmitClick = () => {
           overflow: hidden;
         }
       }
+    }
+  }
+
+  .calc-save-inputs-entry-section {
+
+    @media #{$lg} {
+      display: none;
     }
   }
 }

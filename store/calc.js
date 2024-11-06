@@ -72,6 +72,7 @@ const DEFAULT_STATE = {
 
     showSaveInputsPopup: false,
     editSavedCalculationLabel: '',
+    editSavedCalculationId: null,
 
     transientOutput: null,
 

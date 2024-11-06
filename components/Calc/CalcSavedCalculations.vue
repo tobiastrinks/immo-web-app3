@@ -14,29 +14,10 @@ const i18n = useI18n()
 const calc = useCalc()
 const calcStore = useCalcStore()
 
-const editSavedCalculationId = ref(null)
-const showErrors = ref(false)
-
 const isPremium = true // TODO
 
 const propertyCalculations = computed(() => {
   return calcStore.propertyCalculations
-})
-const inputErrorLabelKey = computed(() => {
-  const { editSavedCalculationLabel, propertyCalculations } = calcStore
-
-  if (!editSavedCalculationLabel) {
-    return 'calc.editSavedCalculationLabel.labelCannotBeEmptyError'
-  } else if (
-      propertyCalculations
-          .filter(p => p._id !== editSavedCalculationId.value)
-          .map(p => p.label)
-          .includes(editSavedCalculationLabel)
-  ) {
-    return 'calc.editSavedCalculationLabel.labelAlreadyInUseError'
-  } else {
-    return null
-  }
 })
 const activePropertyCalculation = computed(() => {
   return calcStore.activePropertyCalculation
@@ -55,23 +36,8 @@ const select = (propertyCalculation) => {
   calcStore.setActivePropertyCalculation(propertyCalculation)
 }
 const edit = (propertyCalculation) => {
-  calcStore.editSavedCalculationLabel(propertyCalculation.label)
-  editSavedCalculationId.value = propertyCalculation._id
-}
-const throwErrors = () => {
-  showErrors.value = true
-  nuxtApp.$toast.error(i18n.t(inputErrorLabelKey.value))
-}
-const submit = async () => {
-  await calcStore.submitAndSave(calc, {
-    overwriteId: editSavedCalculationId.value,
-    label: calcStore.editSavedCalculationLabel
-  })
-  editSavedCalculationId.value = null
-}
-const deleteClick = async () => {
-  await calcStore.deletePropertyCalculation(calc, { id: editSavedCalculationId.value })
-  editSavedCalculationId.value = null
+  calcStore.editSavedCalculationLabel = propertyCalculation.label
+  calcStore.editSavedCalculationId = propertyCalculation._id
 }
 const showSaveConfirmation = () => {
   nuxtApp.$toast.success(i18n.t('calc.saveConfirmation'))
@@ -129,7 +95,7 @@ const showSaveConfirmation = () => {
       active
       small
       :disabled="!activePropertyCalculationWasChanged && !!activePropertyCalculation"
-      @click="calcStore.openSaveInputsPopup"
+      @enabledClick="calcStore.openSaveInputsPopup"
       @disabledClick="showSaveConfirmation"
     />
     <Button
@@ -138,37 +104,8 @@ const showSaveConfirmation = () => {
       active-border
       inline-block
       small
-      @click="calcStore.startFreshCalculation"
+      @enabledClick="calcStore.startFreshCalculation"
     />
-    <transition name="scale-fade">
-      <Popup
-        v-if="editSavedCalculationId"
-        :title="$t('calc.saveInputs.editPopup.title')"
-        @close="editSavedCalculationId = null"
-      >
-        <InputSt
-          class="calc-saved-calculations-edit-label-input"
-          mutation="calc/SET_EDIT_SAVED_CALCULATION_LABEL"
-          :value="calcStore.editSavedCalculationLabel"
-          :toggle-errors="showErrors && !!inputErrorLabelKey"
-          :placeholder="$t('calc.saveInputs.editPopup.label')"
-        />
-        <Button
-          class="calc-saved-calculations-edit-label-submit"
-          :label="$t('calc.saveInputs.editPopup.save')"
-          active
-          small
-          :pending="calcStore.calculationPending || calcStore.deletePending"
-          :disabled="!!inputErrorLabelKey"
-          no-scale-hover-effect
-          @click="submit"
-          @disabledClick="throwErrors"
-        />
-        <p class="calc-saved-calculations-edit-delete-button" @click="deleteClick">
-          {{ $t('calc.saveInputs.editPopup.delete') }}
-        </p>
-      </Popup>
-    </transition>
   </div>
 </template>
 
@@ -212,6 +149,7 @@ const showSaveConfirmation = () => {
 
   .calc-saved-calculations-save-button {
     margin-bottom: 5px;
+    margin-right: 5px;
   }
 
   .calc-saved-calculations-empty {
