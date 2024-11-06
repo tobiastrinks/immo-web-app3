@@ -1,0 +1,46 @@
+version: 2.1
+jobs:
+  build-and-push:
+    parameters:
+      environment:
+        type: env_var_name
+    working_directory: ~/repo
+    docker:
+      - image: cimg/node:20.14.0
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: docker build -t 471252169754.dkr.ecr.eu-central-1.amazonaws.com/immo-web-app3:$CIRCLE_SHA1 -t 471252169754.dkr.ecr.eu-central-1.amazonaws.com/immo-web-app3:latest .
+      - run:
+          name: authenticate docker
+          command: |
+            sudo curl https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.3.1/linux-amd64/docker-credential-ecr-login --output /usr/local/bin/docker-credential-ecr-login
+            sudo chmod +x /usr/local/bin/docker-credential-ecr-login
+            mkdir -p ~/.docker && echo '{ "credsStore": "ecr-login" }' > ~/.docker/config.json
+      - run: |
+          docker push 471252169754.dkr.ecr.eu-central-1.amazonaws.com/immo-web-app3:$CIRCLE_SHA1
+          if [ "<< parameters.environment >>" = "PROD" ]; then
+            docker push 471252169754.dkr.ecr.eu-central-1.amazonaws.com/immo-web-app3:latest
+          fi
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build-and-push:
+          name: build-and-push-staging
+          environment: STAGING
+          context: immo-scraper
+          filters:
+            branches:
+              ignore:
+                - main
+
+      - build-and-push:
+          name: build-and-push-prod
+          environment: PROD
+          context: immo-scraper
+          filters:
+            branches:
+              only:
+                - main
