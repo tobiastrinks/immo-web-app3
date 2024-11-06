@@ -1,10 +1,11 @@
 FROM node:20.14.0
 WORKDIR /usr/src/app
 
-COPY package.json package.json
-COPY package-lock.json package-lock.json
+RUN npm install -g pnpm
 
-RUN npm install
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
