@@ -12,6 +12,8 @@ export const PATHS = {
   GEMEINDE: ({ stateIdName, kreisIdName }, gemeindeIdName) => `/deutschland/${stateIdName}/${kreisIdName}/${gemeindeIdName}`,
   BODENRICHTWERT: '/bodenrichtwerte',
   PROPERTY_VALUE: '/grundstueckswert-ermitteln',
+  PROPERTY_VALUE_REQUEST: '/bewertungsergebnis',
+  PROPERTY_VALUE_RESULT: id => `/bewertungsergebnis/${id}`,
   PROPERTY_SELL: '/grundstueck-verkaufen',
   PRIVACY: '/datenschutz',
   IMPRINT: '/impressum',
@@ -92,7 +94,7 @@ export const CHART_UNITS = {
 export const CF_CONTENT_TYPES = {
   CHART: 'trendChart',
   INFO_PAGE: 'infoPage',
-  INFO_ARTICLE: 'infoArticle',
+  INFO_TEXT: 'infoArticle', // apiName is still infoArticle (legacy)
   INFO_DROPDOWN: 'infoDropdown',
   INFO_TABLE: 'infoTable',
   INFO_BUTTON: 'infoButton',
@@ -106,7 +108,8 @@ export const CF_CONTENT_TYPES = {
   LOCATION_FAKTOREN: 'locationFaktoren',
   LOCATION_FAQ: 'locationFaq',
   LOCATION_TREND_ARTICLE: 'trendArticle',
-  HOME_FAQ: 'homeFaq'
+  HOME_FAQ: 'homeFaq',
+  PROPERTY_VALUE_RESULT_PAGE: 'propertyValueResultPage'
 }
 
 export const META_TITLE_MONTHS = [

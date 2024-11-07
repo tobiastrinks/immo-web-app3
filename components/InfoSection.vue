@@ -22,7 +22,7 @@ const props = defineProps({
       :key="index2"
     >
       <CfArticle
-        v-if="item.cfContentType === CF_CONTENT_TYPES.INFO_ARTICLE"
+        v-if="item.cfContentType === CF_CONTENT_TYPES.INFO_TEXT"
         :content="item.text"
       />
       <InfoPageTable

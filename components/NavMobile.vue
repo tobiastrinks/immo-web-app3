@@ -1,11 +1,16 @@
 <template>
-  <div class="nav-mobile" :class="{ active, isCalc }">
-    <div class="nav-mobile-head" :class="{ minified: headMinified && !active }">
+  <div class="nav-mobile" :class="{ active, isCalc, isMinimalNav }">
+    <div class="nav-mobile-head" :class="{ minified: headMinified && !active && !isMinimalNav }">
       <CustomNuxtLink to="/">
         <nuxt-img src="/img/logo-small.png" format="webp" />
       </CustomNuxtLink>
       <SearchInput class="nav-mobile-head-search" full-width-results />
-      <div class="nav-mobile-head-hamburger" :class="{ active }" @click="active = !active">
+      <div
+          v-if="!isMinimalNav"
+          class="nav-mobile-head-hamburger"
+          :class="{ active }"
+          @click="active = !active"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -43,7 +48,7 @@
     <div
       v-if="!isCalc"
       class="nav-mobile-sticky-cta"
-      :class="{ minified: ctaMinified && !active, navOpened: active }"
+      :class="{ minified: (ctaMinified && !active) || isMinimalNav, navOpened: active }"
     >
       <CustomNuxtLink :to="PATHS.PROPERTY_VALUE">
         <Button
@@ -98,6 +103,9 @@ export default defineNuxtComponent({
     },
     isCalc () {
       return this.$route.path === PATHS.CALC
+    },
+    isMinimalNav () {
+      return this.$route.path.includes(PATHS.PROPERTY_VALUE_REQUEST)
     }
   },
   watch: {
@@ -350,6 +358,12 @@ export default defineNuxtComponent({
   }
 
   &.isCalc {
+    .nav-mobile-head-search {
+      display: none;
+    }
+  }
+
+  &.isMinimalNav {
     .nav-mobile-head-search {
       display: none;
     }

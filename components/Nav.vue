@@ -78,6 +78,9 @@ const locationPath = computed(() => {
       ]
   }
 })
+const isMinimalNav = computed(() => {
+  return route.path.includes(PATHS.PROPERTY_VALUE_REQUEST)
+})
 
 const handleMinifyNav = () => {
   const currentScrollPos = window.pageYOffset
@@ -142,7 +145,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="nav" :class="{ isCalc: route.path === PATHS.CALC }">
+  <div class="nav" :class="{ isCalc: route.path === PATHS.CALC, isMinimalNav }">
     <div class="nav-fixed">
       <div v-if="false" class="nav-note">
         <div class="nav-inner">
@@ -431,6 +434,24 @@ onBeforeUnmount(() => {
           display: block;
         }
       }
+    }
+  }
+
+  &.isMinimalNav {
+    height: auto !important;
+
+    .nav-note,
+    .nav-inner.top .button,
+    .nav-top-cta,
+    .nav-inner.top .nav-top-search,
+    .nav-inner.bottom,
+    .nav-inner.location,
+    .nav-line:not(.thin) {
+      display: none;
+    }
+
+    .nav-inner.top {
+      padding: 10px 0;
     }
   }
 }

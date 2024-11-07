@@ -13,9 +13,10 @@ export function getPathForLocationIdNames ({ gemeindeIdName, kreisIdName, stateI
   }
 }
 
+// TODO: sitemap
 export async function fetchLocationList (apiBaseUrl) {
   const apiFetch = useApiFetch()
-  const locationTree = apiFetch.request('/location/tree')
+  const locationTree = apiFetch('/location/tree')
   const locationGermany = {}
   const locationList = [locationGermany]
   locationTree.stateList.forEach((state) => {

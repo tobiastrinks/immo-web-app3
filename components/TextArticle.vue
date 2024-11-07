@@ -1,13 +1,13 @@
 <template>
   <div class="text-article" :class="{ smallMargin, greyBoxSmall, ly2 }">
-    <h3 v-if="headline" class="text-article-headline">
+    <h3 v-if="headline" class="text-article-headline" :class="{ smallInnerMargin }">
       {{ headline }}
     </h3>
     <div
       v-for="(paragraph, index) in paragraphs"
       :key="index"
       class="text-article-paragraph"
-      :class="{ smallMargin }"
+      :class="{ smallMargin, smallInnerMargin }"
     >
       <!-- eslint-disable-next-line vue/no-v-html -->
       <p v-if="useRawHtml" v-html="paragraph"></p>
@@ -37,6 +37,10 @@ export default {
       default: false
     },
     smallMargin: {
+      type: Boolean,
+      default: false
+    },
+    smallInnerMargin: {
       type: Boolean,
       default: false
     },
@@ -75,13 +79,17 @@ export default {
     font-weight: 500;
     font-size: 113%;
     margin-bottom: 25px;
+
+    &.smallInnerMargin {
+      margin-bottom: 5px;
+    }
   }
 
   .text-article-paragraph {
     margin: 20px 0;
     text-align: justify;
 
-    &.smallMargin {
+    &.smallMargin, &.smallInnerMargin {
       margin: 10px 0;
     }
 
