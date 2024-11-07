@@ -2,8 +2,9 @@
 import {useCfStore} from "~/store/cf.js";
 import {getCanonical} from "assets/js/seoUtils.js";
 
+const nuxtApp = useNuxtApp()
 const cfStore = useCfStore()
-await useAsyncData(() => cfStore.fetchHomeFaq().then(() => true))
+await useAsyncData(() => cfStore.fetchHomeFaq(nuxtApp.$cfClient).then(() => true))
 
 const config = useRuntimeConfig()
 

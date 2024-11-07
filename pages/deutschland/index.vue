@@ -7,6 +7,7 @@ import {useOverviewStatsStore} from "~/store/overviewStats.js";
 import {useLocationStore} from "~/store/location.js";
 import { useRoute as useNativeRoute } from 'vue-router'
 
+const nuxtApp = useNuxtApp()
 const overviewStatsStore = useOverviewStatsStore()
 const locationStore = useLocationStore()
 const cfStore = useCfStore()
@@ -32,8 +33,8 @@ await useAsyncData(async () => {
     overviewStatsStore.loadOverviewStats(cachedApi, { location: {}, xFeature: X_FEATURES.CHILD_LOCATION, yValue: Y_VALUES.PRICE_PER_SQM }),
     overviewStatsStore.loadOverviewStats(cachedApi, { location: {}, xFeature: X_FEATURES.CHILD_LOCATION, yValue: Y_VALUES.MARKETING_PERIOD }),
     overviewStatsStore.loadOverviewStats(cachedApi, { location: {}, xFeature: X_FEATURES.CHILD_LOCATION, yValue: Y_VALUES.PROPERTY_COUNT }),
-    cfStore.fetchLocationBodenrichtwert({}),
-    cfStore.fetchLocationTrend({})
+    cfStore.fetchLocationBodenrichtwert(nuxtApp.$cfClient, {}),
+    cfStore.fetchLocationTrend(nuxtApp.$cfClient, {})
   ])
   let defaultXFeature = 'YEARS'
   if (showLayoutV2(path)) {

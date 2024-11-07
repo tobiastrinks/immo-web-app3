@@ -6,6 +6,7 @@ import {useCfStore} from "~/store/cf.js";
 import useCalc from "~/composables/useCalc.js";
 import {useRoute as useNativeRoute} from "#vue-router";
 
+const nuxtApp = useNuxtApp()
 const calcStore = useCalcStore()
 const cfStore = useCfStore()
 const calc = useCalc()
@@ -15,7 +16,7 @@ await useAsyncData(async () => {
   await Promise.all([
     calcStore.loadFieldNotes(calc),
     calcStore.loadMyPropertyCalculations(calc),
-    cfStore.fetchCalcPage()
+    cfStore.fetchCalcPage(nuxtApp.$cfClient)
   ])
   return true
 })

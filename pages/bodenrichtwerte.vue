@@ -5,8 +5,9 @@ import { useRoute as useNativeRoute } from 'vue-router'
 
 const cfStore = useCfStore()
 const route = useNativeRoute()
+const nuxtApp = useNuxtApp()
 
-await useAsyncData(() => cfStore.fetchInfoPage(route.path).then(() => true))
+await useAsyncData(() => cfStore.fetchInfoPage(nuxtApp.$cfClient, route.path).then(() => true))
 
 const config = useRuntimeConfig()
 

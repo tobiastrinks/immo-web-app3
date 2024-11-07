@@ -8,6 +8,7 @@ import {useCfStore} from "~/store/cf.js";
 import {useOverviewStatsStore} from "~/store/overviewStats.js";
 import {useRoute as useNativeRoute} from "#vue-router";
 
+const nuxtApp = useNuxtApp()
 const overviewStatsStore = useOverviewStatsStore()
 const locationStore = useLocationStore()
 const cfStore = useCfStore()
@@ -31,9 +32,9 @@ const { error } = await useAsyncData(async () => {
     overviewStatsStore.loadOverviewStats(cachedApi, { location, xFeature: X_FEATURES.PLOT_SIZE, yValue: Y_VALUES.MARKETING_PERIOD }),
     overviewStatsStore.loadOverviewStats(cachedApi, { location, xFeature: X_FEATURES.DEVELOPMENT_STATUS, yValue: Y_VALUES.PRICE_PER_SQM }),
     overviewStatsStore.loadOverviewStats(cachedApi, { location, xFeature: X_FEATURES.BUILDING_PERMISSION, yValue: Y_VALUES.PRICE_PER_SQM }),
-    cfStore.fetchLocationBodenrichtwert(location),
-    cfStore.fetchLocationBodenrichtwert({ ...location, mini: true }),
-    cfStore.fetchLocationTrend(location),
+    cfStore.fetchLocationBodenrichtwert(nuxtApp.$cfClient, location),
+    cfStore.fetchLocationBodenrichtwert(nuxtApp.$cfClient, { ...location, mini: true }),
+    cfStore.fetchLocationTrend(nuxtApp.$cfClient, location),
     locationStore.getMarketReport(cachedApi, location)
   ])
 

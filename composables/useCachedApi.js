@@ -4,7 +4,7 @@ export default function () {
 
     let baseURL
     if (nuxtApp.ssrContext) {
-        baseURL = config.public.apiUrlCachedSSR
+        baseURL = config.public.apiUrlCachedSSR || config.public.apiUrlCached
     } else {
         baseURL = config.public.apiUrlCached
     }

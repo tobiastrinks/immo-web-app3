@@ -1,14 +1,6 @@
 import { defineStore } from 'pinia'
-import * as contentful from 'contentful'
 import {CF_CONTENT_TYPES, PATHS} from "assets/js/constants.js";
 import {deepFetchCfObject} from "assets/js/cfUtils.js";
-
-const cfClient = contentful.createClient({
-    space: 'l85a45bd5kqp',
-    accessToken: 'P6OqBX4ptWactmkfViX5opXEgc_VvNtoMQ_U9r4Bo8I' // prod
-    // accessToken: 'a0XQuYAz4JXad1lbWKZ8Z9frgJ0Su8nZebMBf12EDFA', // preview
-    // basePath: 'https://preview.contentful.com'
-})
 
 export const useCfStore = defineStore('cf', {
     state: () => ({
@@ -32,7 +24,7 @@ export const useCfStore = defineStore('cf', {
             this.locationBodenrichtwert = null
             this.locationBodenrichtwertMini = null
         },
-        async fetchLocationBodenrichtwert ({ stateIdName, kreisIdName, gemeindeIdName, mini }) {
+        async fetchLocationBodenrichtwert (cfClient, { stateIdName, kreisIdName, gemeindeIdName, mini }) {
             const res = await cfClient.getEntries({
                 content_type: CF_CONTENT_TYPES.LOCATION_BODENRICHTWERT,
                 'fields.stateIdName': stateIdName || 'germany',
@@ -54,7 +46,7 @@ export const useCfStore = defineStore('cf', {
                 }
             }
         },
-        async fetchLocationTrend ({ stateIdName, kreisIdName, gemeindeIdName }) {
+        async fetchLocationTrend (cfClient, { stateIdName, kreisIdName, gemeindeIdName }) {
             const res = await deepFetchCfObject(cfClient, {
                 content_type: CF_CONTENT_TYPES.LOCATION_TREND,
                 'fields.stateIdName': stateIdName || 'germany',
@@ -67,7 +59,7 @@ export const useCfStore = defineStore('cf', {
                 this.locationTrend = null
             }
         },
-        async fetchLocationFaktoren () {
+        async fetchLocationFaktoren (cfClient) {
             const res = await deepFetchCfObject(cfClient, {
                 content_type: CF_CONTENT_TYPES.LOCATION_FAKTOREN
             })
@@ -77,7 +69,7 @@ export const useCfStore = defineStore('cf', {
                 this.locationFaktoren = null
             }
         },
-        async fetchLocationFAQ () {
+        async fetchLocationFAQ (cfClient) {
             const res = await deepFetchCfObject(cfClient, {
                 content_type: CF_CONTENT_TYPES.LOCATION_FAQ
             })
@@ -87,7 +79,7 @@ export const useCfStore = defineStore('cf', {
                 this.locationFAQ = null
             }
         },
-        async fetchInfoPage (path) {
+        async fetchInfoPage (cfClient, path) {
             const key = pageKeys(path)
             if (this[key] && key !== 'dynamicInfoPage') {
                 return
@@ -98,7 +90,7 @@ export const useCfStore = defineStore('cf', {
             })
             this[key] = res[0]
         },
-        async fetchLegalPage (path) {
+        async fetchLegalPage (cfClient, path) {
             const key = pageKeys(path)
             if (this[key]) {
                 return
@@ -109,7 +101,7 @@ export const useCfStore = defineStore('cf', {
             })
             this[key] = res.items[0].fields
         },
-        async fetchCalcPage () {
+        async fetchCalcPage (cfClient) {
             if (this.calcSeoPage) {
                 return
             }
@@ -118,7 +110,7 @@ export const useCfStore = defineStore('cf', {
             })
             this.calcSeoPage = res[0]
         },
-        async fetchHomeFaq() {
+        async fetchHomeFaq(cfClient) {
             if (this.homeFaq) {
                 return
             }

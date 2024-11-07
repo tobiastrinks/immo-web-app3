@@ -1,13 +1,3 @@
-const {
-  CANONICAL_HOSTNAME,
-  API_URL,
-  API_URL_CACHED,
-  API_URL_CACHED_SSR,
-  API_URL_PLATFORM,
-  GTM_ENABLED,
-  BLOCK_SEO_INDEXING
-} = process.env
-
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
@@ -40,13 +30,13 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      canonicalHostname: CANONICAL_HOSTNAME,
-      apiUrl: API_URL,
-      apiUrlCached: API_URL_CACHED,
-      apiUrlCachedSSR: API_URL_CACHED_SSR || API_URL_CACHED,
-      apiUrlPlatform: API_URL_PLATFORM,
-      blockSEOIndexing: BLOCK_SEO_INDEXING,
-      gtmEnabled: GTM_ENABLED
+      canonicalHostname: process.env.CANONICAL_HOSTNAME,
+      apiUrl: process.env.API_URL,
+      apiUrlCached: process.env.API_URL_CACHED,
+      apiUrlCachedSSR: process.env.API_URL_CACHED_SSR,
+      apiUrlPlatform: process.env.API_URL_PLATFORM,
+      blockSEOIndexing: process.env.BLOCK_SEO_INDEXING,
+      gtmEnabled: process.env.GTM_ENABLED
     }
   }
 })

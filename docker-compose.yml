@@ -1,0 +1,17 @@
+services:
+
+  web-app3:
+    container_name: web-app3
+    image: immo-web-app3
+    ports:
+      - 3000:3000
+    environment:
+      NUXT_API_URL: https://api-analyzing.aktuelle-grundstueckspreise.de
+      NUXT_API_URL_CACHED: https://api-cached-redis.aktuelle-grundstueckspreise.de
+      NUXT_API_URL_CACHED_SSR: http://redis-api-green:3000 # blue/green switch
+      NUXT_API_URL_PLATFORM: https://api-platform.aktuelle-grundstueckspreise.de
+      NUXT_CANONICAL_HOSTNAME: https://www.aktuelle-grundstueckspreise.de
+      NUXT_BLOCK_SEO_INDEXING: "true"
+      NUXT_GTM_ENABLED: "false"
+    restart: always
+    build: .
