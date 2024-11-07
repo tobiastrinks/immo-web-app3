@@ -30,13 +30,13 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      canonicalHostname: process.env.CANONICAL_HOSTNAME,
-      apiUrl: process.env.API_URL,
-      apiUrlCached: process.env.API_URL_CACHED,
-      apiUrlCachedSSR: process.env.API_URL_CACHED_SSR,
-      apiUrlPlatform: process.env.API_URL_PLATFORM,
-      blockSEOIndexing: process.env.BLOCK_SEO_INDEXING,
-      gtmEnabled: process.env.GTM_ENABLED
+      canonicalHostname: '',
+      apiUrl: '',
+      apiUrlCached: '',
+      apiUrlCachedSsr: '',
+      apiUrlPlatform: '',
+      blockSeoIndexing: 'true',
+      gtmEnabled: 'false'
     }
   }
 })

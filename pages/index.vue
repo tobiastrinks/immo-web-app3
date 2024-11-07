@@ -12,7 +12,7 @@ useHead({
   link: [getCanonical(config.public.canonicalHostname, '/')],
   title: 'Aktuelle Grundstückspreise - Startseite',
   meta: [
-    config.public.blockSEOIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
+    config.public.blockSeoIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
     { hid: 'description', name: 'description', content: 'Die aktuellsten Grundstücksdaten für ganz Deutschland ✓ modernste Technologie ✓ umfangreiche Grundstücksdatenbank ✓ lokale Expertise' }
   ].filter(i => !!i)
 })

@@ -14,6 +14,9 @@ const cfStore = useCfStore()
 const cachedApi = useCachedApi()
 const { path } = useNativeRoute()
 
+const config = useRuntimeConfig()
+console.log('config.public', config.public)
+
 await useAsyncData(async () => {
   cfStore.resetBodenrichtwert()
 
@@ -44,14 +47,13 @@ await useAsyncData(async () => {
   return true
 })
 
-const config = useRuntimeConfig()
 const now = new Date()
 
 useHead({
   link: [getCanonical(config.public.canonicalHostname, path)],
   title: `Aktuelle Grundstückspreise in Deutschland - Stand: ${META_TITLE_MONTHS[now.getMonth()]} ${now.getFullYear()}`,
   meta: [
-    config.public.blockSEOIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
+    config.public.blockSeoIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
     { hid: 'description', name: 'description', content: `Grundstückspreise Deutschland ${new Date().getFullYear()}: Jetzt kostenlos informieren! ✓ aktuelle Marktdaten ✓ interaktive Karte ✓ Quadratmeterpreis & Bodenrichtwert` }
   ].filter(i => !!i)
 })

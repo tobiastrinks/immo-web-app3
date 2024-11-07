@@ -26,7 +26,7 @@ const config = useRuntimeConfig()
 useHead({
   title: 'Renditerechner Immobilien - kostenlos & online',
   meta: [
-    config.public.blockSEOIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
+    config.public.blockSeoIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
     { hid: 'description', name: 'description', content: 'Kostenloser Rechner: Cashflow und Rendite für Ihre Kapitalanlage berechnen ✓ Gewinn- und Verlustrechnung ✓ Cashflow ✓ Mietrendite / IRR' }
   ].filter(i => !!i),
   link: [getCanonical(config.public.canonicalHostname, path)]

@@ -25,7 +25,7 @@ useHead({
   link: [getCanonical(config.public.canonicalHostname, path)],
   title: 'Renditerechner Immobilien',
   meta: [
-    config.public.blockSEOIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : { hid: 'robots', name: 'robots', content: 'noindex, follow' },
+    config.public.blockSeoIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : { hid: 'robots', name: 'robots', content: 'noindex, follow' },
     { hid: 'description', name: 'description', content: 'Berechnen Sie in wenigen Schritte den Cashflow und die Rendite Ihrer Immobilie auf 10 Jahre.' }
   ].filter(i => !!i)
 })

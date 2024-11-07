@@ -15,7 +15,7 @@ useHead({
   link: [getCanonical(config.public.canonicalHostname, route.path)],
   title: cfStore.bodenrichtwertPage.seoMetaTitle,
   meta: [
-    config.public.blockSEOIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
+    config.public.blockSeoIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
     { hid: 'description', name: 'description', content: cfStore.bodenrichtwertPage.seoMetaDescription }
   ].filter(i => !!i)
 })

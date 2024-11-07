@@ -13,7 +13,7 @@ const config = useRuntimeConfig()
 useHead({
   title: 'Aktuelle Grundstückspreise - Datenschutz',
   meta: [
-    config.public.blockSEOIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
+    config.public.blockSeoIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
     { hid: 'robots', name: 'robots', content: 'noindex,follow' }
   ].filter(i => !!i),
   link: [getCanonical(config.public.canonicalHostname, path)]

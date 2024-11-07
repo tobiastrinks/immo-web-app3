@@ -54,7 +54,7 @@ useHead({
   link: [getCanonical(config.public.canonicalHostname, path)],
   title: `Grundstückspreise ${locationName} - Stand: ${META_TITLE_MONTHS[now.getMonth()]} ${now.getFullYear()}`,
   meta: [
-    config.public.blockSEOIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
+    config.public.blockSeoIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
     { hid: 'description', name: 'description', content: `Grundstückspreise ${locationName} ${new Date().getFullYear()}: Jetzt kostenlos informieren! ✓ aktuelle Marktdaten ✓ interaktive Karte ✓ Quadratmeterpreis & Bodenrichtwert` }
   ].filter(i => !!i)
 })
