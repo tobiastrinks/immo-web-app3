@@ -42,7 +42,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="property-value-request">
-    <div class="inner innerLarge">
+    <div class="inner">
       <div class="property-value-request-loading">
         <img src="~/assets/img/_shared/loading.svg" />
         <p>Bitte haben Sie etwas Geduld. Die Berechnung kann bis zu einer Minute dauern...</p>

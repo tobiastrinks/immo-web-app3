@@ -77,11 +77,11 @@ h3 {
 
 .inner {
   width: 90%;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 
-  &.innerLarge {
-    max-width: 1200px;
+  &.innerSmall {
+    max-width: 900px;
   }
 }
 

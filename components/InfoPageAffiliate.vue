@@ -47,6 +47,10 @@ const props = defineProps({
 .info-page-affiliate-wrapper {
   margin-bottom: 60px;
 
+  @media #{$lg} {
+    margin-bottom: 100px;
+  }
+
   .info-page-affiliate {
     text-align: center;
 

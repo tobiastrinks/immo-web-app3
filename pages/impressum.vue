@@ -22,6 +22,19 @@ useHead({
 
 <template>
   <Layout>
-    <LegalPage :cf-data="cfStore.imprintPage" />
+    <div class="imprint">
+      <LegalPage :cf-data="cfStore.imprintPage" />
+    </div>
   </Layout>
 </template>
+
+<style lang="scss">
+.imprint {
+
+  img {
+    width: 100%;
+    max-width: 320px;
+    margin: 10px 0 40px;
+  }
+}
+</style>

@@ -7,7 +7,7 @@ const locationStore = useLocationStore()
 
 <template>
   <div class="gemeinde">
-    <div class="inner innerLarge">
+    <div class="inner">
       <LocationInnerLy2
         :headline="$t('gemeinde.overview.headline', { gemeinde: locationStore.gemeinde.gemeinde.name })"
         :sub-headline="$t('gemeinde.overview.subHeadline', { gemeinde: locationStore.gemeinde.gemeinde.name })"

@@ -62,17 +62,6 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="inner-template-ly2">
-    <div
-        v-if="headline"
-        class="inner-template-ly2-headline"
-    >
-      <Headline
-          :headline="headline"
-          :sub-headline="subHeadline"
-          :level="1"
-          centered
-      />
-    </div>
     <div class="inner-template-ly2-columns" :class="{hideToc}">
       <div v-if="!hideToc" class="inner-template-ly2-toc-sidebar">
         <InnerTemplateToCLy2
@@ -82,6 +71,14 @@ onBeforeUnmount(() => {
         />
       </div>
       <div class="inner-template-ly2-main" :class="{hideToc}">
+        <div v-if="headline">
+          <Headline
+              :headline="headline"
+              :sub-headline="subHeadline"
+              :level="1"
+              centered
+          />
+        </div>
         <div class="inner-template-ly2-head">
           <slot name="head"></slot>
         </div>

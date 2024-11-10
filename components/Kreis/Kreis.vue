@@ -7,7 +7,7 @@ const locationStore = useLocationStore()
 
 <template>
   <div class="kreis">
-    <div class="inner innerLarge">
+    <div class="inner">
       <LocationInnerLy2
         :headline="$t('kreis.overview.headline', { kreis: locationStore.kreis.kreis.name })"
         :sub-headline="$t('kreis.overview.subHeadline', { kreis: locationStore.kreis.kreis.name })"

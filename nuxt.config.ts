@@ -13,7 +13,13 @@ export default defineNuxtConfig({
       }
     }
   },
-  modules: ['@pinia/nuxt', '@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/google-fonts'],
+  modules: [
+    '@pinia/nuxt',
+    '@nuxt/image',
+    '@nuxtjs/i18n',
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/sitemap'
+  ],
   i18n: {
     locales: ['de'],
     defaultLocale: 'de',
@@ -25,6 +31,41 @@ export default defineNuxtConfig({
       Roboto: [300, 400, 500],
       'Averia Sans Libre': {
         ital: 400
+      }
+    }
+  },
+  sitemap: {
+    sitemaps: {
+      locations: {
+        sources: [
+          '/api/__sitemap__/locations',
+        ]
+      },
+      info: {
+        includeAppSources: true,
+        exclude: [
+          '/deutschland/**',
+          '/renditerechner-immobilien/rechner'
+        ],
+        urls: () => {
+          return [
+              '/geschossflaechenzahl-gfz',
+              '/grundflaechenzahl-grz',
+              '/grundstueckswert-rechner',
+              '/hauswert-ermitteln',
+              '/grundstueckswert-ermitteln',
+              '/vergleichswertverfahren',
+              '/immobilienbewertung',
+              '/solaranlagen-photovoltaik',
+              '/bodenrichtwerte',
+              '/grundstueck-verkaufen',
+              '/grundstuecksgroesse-ermitteln',
+              '/immobilienmakler',
+              '/wertgutachten-immobilien',
+              '/hausverkauf-bei-scheidung',
+              '/grundstueck-teilen-und-verkaufen',
+          ]
+        }
       }
     }
   },

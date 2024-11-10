@@ -230,7 +230,7 @@ const selectTimeframe = async (timeframe) => {
 
 <template>
   <div class="property-value-result">
-    <div class="inner innerLarge">
+    <div class="inner">
       <div class="property-value-result-columns">
         <div class="property-value-result-content">
           <Headline

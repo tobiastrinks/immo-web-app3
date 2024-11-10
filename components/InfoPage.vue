@@ -20,43 +20,41 @@ const getTocSection = (id) => {
 </script>
 
 <template>
-  <div class="info-page">
-    <div class="inner">
-      <client-only>
-        <InfoPageAffiliate
-            v-if="!!affiliateAbTestType && !!props.cfData.affiliateType"
-            :type="affiliateAbTestType"
+  <div class="inner">
+    <client-only>
+      <InfoPageAffiliate
+          v-if="!!affiliateAbTestType && !!props.cfData.affiliateType"
+          :type="affiliateAbTestType"
+      />
+    </client-only>
+    <InnerTemplateLy2
+        :headline="props.cfData.headline"
+        :sub-headline="props.cfData.subHeadline"
+        :toc-sections="tocSections"
+        :toc-arrow-label="$t('_shared.infoPage.tocArrowLabel')"
+        :toc-arrow-x-offset="200"
+    >
+      <template v-slot:head>
+        <CfArticle :content="props.cfData.introText" />
+        <InfoPageHighlight
+            v-if="!!props.cfData.introHighlight"
+            :type="props.cfData.introHighlight.type"
+            :text="props.cfData.introHighlight.text"
         />
-      </client-only>
-      <InnerTemplateLy2
-          :headline="props.cfData.headline"
-          :sub-headline="props.cfData.subHeadline"
-          :toc-sections="tocSections"
-          :toc-arrow-label="$t('_shared.infoPage.tocArrowLabel')"
-          :toc-arrow-x-offset="200"
-      >
-        <template v-slot:head>
-          <CfArticle :content="props.cfData.introText" />
-          <InfoPageHighlight
-              v-if="!!props.cfData.introHighlight"
-              :type="props.cfData.introHighlight.type"
-              :text="props.cfData.introHighlight.text"
+      </template>
+      <template v-slot:sections>
+        <div
+            v-for="(infoSection, index) in props.cfData.infoSections"
+            :key="index"
+            :data-toc="infoSection.id"
+            class="inner-template-ly2-sections-item"
+        >
+          <InfoSection
+              :info-section="infoSection"
+              :headline="getTocSection(infoSection.id).headline"
           />
-        </template>
-        <template v-slot:sections>
-          <div
-              v-for="(infoSection, index) in props.cfData.infoSections"
-              :key="index"
-              :data-toc="infoSection.id"
-              class="inner-template-ly2-sections-item"
-          >
-            <InfoSection
-                :info-section="infoSection"
-                :headline="getTocSection(infoSection.id).headline"
-            />
-          </div>
-        </template>
-      </InnerTemplateLy2>
-    </div>
+        </div>
+      </template>
+    </InnerTemplateLy2>
   </div>
 </template>

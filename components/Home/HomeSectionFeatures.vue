@@ -1,6 +1,6 @@
 <template>
   <div class="home-section-features">
-    <div class="inner">
+    <div class="inner innerSmall">
       <Headline
         :headline="$t('home.featureSection.headline')"
         :level="2"
