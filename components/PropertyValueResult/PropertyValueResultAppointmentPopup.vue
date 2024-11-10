@@ -9,7 +9,7 @@ const timeframes = [
   '16-19 Uhr'
 ]
 const features = [
-  'Vor-Ort-Bewertung durch Immobilienexperten',
+  'Bewertung durch Immobilienexperten',
   'Berücksichtigung der individuellen Eigenschaften Ihrer Immobilie',
   '100% kostenlos & unverbindlich'
 ]
@@ -22,7 +22,7 @@ const selectTimeframe = (timeframe) => {
 
 <template>
   <Popup
-    title="Kostenlose Expertenbewertung vor Ort"
+    title="Kostenlose Expertenbewertung"
     hide-icon
     small-margin-top
     @close="() => emit('close')"
@@ -39,7 +39,7 @@ const selectTimeframe = (timeframe) => {
       </div>
       <template v-if="!submitted">
         <p class="property-value-result-appointment-popup-time-headline">
-          Wann können wir Sie telefonisch am besten erreichen?
+          Wann können wir Sie telefonisch am besten erreichen, um fehlende Angaben zu Ihrer Immobilie zu erfragen?
         </p>
         <div class="property-value-result-appointment-popup-time-buttons">
           <Button

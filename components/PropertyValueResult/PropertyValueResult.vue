@@ -152,11 +152,11 @@ const resultPricePerSqmTable = computed(() => {
           ],
           result.value.request.wohnflaeche && [
             { text: 'Wohnfläche' },
-            { text: 'Zu wenig Vergleichsobjekte', bold: true }
+            { text: 'Weitere Angaben benötigt', bold: true }
           ],
           result.value.request.gewerbeflaeche && [
             { text: 'Gewerbefläche' },
-            { text: 'Zu wenig Vergleichsobjekte', bold: true }
+            { text: 'Weitere Angaben benötigt', bold: true }
           ]
         ].filter(i => !!i)
       }
@@ -178,11 +178,19 @@ const resultTable = computed(() => {
             { text: 'Geschätzter Marktwert des Grundstücks<br /> (ohne Bebauung)' },
             { text: `${marketValueFrom} - ${marketValueTo} €`, bold: true }
           ],
+          this.result.request.wohnflaeche && [
+            { text: 'Wohnfläche' },
+            { text: 'Weitere Angaben benötigt', bold: true }
+          ],
+          this.result.request.gewerbeflaeche && [
+            { text: 'Gewerbefläche' },
+            { text: 'Weitere Angaben benötigt', bold: true }
+          ],
           [
-            { text: 'Sie möchten eine kostenlose Bewertung durch einen lokalen Immobilienexperten?', bold: true, paddingTop: 20 },
-            { button: 'Exakten Wert ermitteln lassen', paddingTop: 20 }
+            { text: 'Weitere Angaben machen und kostenlos Immobilie durch Experten bewerten lassen:', bold: true, paddingTop: 20 },
+            { button: 'Weitere Angaben machen', paddingTop: 20 }
           ]
-        ]
+        ].filter(i => !!i)
       }
     ]
   }
@@ -277,7 +285,7 @@ const selectTimeframe = async (timeframe) => {
               <TextArticle
                 :paragraphs="[
                   `Diese Schätzung basiert auf den Marktdaten vom ${$d(new Date(result.createdAt), 'short')}.`,
-                  '<b>Hinweis:</b> Unsere Marktpreisschätzung kann ein guter Orientierungspunkt sein, ersetzt aber nicht die Wertermittlung durch einen erfahrenen Experten. Wir können leider nicht alle Merkmale Ihrer Immobilie berücksichtigen. <b>Daher ist es nicht ungewöhnlich, dass sich der tatsächlich am Markt zu erzielende Preis (Verkehrswert) in der Praxis um bis zu 20 Prozent und mehr vom errechneten Wert unterscheidet.</b>'
+                  '<b>Hinweis:</b> Unsere Marktpreisschätzung kann ein guter Orientierungspunkt sein, ersetzt aber nicht die Wertermittlung durch einen erfahrenen Experten. Wir können leider nicht alle Merkmale Ihrer Immobilie berücksichtigen. <b>Daher ist es nicht ungewöhnlich, dass sich der tatsächlich am Markt zu erzielende Preis (Verkehrswert) in der Praxis um bis zu 20 Prozent und mehr vom errechneten Wert unterscheidet.</b> Gerne unterstützen wir Sie in einem persönlichen Telefonat bei der genauen Wertermittlung.'
                 ]"
                 small-margin
                 use-raw-html
@@ -294,7 +302,7 @@ const selectTimeframe = async (timeframe) => {
           </div>
           <div class="property-value-result-content-section">
             <Headline
-              headline="Kostenlose Expertenbewertung vor Ort"
+              headline="Kostenlose Expertenbewertung"
               :level="2"
             />
             <TextArticle
@@ -333,7 +341,7 @@ const selectTimeframe = async (timeframe) => {
               small-inner-margin
             />
             <Button
-              label="Kostenlose Expertenbewertung vor Ort vereinbaren"
+              label="Kostenlose Expertenbewertung vereinbaren"
               active
               inline-block
               small

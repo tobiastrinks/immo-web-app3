@@ -1,6 +1,6 @@
 <script setup>
 const features = [
-  'Vor-Ort-Bewertung durch Immobilienexperten',
+  'Bewertung durch Immobilienexperten',
   'Berücksichtigung der individuellen Eigenschaften Ihrer Immobilie',
   '100% kostenlos & unverbindlich'
 ]
