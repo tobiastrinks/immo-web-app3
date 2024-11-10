@@ -18,7 +18,7 @@ const pollForResult = () => {
         params: { phone: props.phone }
       })
       const resultId = res.id
-      await router.push(PATHS.PROPERTY_VALUE_RESULT(resultId))
+      await router.replace(PATHS.PROPERTY_VALUE_RESULT(resultId))
     } catch (e) {
       if (e.response?.status !== 404) {
         throw e

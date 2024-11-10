@@ -234,6 +234,16 @@ const selectTimeframe = async (timeframe) => {
     body: JSON.stringify({ timeframe })
   })
 }
+
+onMounted(() => {
+  window.onbeforeunload = (e) => {
+    e.preventDefault()
+    e.returnValue = 'Sicher?'
+  }
+})
+onUnmounted(() => {
+  window.onbeforeunload = () => {}
+})
 </script>
 
 <template>
