@@ -222,6 +222,7 @@ const resultFailedTable = computed(() => {
 })
 
 const openAppointmentPopup = () => {
+  window.localStorage.setItem('property-value-result-popup-shown', '1')
   showAppointmentPopup.value = true
 }
 const closeAppointmentPopup = () => {
@@ -235,14 +236,36 @@ const selectTimeframe = async (timeframe) => {
   })
 }
 
+let appointmentPopupTimeout
+
+function handleOnScroll() {
+  if (appointmentPopupTimeout) {
+    return
+  }
+  appointmentPopupTimeout = window.setTimeout(() => {
+    if (!window.localStorage.getItem('property-value-result-popup-shown')) {
+      openAppointmentPopup()
+    }
+  }, 10000)
+}
+
 onMounted(() => {
   window.onbeforeunload = (e) => {
     e.preventDefault()
     e.returnValue = 'Sicher?'
   }
+
+  if (!window.localStorage.getItem('property-value-result-popup-shown')) {
+    window.addEventListener('scroll', handleOnScroll)
+  }
 })
 onUnmounted(() => {
   window.onbeforeunload = () => {}
+
+  if (appointmentPopupTimeout) {
+    window.clearTimeout(appointmentPopupTimeout)
+  }
+  window.removeEventListener('scroll', handleOnScroll)
 })
 </script>
 
