@@ -1,5 +1,5 @@
 <template>
-  <div class="popup-wrapper">
+  <div class="popup-wrapper" :class="{ calc }">
     <div
       class="popup-bg"
       @click="$emit('close')"
@@ -49,6 +49,10 @@ export default {
     smallMarginTop: {
       type: Boolean,
       default: false
+    },
+    calc: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -63,6 +67,14 @@ export default {
   right: 0;
   bottom: 0;
   overflow-y: auto;
+
+  &.calc {
+
+    @media #{$lg} {
+      width: $calcInputWidth;
+      min-width: $calcInputMinWidth;
+    }
+  }
 
   .popup-bg {
     position: absolute;

@@ -34,6 +34,10 @@ export default defineNuxtConfig({
       }
     }
   },
+  site: {
+    url: 'https://www.aktuelle-grundstueckspreise.de',
+    name: 'Aktuelle Grundstückspreise'
+  },
   sitemap: {
     sitemaps: {
       locations: {

@@ -109,7 +109,7 @@ const openSavePopup = () => {
                 v-for="(item, idx3) in subSection.items"
                 :key="idx3"
                 :item="item"
-                toggle-errors
+                :toggle-errors="calcStore.showErrorsGlobally"
               />
             </CalcSubSection>
           </CalcSection>
@@ -219,8 +219,8 @@ const openSavePopup = () => {
           position: sticky;
           z-index: 9;
           top: 46px;
-          width: 30%;
-          min-width: 360px;
+          width: $calcInputWidth;
+          min-width: $calcInputMinWidth;
           flex-shrink: 0;
           height: calc(100vh - 46px);
           overflow-y: auto;

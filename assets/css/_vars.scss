@@ -30,6 +30,8 @@ $maxLg: "screen and (max-width : 900px)";
 $xl: "screen and (min-width : 1000px)";
 $xxl: "screen and (min-width : 1200px)";
 
+$calcInputWidth: 30%;
+$calcInputMinWidth: 360px;
 
 @mixin input-wrapper {
   display: flex;

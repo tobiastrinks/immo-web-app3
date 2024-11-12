@@ -115,6 +115,7 @@ const hideForm = () => {
         v-if="formActive"
         :title="formTitle"
         @close="hideForm"
+        :calc="!!calcStore.activeOutput"
       >
         <CalcItem
           v-for="(item, idx) in props.config.formItems"
