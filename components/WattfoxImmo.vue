@@ -1,8 +1,59 @@
+<script setup>
+let WATTFOX_IMMO_MIN_HEIGHT
+
+const nuxtApp = useNuxtApp()
+
+const props = defineProps({
+  sidebar: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const iframeHeight = ref(null)
+
+const iframeMessageListener = (e) => {
+  if (!e.data || typeof e.data !== 'string') {
+    return
+  }
+  if (e.data.startsWith('WATTFOX_IMMO_EVENT__')) {
+    const event = e.data.replace('WATTFOX_IMMO_EVENT__', '')
+    nuxtApp.$gtm.push({ event: `heyflow.wattfox.${event}` })
+  }
+  if (e.data.startsWith('WATTFOX_IMMO_HEIGHT__')) {
+    const newHeight = e.data.replace('WATTFOX_IMMO_HEIGHT__', '')
+    let newHeightNumber = parseInt(newHeight)
+    if (newHeightNumber < WATTFOX_IMMO_MIN_HEIGHT) {
+      newHeightNumber = WATTFOX_IMMO_MIN_HEIGHT
+    }
+    iframeHeight.value = `${newHeightNumber}px`
+  }
+}
+
+onBeforeMount(() => {
+  if (window.innerWidth < 689 || props.sidebar) {
+    WATTFOX_IMMO_MIN_HEIGHT = 600
+  } else {
+    WATTFOX_IMMO_MIN_HEIGHT = 500
+  }
+  iframeHeight.value = `${WATTFOX_IMMO_MIN_HEIGHT}px`
+})
+
+onMounted(() => {
+  nuxtApp.$gtm.push({ event: 'heyflow.wattfox.loaded' })
+  window.addEventListener('message', iframeMessageListener)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('message', iframeMessageListener)
+})
+</script>
+
 <template>
   <div class="wattfox-immo">
     <div
       class="wattfox-immo-inner"
-      :class="{ noBorder: sidebar }"
+      :class="{ noBorder: props.sidebar }"
     >
       <div
         class="wattfox-immo-iframe-wrapper"
@@ -16,12 +67,12 @@
           ></iframe>
         </client-only>
       </div>
-      <div class="wattfox-immo-features" :class="{ sidebar }">
+      <div class="wattfox-immo-features" :class="{ sidebar: props.sidebar }">
         <div
           v-for="(feature, index) of $tm('_shared.wattfoxImmo.features')"
           :key="index"
           class="wattfox-immo-features-item"
-          :class="{ sidebar }"
+          :class="{ sidebar: props.sidebar }"
         >
           <img src="~/assets/img/_shared/check-green-2.svg" />
           <p class="wattfox-immo-features-item-text">
@@ -32,63 +83,6 @@
     </div>
   </div>
 </template>
-
-<script>
-let WATTFOX_IMMO_MIN_HEIGHT
-
-export default defineNuxtComponent({
-  setup() {
-    return {
-      nuxtApp: useNuxtApp()
-    }
-  },
-  props: {
-    sidebar: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data () {
-    return {
-      iframeHeight: null
-    }
-  },
-  beforeMount () {
-    if (window.innerWidth < 689 || this.sidebar) {
-      WATTFOX_IMMO_MIN_HEIGHT = 600
-    } else {
-      WATTFOX_IMMO_MIN_HEIGHT = 500
-    }
-    this.iframeHeight = `${WATTFOX_IMMO_MIN_HEIGHT}px`
-  },
-  mounted () {
-    this.nuxtApp.$gtm.push({ event: 'heyflow.wattfox.loaded' })
-    window.addEventListener('message', this.iframeMessageListener)
-  },
-  beforeDestroy () {
-    window.removeEventListener('message', this.iframeMessageListener)
-  },
-  methods: {
-    iframeMessageListener (e) {
-      if (!e.data || typeof e.data !== 'string') {
-        return
-      }
-      if (e.data.startsWith('WATTFOX_IMMO_EVENT__')) {
-        const event = e.data.replace('WATTFOX_IMMO_EVENT__', '')
-        this.nuxtApp.$gtm.push({ event: `heyflow.wattfox.${event}` })
-      }
-      if (e.data.startsWith('WATTFOX_IMMO_HEIGHT__')) {
-        const newHeight = e.data.replace('WATTFOX_IMMO_HEIGHT__', '')
-        let newHeightNumber = parseInt(newHeight)
-        if (newHeightNumber < WATTFOX_IMMO_MIN_HEIGHT) {
-          newHeightNumber = WATTFOX_IMMO_MIN_HEIGHT
-        }
-        this.iframeHeight = `${newHeightNumber}px`
-      }
-    }
-  }
-})
-</script>
 
 <style scoped lang="scss">
 .wattfox-immo {
