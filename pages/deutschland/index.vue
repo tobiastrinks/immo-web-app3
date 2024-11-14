@@ -15,7 +15,6 @@ const cachedApi = useCachedApi()
 const { path } = useNativeRoute()
 
 const config = useRuntimeConfig()
-console.log('config.public', config.public)
 
 await useAsyncData(async () => {
   cfStore.resetBodenrichtwert()
@@ -60,7 +59,5 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <Germany v-if="locationStore.germany" />
-  </Layout>
+  <Germany v-if="locationStore.germany" />
 </template>

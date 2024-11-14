@@ -25,7 +25,5 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <InfoPage :cf-data="cfStore.dynamicInfoPage" />
-  </Layout>
+  <InfoPage :cf-data="cfStore.dynamicInfoPage" />
 </template>

@@ -1,3 +1,14 @@
+<script setup>
+import {useCfStore} from "~/store/cf.js";
+import {PATHS} from "assets/js/constants.js";
+
+const cfStore = useCfStore()
+
+const cf = computed(() => {
+  return cfStore
+})
+</script>
+
 <template>
   <div class="home">
     <HomeHead />
@@ -96,28 +107,6 @@
     </HomeSectionTemplate>
   </div>
 </template>
-
-<script>
-import {useCfStore} from "~/store/cf.js";
-import {PATHS} from "assets/js/constants.js";
-
-export default defineNuxtComponent({
-  setup() {
-    return {
-      cfStore: useCfStore()
-    }
-  },
-  computed: {
-    PATHS() {
-      return PATHS
-    },
-    cf () {
-      return this.cfStore
-    }
-  }
-})
-
-</script>
 
 <style scoped lang="scss">
 .home {

@@ -19,7 +19,5 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <Home />
-  </Layout>
+  <Home />
 </template>

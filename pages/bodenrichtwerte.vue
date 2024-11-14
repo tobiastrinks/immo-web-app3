@@ -22,7 +22,5 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <InfoPage :cf-data="cfStore.bodenrichtwertPage" />
-  </Layout>
+  <InfoPage :cf-data="cfStore.bodenrichtwertPage" />
 </template>

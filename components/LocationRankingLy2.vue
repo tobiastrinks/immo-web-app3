@@ -1,3 +1,91 @@
+<script setup>
+import { getPathForLocationIdNames } from '~/assets/js/locationUtils'
+import { LOCATION_TYPE, PATHS } from '~/assets/js/constants'
+import {useOverviewStatsStore} from "~/store/overviewStats.js";
+import {useLocationStore} from "~/store/location.js";
+
+const overviewStatsStore = useOverviewStatsStore()
+const locationStore = useLocationStore()
+const i18n = useI18n()
+
+const ranking = computed(() => {
+  return overviewStatsStore.additionalStats.ranking
+})
+const location = computed(() => {
+  return locationStore.activeLocationMainData
+})
+const rankingParagraphs = computed(() => {
+  const {
+    germanyRankingPosition,
+    germanyRankingCount,
+    stateRankingPosition,
+    stateRankingCount,
+    kreisRankingPosition,
+    kreisRankingCount
+  } = ranking.value
+  const localeLocationKey = locationStore.activeLocationType
+
+  const paragraphs = []
+
+  if (kreisRankingPosition && kreisRankingCount > 1) {
+    paragraphs.push(
+        i18n.t('_shared.locationRankingLy2.article.kreis.template', {
+          kreisName: location.value.kreisName,
+          gemeindeName: location.value.name,
+          position: i18n.n(kreisRankingPosition),
+          total: i18n.n(kreisRankingCount)
+        })
+    )
+  }
+  if (stateRankingPosition) {
+    paragraphs.push(
+        i18n.t('_shared.locationRankingLy2.article.state.template', {
+          stateName: location.value.stateName,
+          location: i18n.t(`_shared.locationRankingLy2.article.state.location.${localeLocationKey}`, {
+            name: location.value.name
+          }),
+          position: i18n.n(stateRankingPosition),
+          total: i18n.n(stateRankingCount)
+        })
+    )
+  }
+  if (germanyRankingPosition) {
+    paragraphs.push(
+        i18n.t('_shared.locationRankingLy2.article.germany.template', {
+          location: i18n.t(`_shared.locationRankingLy2.article.germany.location.${localeLocationKey}`, {
+            name: location.value.name
+          }),
+          position: i18n.n(germanyRankingPosition),
+          total: i18n.n(germanyRankingCount)
+        })
+    )
+  }
+  return [paragraphs.join(' ')]
+})
+const parentLink = computed(() => {
+  const { gemeinde, kreis, state } = locationStore
+  const parent = (() => {
+    if (gemeinde) {
+      const { kreisIdName, kreisName, stateIdName, stateName, idName } = gemeinde.gemeinde
+      if (idName === kreisIdName) {
+        return { type: LOCATION_TYPE.STATE, name: stateName, link: getPathForLocationIdNames({ stateIdName }) }
+      }
+      return { type: LOCATION_TYPE.KREIS, name: kreisName, link: getPathForLocationIdNames({ kreisIdName, stateIdName }) }
+    } else if (kreis) {
+      const { stateIdName, stateName } = kreis.kreis
+      return { type: LOCATION_TYPE.STATE, name: stateName, link: getPathForLocationIdNames({ stateIdName }) }
+    } else if (state) {
+      return { type: LOCATION_TYPE.GERMANY, name: i18n.t('_shared.locationRankingLy2.germanySubject'), link: PATHS.GERMANY }
+    }
+  })()
+  return {
+    text: i18n.t(`_shared.locationRankingLy2.parentLink.text.${parent.type}`, { name: parent.name }),
+    link: parent.link,
+    buttonLabel: i18n.t('_shared.locationRankingLy2.parentLink.buttonLabel', { name: parent.name })
+  }
+})
+</script>
+
 <template>
   <div class="location-ranking-ly2">
     <table class="location-ranking-ly2-table">
@@ -27,99 +115,6 @@
     />
   </div>
 </template>
-
-<script>
-import { getPathForLocationIdNames } from '~/assets/js/locationUtils'
-import { LOCATION_TYPE, PATHS } from '~/assets/js/constants'
-import {useOverviewStatsStore} from "~/store/overviewStats.js";
-import {useLocationStore} from "~/store/location.js";
-export default defineNuxtComponent({
-  setup() {
-    return {
-      overviewStatsStore: useOverviewStatsStore(),
-      locationStore: useLocationStore()
-    }
-  },
-  computed: {
-    ranking () {
-      return this.overviewStatsStore.additionalStats.ranking
-    },
-    location () {
-      return this.locationStore.activeLocationMainData
-    },
-    rankingParagraphs () {
-      const {
-        germanyRankingPosition,
-        germanyRankingCount,
-        stateRankingPosition,
-        stateRankingCount,
-        kreisRankingPosition,
-        kreisRankingCount
-      } = this.ranking
-      const localeLocationKey = this.locationStore.activeLocationType
-
-      const paragraphs = []
-
-      if (kreisRankingPosition && kreisRankingCount > 1) {
-        paragraphs.push(
-          this.$t('_shared.locationRankingLy2.article.kreis.template', {
-            kreisName: this.location.kreisName,
-            gemeindeName: this.location.name,
-            position: this.$n(kreisRankingPosition),
-            total: this.$n(kreisRankingCount)
-          })
-        )
-      }
-      if (stateRankingPosition) {
-        paragraphs.push(
-          this.$t('_shared.locationRankingLy2.article.state.template', {
-            stateName: this.location.stateName,
-            location: this.$t(`_shared.locationRankingLy2.article.state.location.${localeLocationKey}`, {
-              name: this.location.name
-            }),
-            position: this.$n(stateRankingPosition),
-            total: this.$n(stateRankingCount)
-          })
-        )
-      }
-      if (germanyRankingPosition) {
-        paragraphs.push(
-          this.$t('_shared.locationRankingLy2.article.germany.template', {
-            location: this.$t(`_shared.locationRankingLy2.article.germany.location.${localeLocationKey}`, {
-              name: this.location.name
-            }),
-            position: this.$n(germanyRankingPosition),
-            total: this.$n(germanyRankingCount)
-          })
-        )
-      }
-      return [paragraphs.join(' ')]
-    },
-    parentLink () {
-      const { gemeinde, kreis, state } = this.locationStore
-      const parent = (() => {
-        if (gemeinde) {
-          const { kreisIdName, kreisName, stateIdName, stateName, idName } = gemeinde.gemeinde
-          if (idName === kreisIdName) {
-            return { type: LOCATION_TYPE.STATE, name: stateName, link: getPathForLocationIdNames({ stateIdName }) }
-          }
-          return { type: LOCATION_TYPE.KREIS, name: kreisName, link: getPathForLocationIdNames({ kreisIdName, stateIdName }) }
-        } else if (kreis) {
-          const { stateIdName, stateName } = kreis.kreis
-          return { type: LOCATION_TYPE.STATE, name: stateName, link: getPathForLocationIdNames({ stateIdName }) }
-        } else if (state) {
-          return { type: LOCATION_TYPE.GERMANY, name: this.$t('_shared.locationRankingLy2.germanySubject'), link: PATHS.GERMANY }
-        }
-      })()
-      return {
-        text: this.$t(`_shared.locationRankingLy2.parentLink.text.${parent.type}`, { name: parent.name }),
-        link: parent.link,
-        buttonLabel: this.$t('_shared.locationRankingLy2.parentLink.buttonLabel', { name: parent.name })
-      }
-    }
-  }
-})
-</script>
 
 <style scoped lang="scss">
 .location-ranking-ly2 {

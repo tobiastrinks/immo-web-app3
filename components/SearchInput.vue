@@ -1,3 +1,71 @@
+<script setup>
+import {useSearchStore} from "~/store/search.js";
+import {useStore} from "~/store/main.js";
+
+const apiFetch = useApiFetch()
+const mainStore = useStore()
+const searchStore = useSearchStore()
+
+const props = defineProps({
+  fullWidthResults: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const resultsOpened = ref(false)
+const searchTimeout = ref(null)
+const searchInput = ref('')
+
+const stateResults = computed(() => {
+  return searchStore.enrichedStateResults
+})
+const kreisResults = computed(() => {
+  return searchStore.enrichedKreisResults
+})
+const gemeindeResults = computed(() => {
+  return searchStore.enrichedGemeindeResults
+})
+const zipResults = computed(() => {
+  return searchStore.enrichedZipResults
+})
+const noResults = computed(() => {
+  return [
+    ...stateResults.value,
+    ...kreisResults.value,
+    ...gemeindeResults.value,
+    ...zipResults.value
+  ].length === 0
+})
+
+const setSearchString = (val) => {
+  searchInput.value = val
+
+  if (searchTimeout.value) {
+    clearInterval(searchTimeout.value)
+    searchTimeout.value = null
+  }
+  searchTimeout.value = setTimeout(() => {
+    searchStore.search(apiFetch, searchInput.value)
+    searchTimeout.value = null
+  }, 300)
+}
+const closeResults = () => {
+  resultsOpened.value = false
+}
+const onSelect = () => {
+  searchInput.value = ''
+  closeResults()
+}
+const onFocusIn = () => {
+  resultsOpened.value = true
+  if (searchInput.value !== '') {
+    searchStore.search(apiFetch, searchInput.value)
+  }
+}
+
+</script>
+
 <template>
   <div
     v-click-outside="closeResults"
@@ -57,83 +125,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import {useSearchStore} from "~/store/search.js";
-import {useStore} from "~/store/main.js";
-
-export default defineNuxtComponent({
-  setup() {
-    return {
-      apiFetch: useApiFetch(),
-      mainStore: useStore(),
-      searchStore: useSearchStore(),
-    }
-  },
-  props: {
-    fullWidthResults: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data () {
-    return {
-      resultsOpened: false,
-      searchTimeout: null,
-      searchInput: ''
-    }
-  },
-  computed: {
-    stateResults () {
-      return this.searchStore.enrichedStateResults
-    },
-    kreisResults () {
-      return this.searchStore.enrichedKreisResults
-    },
-    gemeindeResults () {
-      return this.searchStore.enrichedGemeindeResults
-    },
-    zipResults () {
-      return this.searchStore.enrichedZipResults
-    },
-    noResults () {
-      return [
-        ...this.stateResults,
-        ...this.kreisResults,
-        ...this.gemeindeResults,
-        ...this.zipResults
-      ].length === 0
-    }
-  },
-  methods: {
-    setSearchString (val) {
-      this.searchInput = val
-
-      if (this.searchTimeout) {
-        clearInterval(this.searchTimeout)
-        this.searchTimeout = null
-      }
-      this.searchTimeout = setTimeout(() => {
-        this.searchStore.search(this.apiFetch, this.searchInput)
-        this.searchTimeout = null
-      }, 300)
-    },
-    onSelect () {
-      this.searchInput = ''
-      this.closeResults()
-    },
-    closeResults () {
-      this.resultsOpened = false
-    },
-    onFocusIn () {
-      this.resultsOpened = true
-      if (this.searchInput !== '') {
-        this.searchStore.search(this.apiFetch, this.searchInput)
-      }
-    }
-  }
-})
-</script>
 
 <style scoped lang="scss">
 .search-input {

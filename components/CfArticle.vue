@@ -1,73 +1,67 @@
+<script setup>
+import { BLOCKS, INLINES } from '@contentful/rich-text-types'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+
+const config = useRuntimeConfig()
+
+const props = defineProps({
+  content: {
+    type: Object,
+    required: true
+  },
+  noJustify: {
+    type: Boolean,
+    default: false
+  },
+  parameters: {
+    type: Object,
+    default: null
+  }
+})
+
+const getUri = (data) => {
+  const { uri } = data.data
+  if (uri.startsWith('/')) {
+    return `${config.public.canonicalHostname}${uri}`
+  } else {
+    return uri
+  }
+}
+const getTarget = (data) => {
+  const { uri } = data.data
+  if (uri.startsWith('/')) {
+    return '_self'
+  } else {
+    return '_blank'
+  }
+}
+
+const renderedContent = computed(() => {
+  return documentToHtmlString(props.content, {
+    renderNode: {
+      [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields } } }) =>
+          `<img src="${fields.file.url}?fm=webp" alt="${fields.description}"/>`,
+      [INLINES.HYPERLINK]: (data) => {
+        return `<a href="${getUri(data)}" target="${getTarget(data)}">${data.content[0].value}</a>`
+      },
+      [BLOCKS.PARAGRAPH]: (node, next) => {
+        let content = next(node.content)
+        if (props.parameters) {
+          Object.keys(props.parameters).forEach((key) => {
+            content = content.replace(new RegExp(key, 'g'), props.parameters[key])
+          })
+        }
+        return `<p>${content}</p>`
+      }
+    }
+  })
+})
+</script>
+
 <template>
   <!-- eslint-disable-next-line vue/no-v-html -->
   <div class="cf-article" :class="{ noJustify }" v-html="renderedContent"></div>
 </template>
-
-<script>
-import { BLOCKS, INLINES } from '@contentful/rich-text-types'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-export default defineNuxtComponent({
-  setup() {
-    return {
-      config: useRuntimeConfig()
-    }
-  },
-  props: {
-    content: {
-      type: Object,
-      required: true
-    },
-    noJustify: {
-      type: Boolean,
-      default: false
-    },
-    parameters: {
-      type: Object,
-      default: null
-    }
-  },
-  computed: {
-    renderedContent () {
-      return documentToHtmlString(this.content, {
-        renderNode: {
-          [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields } } }) =>
-            `<img src="${fields.file.url}?fm=webp" alt="${fields.description}"/>`,
-          [INLINES.HYPERLINK]: (data) => {
-            return `<a href="${this.getUri(data)}" target="${this.getTarget(data)}">${data.content[0].value}</a>`
-          },
-          [BLOCKS.PARAGRAPH]: (node, next) => {
-            let content = next(node.content)
-            if (this.parameters) {
-              Object.keys(this.parameters).forEach((key) => {
-                content = content.replace(new RegExp(key, 'g'), this.parameters[key])
-              })
-            }
-            return `<p>${content}</p>`
-          }
-        }
-      })
-    }
-  },
-  methods: {
-    getUri (data) {
-      const { uri } = data.data
-      if (uri.startsWith('/')) {
-        return `${this.config.public.canonicalHostname}${uri}`
-      } else {
-        return uri
-      }
-    },
-    getTarget (data) {
-      const { uri } = data.data
-      if (uri.startsWith('/')) {
-        return '_self'
-      } else {
-        return '_blank'
-      }
-    }
-  }
-})
-</script>
 
 <style lang="scss">
 .cf-article {

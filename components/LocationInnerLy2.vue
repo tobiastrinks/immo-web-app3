@@ -1,3 +1,132 @@
+<script setup>
+import { PATHS } from '~/assets/js/constants'
+import {useLocationStore} from "~/store/location.js";
+import {useCfStore} from "~/store/cf.js";
+
+const TOC_SECTIONS = {
+  ANALYSIS: 'auswertung',
+  TREND: 'preisentwicklung',
+  MARKET_REPORT: 'grundstuecksmarktbericht',
+  BODENRICHTWERT: 'bodenrichtwerte',
+  LOCATION_FAKTOREN: 'grundstueckswert-faktoren',
+  PROPERTY_VALUE: 'grundstueckswert-ermitteln',
+  PROPERTY_SELL: 'grundstueck-verkaufen',
+  PROPERTY_BUY: 'grundstueck-kaufen',
+  FAQ: 'faq'
+}
+
+const props = defineProps({
+  headline: {
+    type: String,
+    required: true
+  },
+  subHeadline: {
+    type: String,
+    required: true
+  }
+})
+
+const abTest = useAbTest()
+const locationStore = useLocationStore()
+const cfStore = useCfStore()
+const nuxtApp = useNuxtApp()
+const i18n = useI18n()
+const route = useRoute()
+
+const affiliateAbTestType = abTest.getSessionFeature('affiliateWidgets')
+
+const location = computed(() => {
+  return locationStore.activeLocationMainData
+})
+const locationName = computed(() => {
+  return location.value.name || i18n.t('_shared.location.germanyLocationName')
+})
+const locationType = computed(() => {
+  return locationStore.activeLocationType
+})
+const hasTrend = computed(() => {
+  return !!cfStore.locationTrend
+})
+const hasMarketReport = computed(() => {
+  return !!locationStore.marketReport
+})
+const hasBodenrichtwert = computed(() => {
+  return !!bodenrichtwert.value
+})
+const locationFaktoren = computed(() => {
+  return cfStore.locationFaktoren
+})
+const locationFAQ = computed(() => {
+  return cfStore.locationFAQ
+})
+const tocSections = computed(() => {
+  return Object.keys(TOC_SECTIONS)
+      .filter((s) => {
+        switch (TOC_SECTIONS[s]) {
+          case TOC_SECTIONS.TREND:
+            return hasTrend.value
+          case TOC_SECTIONS.MARKET_REPORT:
+            return hasMarketReport.value
+          case TOC_SECTIONS.BODENRICHTWERT:
+            return hasBodenrichtwert.value
+          case TOC_SECTIONS.LOCATION_FAKTOREN:
+            return !!locationFaktoren.value
+          case TOC_SECTIONS.FAQ:
+            return !!locationFAQ.value
+          default:
+            return true
+        }
+      })
+      .map((s, index) => ({
+        id: TOC_SECTIONS[s],
+        headline: getTocSectionHeadline(index + 1, TOC_SECTIONS[s])
+      }))
+})
+const bodenrichtwert = computed(() => {
+  const { locationBodenrichtwert, locationBodenrichtwertMini } = cfStore
+  return locationBodenrichtwert || locationBodenrichtwertMini
+})
+const lastUpdatedText = computed(() => {
+  return i18n.t('_shared.location.lastUpdated', { date: i18n.d(new Date(), 'short') })
+})
+
+const tocSection = (id) => {
+  return tocSections.value.find(s => s.id === id)
+}
+const getTocSectionHeadline = (nb, section) => {
+  const prefix = `${nb}. `
+  switch (section) {
+    case TOC_SECTIONS.ANALYSIS:
+      return prefix + i18n.t('_shared.locationAnalysis.headline', { locationName: locationName.value })
+    case TOC_SECTIONS.TREND:
+      return prefix + i18n.t('_shared.locationTrend.headline')
+    case TOC_SECTIONS.MARKET_REPORT:
+      return prefix + i18n.t('_shared.locationMarketReport.headline', { locationName: locationName.value })
+    case TOC_SECTIONS.BODENRICHTWERT:
+      return prefix + i18n.t(`_shared.locationBodenrichtwert.${locationType.value}.headline`, { name: locationName.value })
+    case TOC_SECTIONS.LOCATION_FAKTOREN:
+      return prefix + i18n.t('_shared.locationFaktoren.headline')
+    case TOC_SECTIONS.PROPERTY_VALUE:
+      return prefix + i18n.t('_shared.locationPropertyValue.headline')
+    case TOC_SECTIONS.PROPERTY_SELL:
+      return prefix + i18n.t('_shared.locationPropertySell.headline')
+    case TOC_SECTIONS.PROPERTY_BUY:
+      return prefix + i18n.t('_shared.locationPropertyBuy.headline', {
+        locationName: locationName.value
+      })
+    case TOC_SECTIONS.CALC:
+      return prefix + i18n.t('_shared.locationCalc.headline')
+    case TOC_SECTIONS.FAQ:
+      return prefix + i18n.t('_shared.locationFAQ.headline')
+  }
+}
+const clickCTA = () => {
+  if (!route.path.includes(PATHS.PROPERTY_VALUE)) {
+    nuxtApp.$gtm.push({ event: 'location.body.propertyValueCTA' })
+  }
+}
+</script>
+
 <template>
   <div class="location-inner-ly2">
     <InnerTemplateLy2
@@ -162,145 +291,6 @@
     </InnerTemplateLy2>
   </div>
 </template>
-
-<script>
-import { PATHS } from '~/assets/js/constants'
-import {useLocationStore} from "~/store/location.js";
-import {useCfStore} from "~/store/cf.js";
-
-const TOC_SECTIONS = {
-  ANALYSIS: 'auswertung',
-  TREND: 'preisentwicklung',
-  MARKET_REPORT: 'grundstuecksmarktbericht',
-  BODENRICHTWERT: 'bodenrichtwerte',
-  LOCATION_FAKTOREN: 'grundstueckswert-faktoren',
-  PROPERTY_VALUE: 'grundstueckswert-ermitteln',
-  PROPERTY_SELL: 'grundstueck-verkaufen',
-  PROPERTY_BUY: 'grundstueck-kaufen',
-  FAQ: 'faq'
-}
-
-export default defineNuxtComponent({
-  setup() {
-    const abTest = useAbTest()
-    return {
-      locationStore: useLocationStore(),
-      cfStore: useCfStore(),
-      affiliateAbTestType: abTest.getSessionFeature('affiliateWidgets'),
-      nuxtApp: useNuxtApp()
-    }
-  },
-  props: {
-    headline: {
-      type: String,
-      required: true
-    },
-    subHeadline: {
-      type: String,
-      required: true
-    }
-  },
-  data () {
-    return {
-      PATHS,
-      TOC_SECTIONS
-    }
-  },
-  computed: {
-    location () {
-      return this.locationStore.activeLocationMainData
-    },
-    locationName () {
-      return this.location.name || this.$t('_shared.location.germanyLocationName')
-    },
-    locationType () {
-      return this.locationStore.activeLocationType
-    },
-    hasTrend () {
-      return !!this.cfStore.locationTrend
-    },
-    hasMarketReport () {
-      return !!this.locationStore.marketReport
-    },
-    hasBodenrichtwert () {
-      return !!this.bodenrichtwert
-    },
-    locationFaktoren () {
-      return this.cfStore.locationFaktoren
-    },
-    locationFAQ () {
-      return this.cfStore.locationFAQ
-    },
-    tocSections () {
-      return Object.keys(TOC_SECTIONS)
-        .filter((s) => {
-          switch (TOC_SECTIONS[s]) {
-            case TOC_SECTIONS.TREND:
-              return this.hasTrend
-            case TOC_SECTIONS.MARKET_REPORT:
-              return this.hasMarketReport
-            case TOC_SECTIONS.BODENRICHTWERT:
-              return this.hasBodenrichtwert
-            case TOC_SECTIONS.LOCATION_FAKTOREN:
-              return !!this.locationFaktoren
-            case TOC_SECTIONS.FAQ:
-              return !!this.locationFAQ
-            default:
-              return true
-          }
-        })
-        .map((s, index) => ({
-          id: TOC_SECTIONS[s],
-          headline: this.getTocSectionHeadline(index + 1, TOC_SECTIONS[s])
-        }))
-    },
-    bodenrichtwert () {
-      const { locationBodenrichtwert, locationBodenrichtwertMini } = this.cfStore
-      return locationBodenrichtwert || locationBodenrichtwertMini
-    },
-    lastUpdatedText () {
-      return this.$t('_shared.location.lastUpdated', { date: this.$d(new Date(), 'short') })
-    }
-  },
-  methods: {
-    tocSection (id) {
-      return this.tocSections.find(s => s.id === id)
-    },
-    getTocSectionHeadline (nb, section) {
-      const prefix = `${nb}. `
-      switch (section) {
-        case TOC_SECTIONS.ANALYSIS:
-          return prefix + this.$t('_shared.locationAnalysis.headline', { locationName: this.locationName })
-        case TOC_SECTIONS.TREND:
-          return prefix + this.$t('_shared.locationTrend.headline')
-        case TOC_SECTIONS.MARKET_REPORT:
-          return prefix + this.$t('_shared.locationMarketReport.headline', { locationName: this.locationName })
-        case TOC_SECTIONS.BODENRICHTWERT:
-          return prefix + this.$t(`_shared.locationBodenrichtwert.${this.locationType}.headline`, { name: this.locationName })
-        case TOC_SECTIONS.LOCATION_FAKTOREN:
-          return prefix + this.$t('_shared.locationFaktoren.headline')
-        case TOC_SECTIONS.PROPERTY_VALUE:
-          return prefix + this.$t('_shared.locationPropertyValue.headline')
-        case TOC_SECTIONS.PROPERTY_SELL:
-          return prefix + this.$t('_shared.locationPropertySell.headline')
-        case TOC_SECTIONS.PROPERTY_BUY:
-          return prefix + this.$t('_shared.locationPropertyBuy.headline', {
-            locationName: this.locationName
-          })
-        case TOC_SECTIONS.CALC:
-          return prefix + this.$t('_shared.locationCalc.headline')
-        case TOC_SECTIONS.FAQ:
-          return prefix + this.$t('_shared.locationFAQ.headline')
-      }
-    },
-    clickCTA () {
-      if (!this.$route.path.includes(PATHS.PROPERTY_VALUE)) {
-        this.nuxtApp.$gtm.push({ event: 'location.body.propertyValueCTA' })
-      }
-    }
-  }
-})
-</script>
 
 <style lang="scss" scoped>
 .location-inner-ly2 {

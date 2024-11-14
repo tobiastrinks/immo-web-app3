@@ -32,9 +32,7 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <client-only>
-      <Calc />
-    </client-only>
-  </Layout>
+  <client-only>
+    <Calc />
+  </client-only>
 </template>

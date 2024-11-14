@@ -1,3 +1,70 @@
+<script setup>
+import {PATHS} from "assets/js/constants.js";
+import {useStore} from "~/store/main.js";
+
+const mainStore = useStore()
+const route = useRoute()
+const nuxtApp = useNuxtApp()
+
+const headMinified = ref(false)
+const ctaMinified = ref(true)
+
+const active = computed(() => {
+  return mainStore.mobileNavOpened
+})
+
+const isCalc = computed(() => {
+  return route.path === PATHS.CALC
+})
+const isMinimalNav = computed(() => {
+  return route.path.includes(PATHS.PROPERTY_VALUE_REQUEST)
+})
+
+watch(() => route.path, () => {
+  mainStore.closeMobileNav()
+})
+
+const triggerNav = () => {
+  if (active.value) {
+    mainStore.closeMobileNav()
+  } else {
+    mainStore.openMobileNav()
+  }
+}
+const onScroll = () => {
+  if (isCalc.value) {
+    return
+  }
+  const currentScrollPos = window.pageYOffset
+  if (currentScrollPos <= 1100) {
+    if (headMinified.value) {
+      headMinified.value = false
+      ctaMinified.value = true
+    }
+  } else if (!headMinified.value) {
+    headMinified.value = true
+    ctaMinified.value = false
+  }
+}
+const closeNavNote = () => {
+  mainStore.closeNavNote()
+}
+const clickCTA = () => {
+  if (!route.path.includes(PATHS.PROPERTY_VALUE)) {
+    nuxtApp.$gtm.push({ event: 'navMobile.propertyValueCTA' })
+  }
+}
+
+onMounted(() => {
+  onScroll()
+  window.addEventListener('scroll', onScroll)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
+})
+</script>
+
 <template>
   <div class="nav-mobile" :class="{ active, isCalc, isMinimalNav }">
     <div class="nav-mobile-head" :class="{ minified: headMinified && !active && !isMinimalNav }">
@@ -9,7 +76,7 @@
           v-if="!isMinimalNav"
           class="nav-mobile-head-hamburger"
           :class="{ active }"
-          @click="active = !active"
+          @click="triggerNav"
       >
         <span></span>
         <span></span>
@@ -72,82 +139,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import {PATHS} from "assets/js/constants.js";
-import {useStore} from "~/store/main.js";
-
-export default defineNuxtComponent({
-  setup() {
-    return {
-      mainStore: useStore()
-    }
-  },
-  data () {
-    return {
-      PATHS,
-      headMinified: false,
-      ctaMinified: true
-    }
-  },
-  computed: {
-    active: {
-      get () {
-        return this.mainStore.mobileNavOpened
-      },
-      set (val) {
-        val
-          ? this.mainStore.openMobileNav()
-          : this.mainStore.closeMobileNav()
-      }
-    },
-    isCalc () {
-      return this.$route.path === PATHS.CALC
-    },
-    isMinimalNav () {
-      return this.$route.path.includes(PATHS.PROPERTY_VALUE_REQUEST)
-    }
-  },
-  watch: {
-    '$route' () {
-      this.active = false
-    }
-  },
-  mounted () {
-    this.onScroll()
-    window.addEventListener('scroll', this.onScroll)
-  },
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.onScroll)
-  },
-  methods: {
-    onScroll () {
-      if (this.isCalc) {
-        return
-      }
-      const { headMinified } = this
-      const currentScrollPos = window.pageYOffset
-      if (currentScrollPos <= 1100) {
-        if (headMinified) {
-          this.headMinified = false
-          this.ctaMinified = true
-        }
-      } else if (!headMinified) {
-        this.headMinified = true
-        this.ctaMinified = false
-      }
-    },
-    closeNavNote () {
-      this.mainStore.closeNavNote()
-    },
-    clickCTA () {
-      if (!this.$route.path.includes(PATHS.PROPERTY_VALUE)) {
-        this.$gtm.push({ event: 'navMobile.propertyValueCTA' })
-      }
-    }
-  }
-})
-</script>
 
 <style lang="scss">
 .nav-mobile {

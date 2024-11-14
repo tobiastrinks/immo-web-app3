@@ -21,7 +21,5 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <LegalPage :cf-data="cfStore.privacyPage" />
-  </Layout>
+  <LegalPage :cf-data="cfStore.privacyPage" />
 </template>

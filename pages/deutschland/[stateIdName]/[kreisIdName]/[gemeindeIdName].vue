@@ -42,6 +42,8 @@ const { error } = await useAsyncData(async () => {
   return true
 })
 
+// TODO: continue: when performing the fetch in a global middleware, how to get the page parameters? -> probably via the route.params, same like here?
+
 if (error?.value?.statusCode === 404) {
   throw createError({ statusCode: 404, message: 'Diese URL ist ungültig' })
 }
@@ -61,7 +63,5 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <Gemeinde v-if="locationStore.gemeinde" />
-  </Layout>
+  <Gemeinde v-if="locationStore.gemeinde" />
 </template>

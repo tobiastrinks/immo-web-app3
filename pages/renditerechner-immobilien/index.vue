@@ -34,7 +34,5 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <CalcSEO />
-  </Layout>
+  <CalcSEO />
 </template>

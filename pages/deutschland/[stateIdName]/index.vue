@@ -68,9 +68,7 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <State v-if="locationStore.state" />
-    <Kreis v-else-if="locationStore.kreis" />
-    <Gemeinde v-else-if="locationStore.gemeinde" />
-  </Layout>
+  <State v-if="locationStore.state" />
+  <Kreis v-else-if="locationStore.kreis" />
+  <Gemeinde v-else-if="locationStore.gemeinde" />
 </template>

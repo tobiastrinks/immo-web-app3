@@ -1,3 +1,46 @@
+<script setup>
+import {useLocationStore} from "~/store/location.js";
+import {useOverviewStatsStore} from "~/store/overviewStats.js";
+
+const locationStore = useLocationStore()
+const overviewStatsStore = useOverviewStatsStore()
+const i18n = useI18n()
+
+const location = computed(() => {
+  return locationStore.activeLocationMainData
+})
+const locationName = computed(() => {
+  return location.value.name || i18n.t('_shared.location.germanyLocationName')
+})
+const locationType = computed(() => {
+  return locationStore.activeLocationType
+})
+const dataSourceParagraph = computed(() => {
+  const {
+    additionalStats: {
+      propertyRadius,
+      propertyCount
+    }
+  } = overviewStatsStore
+  return i18n.t('_shared.locationAnalysis.dataSourceParagraph', {
+    optionalRadius: propertyRadius
+        ? i18n.t('_shared.locationAnalysis.optionalRadius', {
+          propertyRadius,
+          locationName: locationName.value
+        })
+        : '',
+    propertyCount: i18n.n(propertyCount)
+  })
+})
+const hasRanking = computed(() => {
+  const { gemeinde, kreis, state } = locationStore
+  return (
+      !!overviewStatsStore.additionalStats.ranking &&
+      (gemeinde || kreis || state)
+  )
+})
+</script>
+
 <template>
   <div class="location-analysis">
     <Headline
@@ -33,55 +76,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import {useLocationStore} from "~/store/location.js";
-import {useOverviewStatsStore} from "~/store/overviewStats.js";
-
-export default defineNuxtComponent({
-  setup() {
-    return {
-      locationStore: useLocationStore(),
-      overviewStatsStore: useOverviewStatsStore()
-    }
-  },
-  computed: {
-    location () {
-      return this.locationStore.activeLocationMainData
-    },
-    locationName () {
-      return this.location.name || this.$t('_shared.location.germanyLocationName')
-    },
-    locationType () {
-      return this.locationStore.activeLocationType
-    },
-    dataSourceParagraph () {
-      const {
-        additionalStats: {
-          propertyRadius,
-          propertyCount
-        }
-      } = this.overviewStatsStore
-      return this.$t('_shared.locationAnalysis.dataSourceParagraph', {
-        optionalRadius: propertyRadius
-          ? this.$t('_shared.locationAnalysis.optionalRadius', {
-            propertyRadius,
-            locationName: this.locationName
-          })
-          : '',
-        propertyCount: this.$n(propertyCount)
-      })
-    },
-    hasRanking () {
-      const { gemeinde, kreis, state } = this.locationStore
-      return (
-        !!this.overviewStatsStore.additionalStats.ranking &&
-        (gemeinde || kreis || state)
-      )
-    }
-  }
-})
-</script>
 
 <style lang="scss">
 .location-analysis {

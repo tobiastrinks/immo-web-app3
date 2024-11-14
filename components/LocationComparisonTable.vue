@@ -1,3 +1,74 @@
+<script setup>
+import { PATHS } from '~/assets/js/constants'
+import { getPathForLocationIdNames } from '~/assets/js/locationUtils'
+import {useStore} from "~/store/main.js";
+
+const mainStore = useStore()
+const i18n = useI18n()
+const route = useRoute()
+
+const props = defineProps({
+  nearbyComparison: {
+    type: Boolean,
+    default: false
+  },
+  data: {
+    type: Array,
+    required: true
+  },
+  locationType: {
+    type: String,
+    required: true
+  }
+})
+
+const showMaximizeButton = ref(false)
+const maximized = ref(false)
+
+const locationTypeLabel = computed(() => {
+  return i18n.t(`_shared.locationComparison.table.headLabels.${props.locationType}`)
+})
+
+const thStyle = computed(() => {
+  if (!maximized.value) {
+    return {}
+  }
+  return { top: `${mainStore.maximizedNavHeight + mainStore.navMinifyOffset}px` }
+})
+
+const getLink = (row) => {
+  if (props.nearbyComparison) {
+    // we cannot use current location as nearby cities could be in another state
+    const { gemeindeIdName, kreisIdName, stateIdName } = row
+    return getPathForLocationIdNames({ gemeindeIdName, kreisIdName, stateIdName })
+  } else {
+    return PATHS[props.locationType](route.params, row.idName)
+  }
+}
+
+const onResize = () => {
+  const tableHeightLimiter = document.querySelector('.location-comparison-table-height-limiter')
+  const table = document.querySelector('.location-comparison-table-height-limiter table')
+  if (!tableHeightLimiter || !table) { return }
+  if (tableHeightLimiter.offsetHeight < table.offsetHeight) {
+    if (!showMaximizeButton.value) {
+      showMaximizeButton.value = true
+    }
+  } else if (showMaximizeButton.value) {
+    showMaximizeButton.value = false
+  }
+}
+
+onMounted(() => {
+  onResize()
+  window.addEventListener('resize', onResize)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', onResize)
+})
+</script>
+
 <template>
   <div class="location-comparison-table">
     <div class="location-comparison-table-height-limiter" :class="{ maximized }">
@@ -64,82 +135,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import { PATHS } from '~/assets/js/constants'
-import { getPathForLocationIdNames } from '~/assets/js/locationUtils'
-import {useStore} from "~/store/main.js";
-
-export default defineNuxtComponent({
-  setup() {
-    return {
-      mainStore: useStore()
-    }
-  },
-  props: {
-    nearbyComparison: {
-      type: Boolean,
-      default: false
-    },
-    data: {
-      type: Array,
-      required: true
-    },
-    locationType: {
-      type: String,
-      required: true
-    }
-  },
-  data () {
-    return {
-      showMaximizeButton: false,
-      maximized: false,
-      attachHeadToTop: false
-    }
-  },
-  computed: {
-    locationTypeLabel () {
-      return this.$t(`_shared.locationComparison.table.headLabels.${this.locationType}`)
-    },
-    thStyle () {
-      if (!this.maximized) {
-        return {}
-      }
-      return { top: `${this.mainStore.maximizedNavHeight + this.mainStore.navMinifyOffset}px` }
-    }
-  },
-  mounted () {
-    this.onResize()
-    window.addEventListener('resize', this.onResize)
-  },
-  beforeDestroy () {
-    window.removeEventListener('resize', this.onResize)
-  },
-  methods: {
-    getLink (row) {
-      if (this.nearbyComparison) {
-        // we cannot use current location as nearby cities could be in another state
-        const { gemeindeIdName, kreisIdName, stateIdName } = row
-        return getPathForLocationIdNames({ gemeindeIdName, kreisIdName, stateIdName })
-      } else {
-        return PATHS[this.locationType](this.$route.params, row.idName)
-      }
-    },
-    onResize () {
-      const tableHeightLimiter = document.querySelector('.location-comparison-table-height-limiter')
-      const table = document.querySelector('.location-comparison-table-height-limiter table')
-      if (!tableHeightLimiter || !table) { return }
-      if (tableHeightLimiter.offsetHeight < table.offsetHeight) {
-        if (!this.showMaximizeButton) {
-          this.showMaximizeButton = true
-        }
-      } else if (this.showMaximizeButton) {
-        this.showMaximizeButton = false
-      }
-    }
-  }
-})
-</script>
 
 <style lang="scss">
 .location-comparison-table {

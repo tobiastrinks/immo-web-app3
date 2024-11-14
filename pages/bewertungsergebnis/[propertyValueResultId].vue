@@ -26,9 +26,7 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <client-only>
-      <PropertyValueResult />
-    </client-only>
-  </Layout>
+  <client-only>
+    <PropertyValueResult />
+  </client-only>
 </template>

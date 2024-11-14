@@ -22,7 +22,5 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <InfoPage :cf-data="cfStore.propertyValuePage" />
-  </Layout>
+  <InfoPage :cf-data="cfStore.propertyValuePage" />
 </template>

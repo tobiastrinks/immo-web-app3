@@ -1,3 +1,95 @@
+<script setup>
+import {useStore} from "~/store/main.js";
+import {offsetTop} from "assets/js/scrollUtils.js";
+
+const props = defineProps({
+  sidebar: {
+    type: Boolean,
+    default: false
+  },
+  sections: {
+    type: Array,
+    required: true
+  },
+  arrowLabel: {
+    type: String,
+    default: null
+  },
+  arrowXOffset: {
+    type: Number,
+    default: null
+  },
+  activeItem: {
+    type: String,
+    default: null
+  }
+})
+
+const mainStore = useStore()
+const route = useRoute()
+
+const arrowLeft = ref(350)
+
+const activeHash = computed(() => {
+  const { fullPath } = route
+  if (fullPath.includes('#')) {
+    return fullPath.split('#').pop()
+  } else {
+    return null
+  }
+})
+
+const topPosition = computed(() => {
+  if (!props.sidebar) {
+    return 'unset'
+  }
+  return mainStore.navMinified
+      ? '119px'
+      : '169px'
+})
+
+const scrollToHash = () => {
+  if (!activeHash.value) {
+    return
+  }
+  const sectionElem = document.querySelector(`*[data-toc="${activeHash.value}"]`)
+  if (sectionElem) {
+    window.scrollTo({
+      top: offsetTop(sectionElem) - 150,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
+}
+
+const getActiveSectionId = (fullPath) => {
+  if (fullPath.includes('#')) {
+    return fullPath.split('#').pop()
+  }
+}
+
+const scrollIfAlreadyActive = (sectionId) => {
+  const { fullPath } = route
+  if (getActiveSectionId(fullPath) === sectionId) {
+    scrollToHash(fullPath)
+  }
+}
+
+onMounted(() => {
+  const { fullPath } = route
+  scrollToHash(fullPath)
+
+  const firstTocItemLabel = document.querySelector('.inner-template-toc-ly2-item .inner-template-toc-ly2-item-label')
+  if (firstTocItemLabel) {
+    arrowLeft.value = firstTocItemLabel.clientWidth + (props.arrowXOffset || 50)
+  }
+})
+
+watch(() => route.fullPath, () => {
+  scrollToHash()
+})
+</script>
+
 <template>
   <div class="inner-template-toc-ly2" :style="{ top: topPosition }">
     <p class="inner-template-toc-ly2-headline">
@@ -24,110 +116,6 @@
     />
   </div>
 </template>
-
-<script>
-import {useStore} from "~/store/main.js";
-import {offsetTop} from "assets/js/scrollUtils.js";
-
-export default defineNuxtComponent({
-  setup(props) {
-    const route = useRoute()
-    const arrowLeft = ref(350)
-
-    const activeHash = computed(() => {
-      const { fullPath } = route
-      if (fullPath.includes('#')) {
-        return fullPath.split('#').pop()
-      } else {
-        return null
-      }
-    })
-
-    const scrollToHash = () => {
-      if (!activeHash.value) {
-        return
-      }
-      const sectionElem = document.querySelector(`*[data-toc="${activeHash.value}"]`)
-      if (sectionElem) {
-        window.scrollTo({
-          top: offsetTop(sectionElem) - 150,
-          left: 0,
-          behavior: 'smooth'
-        })
-      }
-    }
-
-    const getActiveSectionId = (fullPath) => {
-      if (fullPath.includes('#')) {
-        return fullPath.split('#').pop()
-      }
-    }
-
-    const scrollIfAlreadyActive = (sectionId) => {
-      const { fullPath } = route
-      if (getActiveSectionId(fullPath) === sectionId) {
-        scrollToHash(fullPath)
-      }
-    }
-
-    onMounted(() => {
-      const { fullPath } = route
-      scrollToHash(fullPath)
-
-      const firstTocItemLabel = document.querySelector('.inner-template-toc-ly2-item .inner-template-toc-ly2-item-label')
-      if (firstTocItemLabel) {
-        arrowLeft.value = firstTocItemLabel.clientWidth + (props.arrowXOffset || 50)
-      }
-    })
-
-    watch(() => route.fullPath, () => {
-      scrollToHash()
-    })
-
-    return {
-      arrowLeft,
-      mainStore: useStore(),
-      scrollIfAlreadyActive
-    }
-  },
-  props: {
-    sidebar: {
-      type: Boolean,
-      default: false
-    },
-    sections: {
-      type: Array,
-      required: true
-    },
-    arrowLabel: {
-      type: String,
-      default: null
-    },
-    arrowXOffset: {
-      type: Number,
-      default: null
-    },
-    activeItem: {
-      type: String,
-      default: null
-    }
-  },
-  data () {
-    return {
-    }
-  },
-  computed: {
-    topPosition () {
-      if (!this.sidebar) {
-        return 'unset'
-      }
-      return this.mainStore.navMinified
-        ? '119px'
-        : '169px'
-    }
-  },
-})
-</script>
 
 <style scoped lang="scss">
 .inner-template-toc-ly2 {
@@ -156,6 +144,7 @@ export default defineNuxtComponent({
 
     @media #{$lg} {
       font-size: 90%;
+      margin: 5px 0;
     }
 
     &:hover {

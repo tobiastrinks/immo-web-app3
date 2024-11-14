@@ -1,12 +1,79 @@
+<script setup>
+import {useLocationStore} from "~/store/location.js";
+
+const MIETE_AKTUELL_MIN_HEIGHT = 492
+
+const mieteAktuellVersion = useCookie('mieteAktuellVersion')
+const locationStore = useLocationStore()
+const nuxtApp = useNuxtApp()
+
+const props = defineProps({
+  sidebar: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const iframeHeight = ref(null)
+
+const zipParam = computed(() => {
+  const { location } = locationStore
+  if (location?.gemeinde?.gemeinde?.zip) {
+    const { allZips } = location.gemeinde.gemeinde
+    if (!allZips || allZips.length === 1) {
+      return `&zip=${location.gemeinde.gemeinde.zip}`
+    } else {
+      return ''
+    }
+  } else {
+    return ''
+  }
+})
+
+const iframeMessageListener = (e) => {
+  if (!e.data || typeof e.data !== 'string') {
+    return
+  }
+  if (e.data.startsWith('MIETE_AKTUELL_HEIGHT__')) {
+    const newHeight = e.data.replace('MIETE_AKTUELL_HEIGHT__', '')
+    let newHeightNumber = parseInt(newHeight) + 5
+    if (newHeightNumber < MIETE_AKTUELL_MIN_HEIGHT) {
+      newHeightNumber = MIETE_AKTUELL_MIN_HEIGHT
+    }
+    iframeHeight.value = `${newHeightNumber}px`
+  }
+  if (e.data.startsWith('MIETE_AKTUELL_STEP__')) {
+    const step = e.data.replace('MIETE_AKTUELL_STEP__', '')
+    nuxtApp.$gtm.push({ event: step })
+  }
+}
+
+onBeforeMount(() => {
+  if (zipParam.value) {
+    iframeHeight.value = '710px'
+  } else {
+    iframeHeight.value = `${MIETE_AKTUELL_MIN_HEIGHT}px`
+  }
+})
+
+onMounted(() => {
+  window.addEventListener('message', iframeMessageListener)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('message', iframeMessageListener)
+})
+</script>
+
 <template>
   <div class="miete-aktuell">
     <div
       class="miete-aktuell-inner"
-      :class="{ noBorder: sidebar }"
+      :class="{ noBorder: props.sidebar }"
     >
       <div
         class="miete-aktuell-iframe-wrapper"
-        :class="{ sidebar }"
+        :class="{ sidebar: props.sidebar }"
         :style="{ height: iframeHeight }"
       >
         <iframe
@@ -15,12 +82,12 @@
           :style="{ height: iframeHeight }"
         ></iframe>
       </div>
-      <div class="miete-aktuell-features" :class="{ sidebar }">
+      <div class="miete-aktuell-features" :class="{ sidebar: props.sidebar }">
         <div
           v-for="(feature, index) of $tm('_shared.mieteAktuell.features')"
           :key="index"
           class="miete-aktuell-features-item"
-          :class="{ sidebar }"
+          :class="{ sidebar: props.sidebar }"
         >
           <img src="~/assets/img/_shared/check-green-2.svg" />
           <p class="miete-aktuell-features-item-text">
@@ -31,79 +98,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import {useLocationStore} from "~/store/location.js";
-
-const MIETE_AKTUELL_MIN_HEIGHT = 492
-export default defineNuxtComponent({
-  setup() {
-    return {
-      mieteAktuellVersion: useCookie('mieteAktuellVersion'),
-      locationStore: useLocationStore(),
-      nuxtApp: useNuxtApp()
-    }
-  },
-  props: {
-    sidebar: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data () {
-    return {
-      iframeHeight: null
-    }
-  },
-  computed: {
-    zipParam () {
-      const { location } = this.locationStore
-      if (location?.gemeinde?.gemeinde?.zip) {
-        const { allZips } = location.gemeinde.gemeinde
-        if (!allZips || allZips.length === 1) {
-          return `&zip=${location.gemeinde.gemeinde.zip}`
-        } else {
-          return ''
-        }
-      } else {
-        return ''
-      }
-    }
-  },
-  beforeMount () {
-    if (this.zipParam) {
-      this.iframeHeight = '710px'
-    } else {
-      this.iframeHeight = `${MIETE_AKTUELL_MIN_HEIGHT}px`
-    }
-  },
-  mounted () {
-    window.addEventListener('message', this.iframeMessageListener)
-  },
-  beforeDestroy () {
-    window.removeEventListener('message', this.iframeMessageListener)
-  },
-  methods: {
-    iframeMessageListener (e) {
-      if (!e.data || typeof e.data !== 'string') {
-        return
-      }
-      if (e.data.startsWith('MIETE_AKTUELL_HEIGHT__')) {
-        const newHeight = e.data.replace('MIETE_AKTUELL_HEIGHT__', '')
-        let newHeightNumber = parseInt(newHeight) + 5
-        if (newHeightNumber < MIETE_AKTUELL_MIN_HEIGHT) {
-          newHeightNumber = MIETE_AKTUELL_MIN_HEIGHT
-        }
-        this.iframeHeight = `${newHeightNumber}px`
-      }
-      if (e.data.startsWith('MIETE_AKTUELL_STEP__')) {
-        const step = e.data.replace('MIETE_AKTUELL_STEP__', '')
-        this.nuxtApp.$gtm.push({ event: step })
-      }
-    }
-  }
-})
-</script>
 
 <style scoped lang="scss">
 .miete-aktuell {

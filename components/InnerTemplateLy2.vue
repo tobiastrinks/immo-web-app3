@@ -58,6 +58,9 @@ onBeforeUnmount(() => {
   window.clearInterval(recalculateSectionOffsetInterval.value)
   window.removeEventListener('scroll', onScroll)
 })
+
+
+// TODO: extra line between affiliate header and info content
 </script>
 
 <template>
@@ -119,7 +122,7 @@ onBeforeUnmount(() => {
         }
 
         @media #{$xl} {
-          width: 270px;
+          width: 350px;
           margin-right: 60px;
         }
       }
@@ -133,7 +136,7 @@ onBeforeUnmount(() => {
         }
 
         @media #{$xl} {
-          width: calc(100% - 330px);
+          width: calc(100% - 410px);
         }
       }
 

@@ -20,9 +20,7 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <PropertyValueRequest
-        :phone="route.query.phone"
-    />
-  </Layout>
+  <PropertyValueRequest
+      :phone="route.query.phone"
+  />
 </template>

@@ -21,11 +21,9 @@ useHead({
 </script>
 
 <template>
-  <Layout>
-    <div class="imprint">
-      <LegalPage :cf-data="cfStore.imprintPage" />
-    </div>
-  </Layout>
+  <div class="imprint">
+    <LegalPage :cf-data="cfStore.imprintPage" />
+  </div>
 </template>
 
 <style lang="scss">
