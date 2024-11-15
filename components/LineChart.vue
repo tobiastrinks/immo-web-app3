@@ -37,6 +37,7 @@ const datasets = props.dataSets.map(({ values, legendLabel, lineColor, yAxisID }
   label: legendLabel,
   fill: false,
   backgroundColor: lineColor,
+  cubicInterpolationMode: 'monotone',
   borderColor: lineColor,
   yAxisID: yAxisID == null || yAxisID === 'primary'
       ? 'y'

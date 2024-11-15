@@ -119,6 +119,7 @@ onBeforeUnmount(() => {
           display: block;
           width: 250px;
           margin-right: 30px;
+          margin-top: -20px;
         }
 
         @media #{$xl} {

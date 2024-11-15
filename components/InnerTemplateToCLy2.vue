@@ -39,15 +39,6 @@ const activeHash = computed(() => {
   }
 })
 
-const topPosition = computed(() => {
-  if (!props.sidebar) {
-    return 'unset'
-  }
-  return mainStore.navMinified
-      ? '119px'
-      : '169px'
-})
-
 const scrollToHash = () => {
   if (!activeHash.value) {
     return
@@ -91,7 +82,10 @@ watch(() => route.fullPath, () => {
 </script>
 
 <template>
-  <div class="inner-template-toc-ly2" :style="{ top: topPosition }">
+  <div
+      class="inner-template-toc-ly2"
+      :class="{ navMinified: mainStore.navMinified, sidebar: props.sidebar }"
+  >
     <p class="inner-template-toc-ly2-headline">
       {{ $t('_shared.locationToc.headline') }}
     </p>
@@ -122,6 +116,18 @@ watch(() => route.fullPath, () => {
   line-height: 1.4;
   width: 100%;
   transition: top $minifyNavAnimationSpeed;
+  padding: 20px 0;
+
+  &.sidebar {
+    top: 138px;
+    max-height: calc(100vh - 178px);
+    overflow-y: auto;
+
+    &.navMinified {
+      top: 87px;
+      max-height: calc(100vh - 127px);
+    }
+  }
 
   @media #{$lg} {
     margin: 0;
