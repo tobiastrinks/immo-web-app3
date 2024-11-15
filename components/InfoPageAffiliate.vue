@@ -98,6 +98,7 @@ const props = defineProps({
     .info-page-affiliate-iframe {
       position: relative;
       margin: 0 auto;
+      max-width: 1000px;
 
       .info-page-affiliate-iframe-arrow {
         position: absolute;
