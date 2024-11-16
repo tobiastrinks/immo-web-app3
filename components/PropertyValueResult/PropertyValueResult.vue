@@ -178,11 +178,11 @@ const resultTable = computed(() => {
             { text: 'Geschätzter Marktwert des Grundstücks<br /> (ohne Bebauung)' },
             { text: `${marketValueFrom} - ${marketValueTo} €`, bold: true }
           ],
-          this.result.request.wohnflaeche && [
+          result.value.request.wohnflaeche && [
             { text: 'Wohnfläche' },
             { text: 'Weitere Angaben benötigt', bold: true }
           ],
-          this.result.request.gewerbeflaeche && [
+          result.value.request.gewerbeflaeche && [
             { text: 'Gewerbefläche' },
             { text: 'Weitere Angaben benötigt', bold: true }
           ],
