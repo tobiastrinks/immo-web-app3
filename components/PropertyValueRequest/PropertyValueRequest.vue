@@ -52,14 +52,18 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="scss">
-.property-value-request-loading {
-  text-align: center;
-  padding-top: 60px;
-  font-weight: 400;
+.property-value-request {
+  min-height: 80vh;
 
-  img {
-    width: 30px;
-    margin-bottom: 10px;
+  .property-value-request-loading {
+    text-align: center;
+    padding-top: 60px;
+    font-weight: 400;
+
+    img {
+      width: 30px;
+      margin-bottom: 10px;
+    }
   }
 }
 </style>

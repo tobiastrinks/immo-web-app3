@@ -201,26 +201,26 @@ caption {
   position: relative;
   margin-top: 0;
 
-  .page-location-nav-active {
-    margin-top: 45px;
-
-    @media #{$lg} {
-      margin-top: 35px;
-    }
-
-    &.margin-top {
-      margin-top: 80px;
-
-      @media #{$lg} {
-        margin-top: 67px;
-      }
-    }
-  }
-
   .layout-default-page {
 
     &.loading {
       display: none;
+    }
+  }
+}
+
+.page-location-nav-active {
+  margin-top: 45px;
+
+  @media #{$lg} {
+    margin-top: 35px;
+  }
+
+  &.margin-top {
+    margin-top: 80px;
+
+    @media #{$lg} {
+      margin-top: 67px;
     }
   }
 }
