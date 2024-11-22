@@ -1,4 +1,6 @@
 <script setup>
+import {PATHS} from "assets/js/constants.js";
+
 let PROPERTY_VALUE_MIN_HEIGHT
 
 const iframeHeight = ref(null)
@@ -27,7 +29,9 @@ const iframeLoadListener = () => {
     try {
       // Access the new URL of the iframe
       const newUrl = iframe.contentWindow.location.href;
-      console.log('Iframe redirected to:', newUrl);
+      if (newUrl.includes(PATHS.PROPERTY_VALUE_REQUEST)) {
+        location.host = newUrl
+      }
     } catch (e) {
       // Handle errors for cross-origin iframe
       console.log('Iframe redirected to a cross-origin URL.');
