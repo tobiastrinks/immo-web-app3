@@ -30,7 +30,7 @@ const iframeLoadListener = () => {
       // Access the new URL of the iframe
       const newUrl = iframe.contentWindow.location.href;
       if (newUrl.includes(PATHS.PROPERTY_VALUE_REQUEST)) {
-        location.host = newUrl
+        window.location.href = newUrl
       }
     } catch (e) {
       // Handle errors for cross-origin iframe
