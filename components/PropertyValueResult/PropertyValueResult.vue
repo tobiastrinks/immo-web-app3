@@ -270,7 +270,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="property-value-result">
+  <div class="page-location-nav-active margin-top property-value-result">
     <div class="inner">
       <div class="property-value-result-columns">
         <div class="property-value-result-content">

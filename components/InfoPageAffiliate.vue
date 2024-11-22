@@ -9,7 +9,8 @@ const props = defineProps({
 
 <template>
   <div class="info-page-affiliate-wrapper">
-    <div class="info-page-affiliate" :class="props.type">
+    <PropertyValueWidget v-if="props.type === 'propertyValueWidget'" />
+    <div v-else class="info-page-affiliate" :class="props.type">
       <p class="info-page-affiliate-title">
         {{ $t(`_shared.${props.type}.title`) }}
       </p>
@@ -53,6 +54,7 @@ const props = defineProps({
 
   .info-page-affiliate {
     text-align: center;
+    padding-top: 33px;
 
     .info-page-affiliate-title {
       font-family: $fontHeadline;

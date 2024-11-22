@@ -41,7 +41,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="property-value-request">
+  <div class="page-location-nav-active margin-top property-value-request">
     <div class="inner">
       <div class="property-value-request-loading">
         <img src="~/assets/img/_shared/loading.svg" />

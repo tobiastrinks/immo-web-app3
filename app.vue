@@ -199,30 +199,22 @@ caption {
 
 .layout-default {
   position: relative;
-  margin-top: 80px;
+  margin-top: 0;
 
-  &.navNoteOpened {
+  .page-location-nav-active {
+    margin-top: 45px;
+
     @media #{$lg} {
-      margin-top: 108px;
+      margin-top: 35px;
     }
-  }
 
-  &.noMarginTop {
-    margin-top: 0;
+    &.margin-top {
+      margin-top: 80px;
 
-    &.navNoteOpened {
       @media #{$lg} {
-        margin-top: 28px;
+        margin-top: 67px;
       }
     }
-  }
-
-  &:not(.isCalc) {
-    min-height: 100vh;
-  }
-
-  @media #{$lg} {
-    margin-top: 67px;
   }
 
   .layout-default-page {

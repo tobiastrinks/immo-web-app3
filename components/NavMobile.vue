@@ -125,17 +125,6 @@ onBeforeUnmount(() => {
           @enabled-click="clickCTA"
         />
       </CustomNuxtLink>
-      <div v-if="mainStore.navNoteOpened" class="nav-mobile-note">
-        <CustomNuxtLink to="#">
-          <p class="nav-mobile-note-text"></p>
-        </CustomNuxtLink>
-        <div class="nav-mobile-note-close" @click="closeNavNote">
-          <img
-            src="@/assets/img/_shared/font-awesome/xmark-solid.svg"
-            class="nav-mobile-note-close-icon"
-          />
-        </div>
-      </div>
     </div>
   </div>
 </template>

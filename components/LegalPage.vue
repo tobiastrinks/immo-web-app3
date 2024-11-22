@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="inner">
+  <div class="page-location-nav-active margin-top inner">
     <InnerTemplateLy2
         :headline="props.cfData.headline"
         :sub-headline="props.cfData.subHeadline"

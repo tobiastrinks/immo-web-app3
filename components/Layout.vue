@@ -1,6 +1,5 @@
 <script setup>
 import {useStore} from "~/store/main.js";
-import {PATHS} from "assets/js/constants.js";
 import {useRoute as useNativeRoute} from "#vue-router";
 import {useLocationStore} from "~/store/location.js";
 import useCachedApi from "~/composables/useCachedApi.js";
@@ -9,16 +8,6 @@ const route = useNativeRoute()
 const mainStore = useStore()
 const locationStore = useLocationStore()
 const cachedApi = useCachedApi()
-
-const isCalc = computed(() => {
-  return route.path === PATHS.CALC
-})
-const noMarginTop = computed(() => {
-  return route.path === '/' || isCalc.value
-})
-const navNoteOpened = computed(() => {
-  return mainStore.navNoteOpened
-})
 
 /**
  * the layout is loaded before any page is loaded -> the navigation needs the location
@@ -49,7 +38,7 @@ await useAsyncData(async () => {
     <Nav />
     <NavMobile />
     <CookieBar />
-    <div class="layout-default" :class="{ noMarginTop, isCalc, navNoteOpened }">
+    <div class="layout-default">
       <div class="layout-default-page">
         <slot />
       </div>

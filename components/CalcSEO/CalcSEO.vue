@@ -57,7 +57,7 @@ const featureBarItems = computed(() => {
 </script>
 
 <template>
-  <div class="calc-seo">
+  <div class="page-location-nav-active margin-top calc-seo">
     <div class="inner">
       <Headline
         :headline="cfData.headline"

@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <script src="https://assets.prd.heyflow.com/builder/widget/latest/webview.js"></script>
+    </head>
+    <body style="margin: 0; padding: 0; overflow-y: auto;">
+        <div id="heyflow-wrapper">
+            <heyflow-wrapper flow-id="affiliate-header-grundstueckswert-rechner" dynamic-height scroll-up-on-navigation style-config='{"width": "100%"}'></heyflow-wrapper>
+        </div>
+        <script>
+            let latestHeight = 0
+
+            let heightInitialized = false
+            window.addEventListener('heyflow-init', (event) => {
+                window.setTimeout(() => {
+                    heightInitialized = true
+                }, 2000)
+            })
+
+            window.setInterval(() => {
+                if (heightInitialized) {
+                    const height = document.getElementById('heyflow-wrapper').offsetHeight
+                    if (height !== latestHeight) {
+                        window.parent.postMessage(`PROPERTY_VALUE_HEIGHT__${height}`, '*')
+                        latestHeight = height
+                    }
+                }
+            }, 100)
+        </script>
+    </body>
+</html>
