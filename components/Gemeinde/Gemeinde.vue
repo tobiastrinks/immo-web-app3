@@ -6,7 +6,7 @@ const locationStore = useLocationStore()
 </script>
 
 <template>
-  <div class="gemeinde">
+  <div class="page-location-nav-active margin-top gemeinde">
     <div class="inner">
       <LocationInnerLy2
         :headline="$t('gemeinde.overview.headline', { gemeinde: locationStore.gemeinde.gemeinde.name })"

@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <script src="https://assets.prd.heyflow.com/builder/widget/latest/webview.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    </head>
+    <body style="margin: 0; padding: 0; overflow-y: auto; background-color: #ffffff;">
+        <div id="heyflow-wrapper">
+            <heyflow-wrapper flow-id="affiliate-header-grundstueckswert-rechner" dynamic-height scroll-up-on-navigation style-config='{"width": "100%"}'></heyflow-wrapper>
+        </div>
+        <script>
+            let currentStep = null
+            let latestHeight = 0
+
+            let heightInitialized = false
+            window.addEventListener('heyflow-init', (event) => {
+                window.setTimeout(() => {
+                    heightInitialized = true
+                }, 2000)
+            })
+
+            window.setInterval(() => {
+                if (heightInitialized) {
+                    const height = document.getElementById('heyflow-wrapper').offsetHeight
+                    if (height !== latestHeight) {
+                        window.parent.postMessage(`PROPERTY_VALUE_HEIGHT__${height}`, '*')
+                        latestHeight = height
+                    }
+                }
+
+                try {
+                    const step = document
+                        .querySelector('*[flow-id="affiliate-header-grundstueckswert-rechner"]')
+                        .shadowRoot
+                        .querySelector('*[data-id="heyflow-form"] section[name].visible')
+                        .getAttribute('name')
+
+                    if (step && step !== currentStep) {
+                        window.parent.postMessage(`PROPERTY_VALUE_EVENT__${step}.opened`, '*')
+                        currentStep = step
+                    }
+                } catch (e) {}
+            }, 100)
+        </script>
+    </body>
+</html>

@@ -3,7 +3,7 @@ useHead({
   title: 'Aktuelle Grundstückspreise',
   meta: [
     { charset: 'utf-8' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
     { name: 'msapplication-TileColor', content: '#b91d47' },
     { name: 'msapplication-config', content: '/_favicons/browserconfig.xml' },
     { name: 'theme-color', content: '#ffffff' }
@@ -199,36 +199,28 @@ caption {
 
 .layout-default {
   position: relative;
-  margin-top: 80px;
-
-  &.navNoteOpened {
-    @media #{$lg} {
-      margin-top: 108px;
-    }
-  }
-
-  &.noMarginTop {
-    margin-top: 0;
-
-    &.navNoteOpened {
-      @media #{$lg} {
-        margin-top: 28px;
-      }
-    }
-  }
-
-  &:not(.isCalc) {
-    min-height: 100vh;
-  }
-
-  @media #{$lg} {
-    margin-top: 67px;
-  }
+  margin-top: 0;
 
   .layout-default-page {
 
     &.loading {
       display: none;
+    }
+  }
+}
+
+.page-location-nav-active {
+  margin-top: 45px;
+
+  @media #{$lg} {
+    margin-top: 35px;
+  }
+
+  &.margin-top {
+    margin-top: 80px;
+
+    @media #{$lg} {
+      margin-top: 67px;
     }
   }
 }

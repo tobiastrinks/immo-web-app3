@@ -152,7 +152,8 @@ const clickCTA = () => {
             class="location-inner-ly2-affiliate-widget"
           >
             <MieteAktuell v-if="affiliateAbTestType === 'mieteAktuell'" />
-            <WattfoxImmo v-else />
+            <WattfoxImmo v-else-if="affiliateAbTestType === 'wattfoxImmo'" />
+            <PropertyValueWidget v-else />
           </div>
         </client-only>
       </template>
@@ -330,6 +331,7 @@ const clickCTA = () => {
   }
 
   .location-inner-ly2-affiliate-widget {
+    border: 1px solid $colorStroke;
     margin: 0 -5vw;
 
     @media #{$lg} {

@@ -6,7 +6,7 @@ const locationStore = useLocationStore()
 </script>
 
 <template>
-  <div class="kreis">
+  <div class="page-location-nav-active margin-top kreis">
     <div class="inner">
       <LocationInnerLy2
         :headline="$t('kreis.overview.headline', { kreis: locationStore.kreis.kreis.name })"

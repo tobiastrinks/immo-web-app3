@@ -7,7 +7,6 @@ export const useStore = defineStore('main', {
             navLocationHeight: 0
         },
         mobileNavOpened: false,
-        navNoteOpened: false,
         toast: null,
         searchRandomAutocomplete: Math.ceil(Math.random() * 100000).toString()
     }),
@@ -38,9 +37,6 @@ export const useStore = defineStore('main', {
         },
         closeMobileNav() {
             this.mobileNavOpened = false
-        },
-        closeNavNote() {
-            this.navNoteOpened = false
         },
         setToast(toast) {
             this.toast = toast
