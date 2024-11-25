@@ -3,9 +3,9 @@ export default function () {
         // CHECK VARY HEADER WHEN REMOVING -> varyHeader.js
         // default is always first item
         affiliateWidgets: {
-            // wattfoxImmo: 0.25,
-            // mieteAktuell: 0.5,
-            propertyValueWidget: 1
+            wattfoxImmo: 0.25,
+            mieteAktuell: 0.5,
+            propertyValueWidget: 0.25
         }
     }
     /**
