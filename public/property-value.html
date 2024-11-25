@@ -7,6 +7,7 @@
             <heyflow-wrapper flow-id="affiliate-header-grundstueckswert-rechner" dynamic-height scroll-up-on-navigation style-config='{"width": "100%"}'></heyflow-wrapper>
         </div>
         <script>
+            let currentStep = null
             let latestHeight = 0
 
             let heightInitialized = false
@@ -24,6 +25,19 @@
                         latestHeight = height
                     }
                 }
+
+                try {
+                    const step = document
+                        .querySelector('*[flow-id="affiliate-header-grundstueckswert-rechner"]')
+                        .shadowRoot
+                        .querySelector('*[data-id="heyflow-form"] section[name].visible')
+                        .getAttribute('name')
+
+                    if (step && step !== currentStep) {
+                        window.parent.postMessage(`PROPERTY_VALUE_EVENT__${step}.opened`, '*')
+                        currentStep = step
+                    }
+                } catch (e) {}
             }, 100)
         </script>
     </body>

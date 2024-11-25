@@ -331,6 +331,7 @@ const clickCTA = () => {
   }
 
   .location-inner-ly2-affiliate-widget {
+    border: 1px solid $colorStroke;
     margin: 0 -5vw;
 
     @media #{$lg} {

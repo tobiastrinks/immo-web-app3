@@ -9,7 +9,7 @@ const props = defineProps({
 
 <template>
   <div class="info-page-affiliate-wrapper">
-    <PropertyValueWidget v-if="props.type === 'propertyValueWidget'" />
+    <PropertyValueWidget v-if="props.type === 'propertyValueWidget'" border-bottom />
     <div v-else class="info-page-affiliate" :class="props.type">
       <p class="info-page-affiliate-title">
         {{ $t(`_shared.${props.type}.title`) }}

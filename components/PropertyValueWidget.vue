@@ -1,6 +1,15 @@
 <script setup>
 import {PATHS} from "assets/js/constants.js";
 
+const nuxtApp = useNuxtApp()
+
+const props = defineProps({
+  borderBottom: {
+    type: Boolean,
+    default: false
+  }
+})
+
 let PROPERTY_VALUE_MIN_HEIGHT
 
 const iframeHeight = ref(null)
@@ -8,6 +17,10 @@ const iframeHeight = ref(null)
 const iframeMessageListener = (e) => {
   if (!e.data || typeof e.data !== 'string') {
     return
+  }
+  if (e.data.startsWith('PROPERTY_VALUE_EVENT__')) {
+    const event = e.data.replace('PROPERTY_VALUE_EVENT__', '')
+    nuxtApp.$gtm.push({ event: `heyflow.propertyValueWidget.${event}` })
   }
   if (e.data.startsWith('PROPERTY_VALUE_HEIGHT__')) {
     const newHeight = e.data.replace('PROPERTY_VALUE_HEIGHT__', '')
@@ -73,7 +86,7 @@ const instructionSteps = [
 </script>
 
 <template>
-  <div class="property-value-widget">
+  <div class="property-value-widget" :class="{ borderBottom: props.borderBottom }">
     <div class="property-value-widget-inner">
       <p class="property-value-widget-headline">
         Grundstückswert-Rechner
@@ -134,6 +147,10 @@ const instructionSteps = [
     background-color: $colorLightGreyBg;
     padding: 40px 0;
 
+    &.borderBottom {
+      border-bottom: 1px solid $colorStroke;
+    }
+
     .property-value-widget-inner {
       text-align: left;
       width: 90%;
@@ -142,6 +159,7 @@ const instructionSteps = [
 
       .property-value-widget-headline {
         font-weight: 500;
+        font-size: 105%;
       }
 
       .property-value-widget-description {
