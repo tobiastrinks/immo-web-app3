@@ -145,6 +145,7 @@ const instructionSteps = [
 <style lang="scss">
   .property-value-widget {
     background-color: $colorLightGreyBg;
+    border: 1px solid $colorStroke;
     padding: 40px 0;
 
     &.borderBottom {
