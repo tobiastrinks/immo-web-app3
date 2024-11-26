@@ -33,7 +33,7 @@ const { error } = await useAsyncData(async () => {
     overviewStatsStore.loadOverviewStats(cachedApi, { location, xFeature: X_FEATURES.DEVELOPMENT_STATUS, yValue: Y_VALUES.PRICE_PER_SQM }),
     overviewStatsStore.loadOverviewStats(cachedApi, { location, xFeature: X_FEATURES.BUILDING_PERMISSION, yValue: Y_VALUES.PRICE_PER_SQM }),
     cfStore.fetchLocationBodenrichtwert(nuxtApp.$cfClient, location),
-    cfStore.fetchLocationBodenrichtwert(nuxtApp.$cfClient, { ...location, mini: true }),
+    cfStore.fetchLocationBodenrichtwert(nuxtApp.$cfClient, { stateIdName: location.stateIdName, mini: true }),
     cfStore.fetchLocationTrend(nuxtApp.$cfClient, location),
     locationStore.getMarketReport(cachedApi, location)
   ])
