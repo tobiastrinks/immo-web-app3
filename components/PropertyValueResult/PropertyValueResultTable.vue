@@ -27,31 +27,29 @@ const props = defineProps({
             :key="index3"
             :class="{ bold: cell.bold }"
             :style="{
-              'padding-top': cell.paddingTop && `${cell.paddingTop}px`
+              'padding-top': cell.paddingTop && `${cell.paddingTop}px`,
+              'padding-bottom': cell.paddingBottom && `${cell.paddingBottom}px`,
+              'border-bottom': cell.borderBottom && '1px solid #D7D7D7FF'
             }"
           >
             <span v-if="cell.text" v-html="cell.text"></span>
-            <Button
-              v-else-if="cell.button"
-              :label="cell.button"
-              active
-              no-scale-hover-effect
-              inline-block
-              small
-              @click="$emit('button-click')"
-            />
           </td>
         </tr>
       </table>
     </div>
+    <slot />
   </div>
 </template>
 
 <style scoped lang="scss">
 .property-value-result-table {
   background-color: $colorLightGreyBg;
-  padding: 20px;
+  padding: 10px;
   margin: 20px 0;
+
+  @media #{$sm} {
+    padding: 20px;
+  }
 
   .property-value-result-table-section {
     margin: 15px 0;
@@ -80,6 +78,10 @@ const props = defineProps({
           padding: 0;
           width: 50%;
           vertical-align: top;
+
+          &:first-child {
+            padding-right: 3px;
+          }
 
           &.bold {
             font-weight: 400;

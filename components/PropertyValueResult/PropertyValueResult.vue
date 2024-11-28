@@ -13,6 +13,10 @@ const result = computed(() => {
 const isFailed = computed(() => {
   return result.value.status !== 'SUCCESSFUL'
 })
+const isInterestedInExpertenbewertung = computed(() => {
+  const val = result?.value?.request?.expertenbewertung
+  return val === 'Interesse' || val === 'Mehr Informationen'
+})
 const inputsTable = computed(() => {
   let artGrundstueck = result.value.request.artGrundstueck
   let erschliessung = result.value.request.erschliessung
@@ -147,12 +151,12 @@ const resultPricePerSqmTable = computed(() => {
         title: 'Geschätzte Quadratmeterpreise',
         rows: [
           [
-            { text: 'Grundstücksfläche (ohne Bebauung)' },
-            { text: `${pricePerSqmEstimateFrom} - ${pricePerSqmEstimateTo} €/m²`, bold: true }
+            { text: 'Grundstücksfläche (ohne Bebauung)', borderBottom: true, paddingBottom: 10 },
+            { text: `${pricePerSqmEstimateFrom} - ${pricePerSqmEstimateTo} €/m²`, bold: true, borderBottom: true, paddingBottom: 10 }
           ],
           result.value.request.wohnflaeche && [
-            { text: 'Wohnfläche' },
-            { text: 'Weitere Angaben benötigt', bold: true }
+            { text: 'Wohnfläche', borderBottom: !!result.value.request.gewerbeflaeche, paddingTop: 10, paddingBottom: !!result.value.request.gewerbeflaeche && 10 },
+            { text: 'Weitere Angaben benötigt', bold: true, borderBottom: !!result.value.request.gewerbeflaeche, paddingTop: 10, paddingBottom: !!result.value.request.gewerbeflaeche && 10 }
           ],
           result.value.request.gewerbeflaeche && [
             { text: 'Gewerbefläche' },
@@ -175,20 +179,16 @@ const resultTable = computed(() => {
         title: 'Ergebnis',
         rows: [
           [
-            { text: 'Geschätzter Marktwert des Grundstücks<br /> (ohne Bebauung)' },
-            { text: `${marketValueFrom} - ${marketValueTo} €`, bold: true }
+            { text: 'Geschätzter Marktwert des Grundstücks<br /> (ohne Bebauung)', borderBottom: true, paddingBottom: 10 },
+            { text: `${marketValueFrom} - ${marketValueTo} €`, bold: true, borderBottom: true, paddingBottom: 10 }
           ],
           result.value.request.wohnflaeche && [
-            { text: 'Wohnfläche' },
-            { text: 'Weitere Angaben benötigt', bold: true }
+            { text: 'Wohnfläche', borderBottom: true, paddingTop: 10, paddingBottom: 10 },
+            { text: 'Weitere Angaben benötigt', bold: true, borderBottom: true, paddingTop: 10, paddingBottom: 10 }
           ],
           result.value.request.gewerbeflaeche && [
-            { text: 'Gewerbefläche' },
-            { text: 'Weitere Angaben benötigt', bold: true }
-          ],
-          [
-            { text: 'Weitere Angaben machen und kostenlos Immobilie durch Experten bewerten lassen:', bold: true, paddingTop: 20 },
-            { button: 'Weitere Angaben machen', paddingTop: 20 }
+            { text: 'Gewerbefläche', borderBottom: true, paddingTop: 10, paddingBottom: 10 },
+            { text: 'Weitere Angaben benötigt', bold: true, borderBottom: true, paddingTop: 10, paddingBottom: 10 }
           ]
         ].filter(i => !!i)
       }
@@ -208,12 +208,8 @@ const resultFailedTable = computed(() => {
         subTitle: 'Es tut uns Leid! Leider könnten wir für Ihre Immobilie keinen Wert berechnen.',
         rows: [
           [
-            { text: 'Fehler' },
-            { text: failedStatusText[result.value.status] || result.value.status, bold: true }
-          ],
-          [
-            { text: 'Sie möchten eine kostenlose Bewertung durch einen lokalen Immobilienexperten?', bold: true, paddingTop: 20 },
-            { button: 'Exakten Wert ermitteln lassen', paddingTop: 20 }
+            { text: 'Fehler', borderBottom: true, paddingBottom: 10 },
+            { text: failedStatusText[result.value.status] || result.value.status, bold: true, borderBottom: true, paddingBottom: 10 }
           ]
         ]
       }
@@ -314,6 +310,22 @@ onUnmounted(() => {
               <PropertyValueResultTable
                 :content="resultTable"
                 @button-click="openAppointmentPopup"
+              >
+                <p class="property-value-result-table-add-values-text">
+                  Weitere Angaben machen und kostenlos Immobilie durch Experten bewerten lassen:
+                </p>
+                <Button
+                    label="Weitere Angaben machen"
+                    active
+                    no-scale-hover-effect
+                    inline-block
+                    small
+                    @click="openAppointmentPopup"
+                />
+              </PropertyValueResultTable>
+              <PropertyValueResultAppointmentSection
+                  :is-interested="isInterestedInExpertenbewertung"
+                  @select-timeframe="selectTimeframe"
               />
               <TextArticle
                 :paragraphs="[
@@ -324,11 +336,25 @@ onUnmounted(() => {
                 use-raw-html
               />
             </template>
-            <PropertyValueResultTable
-              v-else
-              :content="resultFailedTable"
-              @button-click="openAppointmentPopup"
-            />
+            <template v-else>
+              <PropertyValueResultTable :content="resultFailedTable">
+                <p class="property-value-result-table-add-values-text">
+                  Weitere Angaben machen und kostenlos Immobilie durch Experten bewerten lassen:
+                </p>
+                <Button
+                    label="Weitere Angaben machen"
+                    active
+                    no-scale-hover-effect
+                    inline-block
+                    small
+                    @click="openAppointmentPopup"
+                />
+              </PropertyValueResultTable>
+              <PropertyValueResultAppointmentSection
+                  :is-interested="isInterestedInExpertenbewertung"
+                  @select-timeframe="selectTimeframe"
+              />
+            </template>
           </div>
           <div v-if="!isFailed" class="property-value-result-content-section">
             <PropertyValueResultButtonBox :result="result" @button-click="openAppointmentPopup" />
@@ -423,6 +449,11 @@ onUnmounted(() => {
         &:last-child {
           margin-bottom: 0;
         }
+      }
+
+      .property-value-result-table-add-values-text {
+        margin-top: 20px;
+        margin-bottom: 10px;
       }
 
       .property-value-result-footnote {
