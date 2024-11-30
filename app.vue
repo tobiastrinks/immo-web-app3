@@ -200,7 +200,6 @@ caption {
 .layout-default {
   position: relative;
   margin-top: 0;
-  min-height: 100vh;
 
   .layout-default-page {
 

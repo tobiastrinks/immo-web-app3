@@ -3,11 +3,14 @@ import {useStore} from "~/store/main.js";
 import {useRoute as useNativeRoute} from "#vue-router";
 import {useLocationStore} from "~/store/location.js";
 import useCachedApi from "~/composables/useCachedApi.js";
+import {useLoadingIndicator} from "#app/composables/loading-indicator.js";
 
 const route = useNativeRoute()
 const mainStore = useStore()
 const locationStore = useLocationStore()
 const cachedApi = useCachedApi()
+
+const loadingIndicator = useLoadingIndicator()
 
 /**
  * the layout is loaded before any page is loaded -> the navigation needs the location
@@ -43,10 +46,9 @@ await useAsyncData(async () => {
         <slot />
       </div>
     </div>
-    <Footer />
+    <Footer v-if="!loadingIndicator.isLoading" />
     <transition name="slide-fade">
       <Toast v-if="mainStore.toast" :toast="mainStore.toast" />
     </transition>
   </div>
 </template>
-
