@@ -4,6 +4,8 @@ import {useLocationStore} from "~/store/location.js";
 import {useCfStore} from "~/store/cf.js";
 import {documentToHtmlString} from "@contentful/rich-text-html-renderer";
 import {BLOCKS, INLINES} from "@contentful/rich-text-types";
+import {includeFAQSchemaOrg} from "assets/js/featureFlagUtils.js";
+import {useRoute as useNativeRoute} from "#vue-router";
 
 const TOC_SECTIONS = {
   ANALYSIS: 'auswertung',
@@ -33,7 +35,7 @@ const locationStore = useLocationStore()
 const cfStore = useCfStore()
 const nuxtApp = useNuxtApp()
 const i18n = useI18n()
-const route = useRoute()
+const route = useNativeRoute()
 const config = useRuntimeConfig()
 
 const affiliateAbTestType = abTest.getSessionFeature('affiliateWidgets')
@@ -161,14 +163,16 @@ const renderCfContent = (content) => {
   })
 }
 
-useSchemaOrg(
-  locationFAQ.value.faqItems.map(faqItem => {
-    return defineQuestion({
-      name: faqItem.label,
-      acceptedAnswer: renderCfContent(faqItem.text),
-    })
-  })
-)
+if (locationFAQ.value?.faqItems?.length && includeFAQSchemaOrg(route.path)) {
+  useSchemaOrg(
+      locationFAQ.value.faqItems.map(faqItem => {
+        return defineQuestion({
+          name: faqItem.label,
+          acceptedAnswer: renderCfContent(faqItem.text),
+        })
+      })
+  )
+}
 </script>
 
 <template>
