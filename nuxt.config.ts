@@ -19,7 +19,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxtjs/google-fonts',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    'nuxt-schema-org'
   ],
   i18n: {
     locales: ['de'],
@@ -38,6 +39,9 @@ export default defineNuxtConfig({
   site: {
     url: 'https://www.aktuelle-grundstueckspreise.de',
     name: 'Aktuelle Grundstückspreise'
+  },
+  schemaOrg: {
+    defaults: false
   },
   sitemap: {
     sitemaps: {

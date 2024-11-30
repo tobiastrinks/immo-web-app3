@@ -2,6 +2,10 @@
 import { PATHS } from '~/assets/js/constants'
 import {useLocationStore} from "~/store/location.js";
 import {useCfStore} from "~/store/cf.js";
+import {documentToHtmlString} from "@contentful/rich-text-html-renderer";
+import {BLOCKS, INLINES} from "@contentful/rich-text-types";
+import {includeFAQSchemaOrg} from "assets/js/featureFlagUtils.js";
+import {useRoute as useNativeRoute} from "#vue-router";
 
 const TOC_SECTIONS = {
   ANALYSIS: 'auswertung',
@@ -31,7 +35,8 @@ const locationStore = useLocationStore()
 const cfStore = useCfStore()
 const nuxtApp = useNuxtApp()
 const i18n = useI18n()
-const route = useRoute()
+const route = useNativeRoute()
+const config = useRuntimeConfig()
 
 const affiliateAbTestType = abTest.getSessionFeature('affiliateWidgets')
 
@@ -124,6 +129,52 @@ const clickCTA = () => {
   if (!route.path.includes(PATHS.PROPERTY_VALUE)) {
     nuxtApp.$gtm.push({ event: 'location.body.propertyValueCTA' })
   }
+}
+
+const getUri = (data) => {
+  const { uri } = data.data
+  if (uri.startsWith('/')) {
+    return `${config.public.canonicalHostname}${uri}`
+  } else {
+    return uri
+  }
+}
+const getTarget = (data) => {
+  const { uri } = data.data
+  if (uri.startsWith('/')) {
+    return '_self'
+  } else {
+    return '_blank'
+  }
+}
+const renderCfContent = (content) => {
+  return documentToHtmlString(content, {
+    renderNode: {
+      [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields } } }) =>
+          `<img src="${fields.file.url}?fm=webp" alt="${fields.description}"/>`,
+      [INLINES.HYPERLINK]: (data) => {
+        return `<a href="${getUri(data)}" target="${getTarget(data)}">${data.content[0].value}</a>`
+      },
+      [BLOCKS.PARAGRAPH]: (node, next) => {
+        let content = next(node.content)
+        return `<p>${content}</p>`
+      }
+    }
+  })
+}
+
+if (locationFAQ.value?.faqItems?.length && includeFAQSchemaOrg(route.path)) {
+  useSchemaOrg([
+    defineWebPage({
+      '@type': 'FAQPage',
+    }),
+    ...locationFAQ.value.faqItems.map(faqItem => {
+      return defineQuestion({
+        name: faqItem.label,
+        acceptedAnswer: renderCfContent(faqItem.text),
+      })
+    })
+  ])
 }
 </script>
 
