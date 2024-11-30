@@ -39,6 +39,7 @@ const extraValue = computed(() => {
 .property-value-result-button-box {
   background-color: $colorLightGreyBg;
   padding: 20px;
+  border: 1px solid $colorStroke;
 
   .property-value-result-button-box-green {
     font-family: $fontHeadline;

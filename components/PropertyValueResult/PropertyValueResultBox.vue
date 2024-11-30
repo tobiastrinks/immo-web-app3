@@ -23,6 +23,7 @@ const props = defineProps({
   background-color: $colorLightGreyBg;
   padding: 10px;
   margin: 20px 0;
+  border: 1px solid $colorStroke;
 
   @media #{$sm} {
     padding: 20px;

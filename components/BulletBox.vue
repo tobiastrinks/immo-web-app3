@@ -45,6 +45,7 @@ const props = defineProps({
   padding: 20px;
   margin: 20px 0;
   position: relative;
+  border: 1px solid $colorStroke;
 
   @media #{$xl} {
     width: calc(100% - 250px);
