@@ -12,23 +12,23 @@
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^16.6.10",
     "@contentful/rich-text-types": "^16.8.5",
-    "@nuxt/image": "^1.8.0",
+    "@nuxt/image": "^1.8.1",
     "@nuxtjs/google-fonts": "^3.2.0",
-    "@nuxtjs/i18n": "^8.5.3",
+    "@nuxtjs/i18n": "^8.5.6",
     "@nuxtjs/sitemap": "^6.1.5",
-    "@pinia/nuxt": "^0.5.4",
-    "chart.js": "^4.4.4",
-    "chartjs-plugin-annotation": "^3.0.1",
+    "@pinia/nuxt": "^0.5.5",
+    "chart.js": "^4.4.6",
+    "chartjs-plugin-annotation": "^3.1.0",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "contentful": "^11.2.0",
-    "nuxt": "^3.13.0",
-    "pinia": "^2.2.2",
+    "contentful": "^11.2.5",
+    "nuxt": "^3.14.1592",
+    "pinia": "^2.2.8",
     "uuid": "^10.0.0",
     "vue": "latest",
-    "vue-chartjs": "^5.3.1",
+    "vue-chartjs": "^5.3.2",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "sass": "^1.78.0"
+    "sass": "^1.81.0"
   }
 }

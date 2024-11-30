@@ -59,6 +59,7 @@ export const useCfStore = defineStore('cf', {
                 this.locationTrend = null
             }
         },
+        // currently statically loaded from cfLocationFaktoren.json
         async fetchLocationFaktoren (cfClient) {
             const res = await deepFetchCfObject(cfClient, {
                 content_type: CF_CONTENT_TYPES.LOCATION_FAKTOREN
@@ -69,6 +70,7 @@ export const useCfStore = defineStore('cf', {
                 this.locationFaktoren = null
             }
         },
+        // currently statically loaded from cfLocationFAQ.json
         async fetchLocationFAQ (cfClient) {
             const res = await deepFetchCfObject(cfClient, {
                 content_type: CF_CONTENT_TYPES.LOCATION_FAQ
