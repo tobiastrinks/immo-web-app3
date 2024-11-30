@@ -164,14 +164,17 @@ const renderCfContent = (content) => {
 }
 
 if (locationFAQ.value?.faqItems?.length && includeFAQSchemaOrg(route.path)) {
-  useSchemaOrg(
-      locationFAQ.value.faqItems.map(faqItem => {
-        return defineQuestion({
-          name: faqItem.label,
-          acceptedAnswer: renderCfContent(faqItem.text),
-        })
+  useSchemaOrg([
+    defineWebPage({
+      '@type': 'FAQPage',
+    }),
+    ...locationFAQ.value.faqItems.map(faqItem => {
+      return defineQuestion({
+        name: faqItem.label,
+        acceptedAnswer: renderCfContent(faqItem.text),
       })
-  )
+    })
+  ])
 }
 </script>
 
