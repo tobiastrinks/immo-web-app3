@@ -4,7 +4,8 @@ export default function () {
         // default is always first item
         affiliateWidgets: {
             mieteAktuell: 0.25,
-            propertyValueWidget: 0.5,
+            propertyValueWidget: 0.25,
+            propertyValueWidget2: 0.25,
             wattfoxImmo: 0.25
         }
     }

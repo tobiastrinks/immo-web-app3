@@ -1,11 +1,7 @@
 import useContentfulHelper from "~/composables/useContentfulHelper.js";
-import {useRoute as useNativeRoute} from "#vue-router";
 
 export default function () {
-
-    const route = useNativeRoute()
     const contentfulHelper = useContentfulHelper()
-    const siteConfig = useSiteConfig()
 
     const getQuestions = (faqItems) => {
         return faqItems.map(faqItem => {

@@ -148,16 +148,22 @@ const clickCTA = () => {
         <p class="location-inner-ly2-affiliate-paragraph">
           {{ $t('_shared.location.affiliateParagraph') }}
         </p>
-        <client-only>
-          <div
-            v-if="affiliateAbTestType"
-            class="location-inner-ly2-affiliate-widget"
-          >
-            <MieteAktuell v-if="affiliateAbTestType === 'mieteAktuell'" />
-            <WattfoxImmo v-else-if="affiliateAbTestType === 'wattfoxImmo'" />
-            <PropertyValueWidget v-else />
-          </div>
-        </client-only>
+        <div class="location-inner-ly2-affiliate-widget-wrapper">
+          <client-only>
+            <div
+                v-if="affiliateAbTestType"
+                class="location-inner-ly2-affiliate-widget"
+            >
+              <MieteAktuell v-if="affiliateAbTestType === 'mieteAktuell'" />
+              <WattfoxImmo v-else-if="affiliateAbTestType === 'wattfoxImmo'" />
+              <PropertyValueWidget v-else-if="affiliateAbTestType === 'propertyValueWidget'" />
+              <PropertyValueWidget2
+                  v-else
+                  wrapper-class-name="location-inner-ly2-affiliate-widget-wrapper"
+              />
+            </div>
+          </client-only>
+        </div>
       </template>
       <template v-slot:sections>
         <div
