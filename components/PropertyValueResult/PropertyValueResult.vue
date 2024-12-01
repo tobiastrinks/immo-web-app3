@@ -323,7 +323,10 @@ onUnmounted(() => {
               <TextArticle
                 :paragraphs="[
                   `Diese Schätzung basiert auf den Marktdaten vom ${$d(new Date(result.createdAt), 'short')}.`,
-                  '<b>Hinweis:</b> Unsere Marktpreisschätzung kann ein guter Orientierungspunkt sein, ersetzt aber nicht die Wertermittlung durch einen erfahrenen Experten. Wir können leider nicht alle Merkmale Ihrer Immobilie berücksichtigen. <b>Daher ist es nicht ungewöhnlich, dass sich der tatsächlich am Markt zu erzielende Preis (Verkehrswert) in der Praxis um bis zu 20 Prozent und mehr vom errechneten Wert unterscheidet.</b> Gerne unterstützen wir Sie in einem persönlichen Telefonat bei der genauen Wertermittlung.'
+                  `<b>Hinweis:</b> Unsere Marktpreisschätzung kann ein guter Orientierungspunkt sein, ersetzt aber nicht die Wertermittlung durch einen erfahrenen Experten. Wir können leider nicht alle Merkmale Ihrer Immobilie berücksichtigen.
+                   <b>Daher ist es nicht ungewöhnlich, dass sich der tatsächlich am Markt zu erzielende Preis (Verkehrswert) in der Praxis um bis zu 20 Prozent und mehr vom errechneten Wert unterscheidet.</b>
+                   ${isSeller ? 'Gerne unterstützen wir Sie in einem persönlichen Telefonat bei der genauen Wertermittlung.' : ''}
+                  `
                 ]"
                 small-margin
                 use-raw-html
@@ -389,7 +392,7 @@ onUnmounted(() => {
               @click="openAppointmentPopup"
             />
           </div>
-          <p v-if="!isFailed" class="property-value-result-footnote">
+          <p v-if="isSeller && !isFailed" class="property-value-result-footnote">
             * Basierend auf einer von März 2017 bis März 2019 durchgeführten Analyse von auf ImmobilienScout24 inserierten Immobilien. Untersucht wurden die Vermarktungspreise von Immobilien mit dem Produkt Schaufenster, welches ausschließlich von Maklern gebucht werden kann, im Verhältnis zu vergleichbaren Standard-inserierten Objekten.
           </p>
         </div>
