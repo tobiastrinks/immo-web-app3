@@ -7,6 +7,8 @@ import {useRoute as useNativeRoute} from "#vue-router";
 import {useOverviewStatsStore} from "~/store/overviewStats.js";
 import {useLocationStore} from "~/store/location.js";
 import {useCfStore} from "~/store/cf.js";
+import {enableSchemaOrg} from "assets/js/featureFlagUtils.js";
+import usePageSchemaOrg from "~/composables/usePageSchemaOrg.js";
 
 const { path, params: { stateIdName, kreisIdName } } = useNativeRoute()
 
@@ -66,6 +68,18 @@ useHead({
     { hid: 'description', name: 'description', content: `Grundstückspreise ${locationName} ${new Date().getFullYear()}: Jetzt kostenlos informieren! ✓ aktuelle Marktdaten ✓ interaktive Karte ✓ Quadratmeterpreis & Bodenrichtwert` }
   ].filter(i => !!i)
 })
+
+if (enableSchemaOrg(path)) {
+  const pageSchemaOrg = usePageSchemaOrg()
+  const locationText = useLocationText()
+
+  pageSchemaOrg.faqAndProductPage({
+    faqItems: cfStore.locationFAQ?.faqItems,
+    reviewCount: locationStore.activeLocationMainData.reviewCount,
+    reviewValue: locationStore.activeLocationMainData.reviewValue,
+    productDescription: locationText.getPriceOverTimeText()
+  })
+}
 </script>
 
 <template>

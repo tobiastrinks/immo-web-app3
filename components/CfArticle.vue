@@ -1,6 +1,5 @@
 <script setup>
-import { BLOCKS, INLINES } from '@contentful/rich-text-types'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import useContentfulHelper from "~/composables/useContentfulHelper.js";
 
 const config = useRuntimeConfig()
 
@@ -19,42 +18,10 @@ const props = defineProps({
   }
 })
 
-const getUri = (data) => {
-  const { uri } = data.data
-  if (uri.startsWith('/')) {
-    return `${config.public.canonicalHostname}${uri}`
-  } else {
-    return uri
-  }
-}
-const getTarget = (data) => {
-  const { uri } = data.data
-  if (uri.startsWith('/')) {
-    return '_self'
-  } else {
-    return '_blank'
-  }
-}
+const contentfulHelper = useContentfulHelper()
 
 const renderedContent = computed(() => {
-  return documentToHtmlString(props.content, {
-    renderNode: {
-      [BLOCKS.EMBEDDED_ASSET]: ({ data: { target: { fields } } }) =>
-          `<img src="${fields.file.url}?fm=webp" alt="${fields.description}"/>`,
-      [INLINES.HYPERLINK]: (data) => {
-        return `<a href="${getUri(data)}" target="${getTarget(data)}">${data.content[0].value}</a>`
-      },
-      [BLOCKS.PARAGRAPH]: (node, next) => {
-        let content = next(node.content)
-        if (props.parameters) {
-          Object.keys(props.parameters).forEach((key) => {
-            content = content.replace(new RegExp(key, 'g'), props.parameters[key])
-          })
-        }
-        return `<p>${content}</p>`
-      }
-    }
-  })
+  return contentfulHelper.renderCfContent(props.content)
 })
 </script>
 

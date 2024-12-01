@@ -20,7 +20,10 @@ export const useLocationStore = defineStore('location', {
   getters: {
     activeLocationMainData ({ germany, state, kreis, gemeinde }) {
       if (germany) {
-        return {}
+        return {
+          reviewCount: germany.reviewCount,
+          reviewValue: germany.reviewValue,
+        }
       } else if (state) {
         return state.state
       } else if (kreis) {

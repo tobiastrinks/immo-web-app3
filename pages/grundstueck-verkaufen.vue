@@ -2,6 +2,7 @@
 import { getCanonical } from 'assets/js/seoUtils'
 import {useCfStore} from "~/store/cf.js";
 import { useRoute as useNativeRoute } from 'vue-router'
+import usePageSchemaOrg from "~/composables/usePageSchemaOrg.js";
 
 const cfStore = useCfStore()
 const { path } = useNativeRoute()
@@ -11,16 +12,31 @@ await useAsyncData(() => cfStore.fetchInfoPage(nuxtApp.$cfClient, path).then(() 
 
 const config = useRuntimeConfig()
 
+const cfData = cfStore.propertySellPage
+
 useHead({
   link: [getCanonical(config.public.canonicalHostname, path)],
-  title: cfStore.propertySellPage.seoMetaTitle,
+  title: cfData.seoMetaTitle,
   meta: [
     config.public.blockSeoIndexing ? { hid: 'robots', name: 'robots', content: 'noindex' } : null,
-    { hid: 'description', name: 'description', content: cfStore.propertySellPage.seoMetaDescription }
+    { hid: 'description', name: 'description', content: cfData.seoMetaDescription }
   ].filter(i => !!i)
+})
+
+const pageSchemaOrg = usePageSchemaOrg()
+const faqItems = cfData.infoSections
+    .find(i => i.id === 'faq')
+    ?.items
+    ?.find(i => i.cfContentType === 'infoDropdown')
+    ?.items
+
+pageSchemaOrg.faqAndProductPage({
+  faqItems,
+  reviewCount: cfData.reviewCount,
+  reviewValue: cfData.reviewValue
 })
 </script>
 
 <template>
-  <InfoPage :cf-data="cfStore.propertySellPage" />
+  <InfoPage :cf-data="cfData" />
 </template>

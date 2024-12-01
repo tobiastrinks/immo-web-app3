@@ -55,6 +55,11 @@ const getTocSection = (id) => {
                 :headline="getTocSection(infoSection.id).headline"
             />
           </div>
+          <Reviews
+              v-if="cfData.reviewValue && cfData.reviewCount"
+              :count="cfData.reviewCount"
+              :value="cfData.reviewValue"
+          />
         </template>
       </InnerTemplateLy2>
     </div>
