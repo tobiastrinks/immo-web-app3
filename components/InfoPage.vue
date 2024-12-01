@@ -14,16 +14,20 @@ const tocSections = computed(() => {
       .map(({ id, headline }, index) => ({ id, headline: `${index + 1}. ${headline}` }))
 })
 
+const hasAffiliate = computed(() => {
+  return !!affiliateAbTestType && !!props.cfData.affiliateType
+})
+
 const getTocSection = (id) => {
   return tocSections.value.find(s => s.id === id)
 }
 </script>
 
 <template>
-  <div class="page-location-nav-active">
+  <div class="page-location-nav-active" :class="{ 'margin-top': !hasAffiliate }">
     <client-only>
       <InfoPageAffiliate
-          v-if="!!affiliateAbTestType && !!props.cfData.affiliateType"
+          v-if="hasAffiliate"
           :type="affiliateAbTestType"
       />
     </client-only>
