@@ -3,6 +3,7 @@ import { PATHS } from '~/assets/js/constants'
 import {useLocationStore} from "~/store/location.js";
 import {useCfStore} from "~/store/cf.js";
 import {useRoute as useNativeRoute} from "#vue-router";
+import {enableSchemaOrg} from "assets/js/featureFlagUtils.js";
 
 const TOC_SECTIONS = {
   ANALYSIS: 'auswertung',
@@ -127,6 +128,8 @@ const clickCTA = () => {
     nuxtApp.$gtm.push({ event: 'location.body.propertyValueCTA' })
   }
 }
+
+const showReview = enableSchemaOrg(route.path)
 </script>
 
 <template>
@@ -297,7 +300,7 @@ const clickCTA = () => {
           <InfoPageDropdown :items="locationFAQ.faqItems" />
         </div>
         <Reviews
-            v-if="location.reviewValue && location.reviewCount"
+            v-if="showReview && location.reviewValue && location.reviewCount"
             :count="location.reviewCount"
             :value="location.reviewValue"
         />
