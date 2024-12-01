@@ -18,7 +18,6 @@ export default function () {
 
     const getProduct = ({ reviewValue, reviewCount, productDescription }) => {
         const productConfig = {
-            "@id": 'bewertung',
             aggregateRating: {
                 ratingValue: reviewValue,
                 bestRating: 5,
@@ -40,12 +39,7 @@ export default function () {
             if (hasFAQAndReview) {
                 useSchemaOrg([
                     defineWebPage({
-                        '@type': 'FAQPage',
-                        mainEntity: [
-                            {
-                                "@id": `${siteConfig.url}${route.path}/#/schema/product/bewertung`
-                            }
-                        ]
+                        '@type': 'FAQPage'
                     }),
                     getProduct({ reviewCount, reviewValue, productDescription }),
                     ...getQuestions(faqItems)
@@ -61,11 +55,6 @@ export default function () {
                 useSchemaOrg([
                     defineWebPage({
                         '@type': 'WebPage',
-                        mainEntity: [
-                            {
-                                "@id": `${siteConfig.url}${route.path}/#/schema/product/bewertung`
-                            }
-                        ]
                     }),
                     getProduct({ reviewCount, reviewValue, productDescription })
                 ])
