@@ -26,7 +26,15 @@ useHead({
 </script>
 
 <template>
-  <client-only>
-    <PropertyValueResult />
-  </client-only>
+  <div class="property-value-result-page">
+    <client-only>
+      <PropertyValueResult />
+    </client-only>
+  </div>
 </template>
+
+<style lang="scss">
+.property-value-result-page {
+  min-height: 100vh;
+}
+</style>

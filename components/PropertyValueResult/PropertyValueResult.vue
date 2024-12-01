@@ -13,6 +13,10 @@ const result = computed(() => {
 const isFailed = computed(() => {
   return result.value.status !== 'SUCCESSFUL'
 })
+const isSeller = computed(() => {
+  const anlass = result.value.request.anlass
+  return !anlass || anlass?.toLowerCase()?.includes('verkauf')
+})
 const isInterestedInExpertenbewertung = computed(() => {
   const val = result?.value?.request?.expertenbewertung
   return val === 'Interesse' || val === 'Mehr Informationen'
@@ -274,7 +278,7 @@ onUnmounted(() => {
             :headline="`Bewertungsergebnis für ${result.request.firstName} ${result.request.lastName}`"
             :sub-headline="`Berechnung vom ${$d(new Date(result.createdAt), 'short')}`"
           />
-          <div class="property-value-result-appointment-mobile">
+          <div v-if="isSeller" class="property-value-result-appointment-mobile">
             <PropertyValueResultAppointment @open-popup="openAppointmentPopup" />
           </div>
           <div class="property-value-result-content-section">
@@ -312,6 +316,7 @@ onUnmounted(() => {
                 @button-click="openAppointmentPopup"
               />
               <PropertyValueResultAppointmentSection
+                  v-if="isSeller"
                   :is-interested="isInterestedInExpertenbewertung"
                   @select-timeframe="selectTimeframe"
               />
@@ -327,15 +332,16 @@ onUnmounted(() => {
             <template v-else>
               <PropertyValueResultTable :content="resultFailedTable" />
               <PropertyValueResultAppointmentSection
+                  v-if="isSeller"
                   :is-interested="isInterestedInExpertenbewertung"
                   @select-timeframe="selectTimeframe"
               />
             </template>
           </div>
-          <div v-if="!isFailed" class="property-value-result-content-section">
+          <div v-if="isSeller && !isFailed" class="property-value-result-content-section">
             <PropertyValueResultButtonBox :result="result" @button-click="openAppointmentPopup" />
           </div>
-          <div class="property-value-result-content-section">
+          <div v-if="isSeller" class="property-value-result-content-section">
             <Headline
               headline="Kostenlose Expertenbewertung"
               :level="2"
@@ -387,7 +393,7 @@ onUnmounted(() => {
             * Basierend auf einer von März 2017 bis März 2019 durchgeführten Analyse von auf ImmobilienScout24 inserierten Immobilien. Untersucht wurden die Vermarktungspreise von Immobilien mit dem Produkt Schaufenster, welches ausschließlich von Maklern gebucht werden kann, im Verhältnis zu vergleichbaren Standard-inserierten Objekten.
           </p>
         </div>
-        <div class="property-value-result-appointment-desktop">
+        <div v-if="isSeller" class="property-value-result-appointment-desktop">
           <PropertyValueResultAppointment @open-popup="openAppointmentPopup" />
         </div>
       </div>
