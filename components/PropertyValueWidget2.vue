@@ -122,7 +122,7 @@ const instructionSteps = [
       <div class="property-value-widget-wizard">
         <iframe
             class="property-value-widget-wizard-iframe"
-            src="/property-value-2.html"
+            src="/property-value-2.html?v=2"
             :style="{ height: iframeHeight }"
         ></iframe>
         <div class="property-value-widget-wizard-features">
