@@ -19,13 +19,24 @@
                 }, 2000)
             })
 
+            // Ensure dataLayer exists
+            window.dataLayer = window.dataLayer || [];
+
+            // Backup the original push method
+            const originalPush = window.dataLayer.push;
+
+            // Override the push method
             let fieldsSimple = {}
-            window.addEventListener('heyflow-change', (event) => {
-                console.log('heyflow-change', event)
-                if (event.detail.fieldsSimple) {
-                    fieldsSimple = event.detail.fieldsSimple
+            window.dataLayer.push = function (...args) {
+                // Call the original push method to preserve functionality
+                const result = originalPush.apply(this, args);
+
+                if (args.length && args[0].event === 'heyflow-change' && args[0].fieldsSimple) {
+                    fieldsSimple = args[0].fieldsSimple
                 }
-            })
+
+                return result;
+            };
 
             window.setInterval(() => {
                 if (heightInitialized) {
@@ -44,6 +55,7 @@
                     const stepName = step.getAttribute('name')
 
                     if (stepName && stepName !== currentStep) {
+                        console.log(fieldsSimple)
                         // debugger
                         window.parent.postMessage(`PROPERTY_VALUE_EVENT__${stepName}.opened`, '*')
                         currentStep = stepName
