@@ -48,7 +48,7 @@ const iframeMessageListener = (e) => {
 
     nuxtApp.$gtm.push({
       event: `heyflow.propertyValueWidget2.${event.stepName}.${event.event}`,
-      fields: submitFields
+      fieldsSimple: submitFields
     })
   }
   if (e.data.startsWith('PROPERTY_VALUE_HEIGHT__')) {
