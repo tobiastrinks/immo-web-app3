@@ -18,6 +18,13 @@
                 }, 2000)
             })
 
+            let fieldsSimple = {}
+            window.addEventListener('heyflow-change', (event) => {
+                if (event.detail.fieldsSimple) {
+                    fieldsSimple = event.detail.fieldsSimple
+                }
+            })
+
             window.setInterval(() => {
                 if (heightInitialized) {
                     const height = document.getElementById('heyflow-wrapper').offsetHeight
@@ -35,6 +42,7 @@
                         .getAttribute('name')
 
                     if (step && step !== currentStep) {
+                        console.log(fieldsSimple)
                         window.parent.postMessage(`PROPERTY_VALUE_EVENT__${step}.opened`, '*')
                         currentStep = step
                     }
