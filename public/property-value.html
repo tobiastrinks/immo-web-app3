@@ -13,6 +13,7 @@
 
             let heightInitialized = false
             window.addEventListener('heyflow-init', (event) => {
+                console.log('heyflow-init', event)
                 window.setTimeout(() => {
                     heightInitialized = true
                 }, 2000)
@@ -20,6 +21,7 @@
 
             let fieldsSimple = {}
             window.addEventListener('heyflow-change', (event) => {
+                console.log('heyflow-change', event)
                 if (event.detail.fieldsSimple) {
                     fieldsSimple = event.detail.fieldsSimple
                 }
@@ -39,12 +41,12 @@
                         .querySelector('*[flow-id="affiliate-header-grundstueckswert-rechner"]')
                         .shadowRoot
                         .querySelector('*[data-id="heyflow-form"] section[name].visible')
-                        .getAttribute('name')
+                    const stepName = step.getAttribute('name')
 
-                    if (step && step !== currentStep) {
-                        console.log(fieldsSimple)
-                        window.parent.postMessage(`PROPERTY_VALUE_EVENT__${step}.opened`, '*')
-                        currentStep = step
+                    if (stepName && stepName !== currentStep) {
+                        // debugger
+                        window.parent.postMessage(`PROPERTY_VALUE_EVENT__${stepName}.opened`, '*')
+                        currentStep = stepName
                     }
                 } catch (e) {}
             }, 100)
