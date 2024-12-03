@@ -15,12 +15,27 @@ let PROPERTY_VALUE_MIN_HEIGHT
 const iframeHeight = ref(null)
 
 const iframeMessageListener = (e) => {
+  if (e.origin !== 'https://www.aktuelle-grundstueckspreise.de') {
+    console.error('Invalid origin')
+    return
+  }
   if (!e.data || typeof e.data !== 'string') {
     return
   }
   if (e.data.startsWith('PROPERTY_VALUE_EVENT__')) {
-    const event = e.data.replace('PROPERTY_VALUE_EVENT__', '')
-    nuxtApp.$gtm.push({ event: `heyflow.propertyValueWidget.${event}` })
+    const jsonEvent = e.data.replace('PROPERTY_VALUE_EVENT__', '')
+    const event = JSON.parse(jsonEvent)
+    const submitFields = {}
+
+    const anlass = event.fieldsSimple['Anlass der Bewertung']
+    if (anlass) {
+      submitFields.anlass = anlass
+    }
+
+    nuxtApp.$gtm.push({
+      event: `heyflow.propertyValueWidget.${event.stepName}.${event.event}`,
+      fields: submitFields
+    })
   }
   if (e.data.startsWith('PROPERTY_VALUE_HEIGHT__')) {
     const newHeight = e.data.replace('PROPERTY_VALUE_HEIGHT__', '')

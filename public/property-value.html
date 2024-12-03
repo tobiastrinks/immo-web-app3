@@ -13,7 +13,6 @@
 
             let heightInitialized = false
             window.addEventListener('heyflow-init', (event) => {
-                console.log('heyflow-init', event)
                 window.setTimeout(() => {
                     heightInitialized = true
                 }, 2000)
@@ -55,9 +54,15 @@
                     const stepName = step.getAttribute('name')
 
                     if (stepName && stepName !== currentStep) {
-                        console.log(fieldsSimple)
-                        // debugger
-                        window.parent.postMessage(`PROPERTY_VALUE_EVENT__${stepName}.opened`, '*')
+                        const event = {
+                            event: 'opened',
+                            stepName,
+                            fieldsSimple
+                        }
+                        window.parent.postMessage(
+                            `PROPERTY_VALUE_EVENT__${JSON.stringify(event)}`,
+                            'https://www.aktuelle-grundstueckspreise.de'
+                        )
                         currentStep = stepName
                     }
                 } catch (e) {}
