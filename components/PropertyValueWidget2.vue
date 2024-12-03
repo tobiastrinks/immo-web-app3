@@ -17,6 +17,15 @@ const props = defineProps({
 let PROPERTY_VALUE_MIN_HEIGHT
 
 const iframeHeight = ref(null)
+const includedFormFields = [
+  'Anlass der Bewertung',
+  'Art der Immobilie',
+  'Art der Bebauung',
+  'Art des Grundstücks',
+  'Art des Hauses',
+  'Expertenbewertung',
+  'Eigentümer',
+]
 
 const iframeMessageListener = (e) => {
   if (e.origin !== 'https://www.aktuelle-grundstueckspreise.de') {
@@ -31,10 +40,11 @@ const iframeMessageListener = (e) => {
     const event = JSON.parse(jsonEvent)
     const submitFields = {}
 
-    const anlass = event.fieldsSimple['Anlass der Bewertung']
-    if (anlass) {
-      submitFields.anlass = anlass
-    }
+    includedFormFields.forEach((key) => {
+      if (event.fieldsSimple[key]) {
+        submitFields[key] = event.fieldsSimple[key]
+      }
+    })
 
     nuxtApp.$gtm.push({
       event: `heyflow.propertyValueWidget2.${event.stepName}.${event.event}`,
