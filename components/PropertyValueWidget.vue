@@ -1,7 +1,10 @@
 <script setup>
 import {PATHS} from "assets/js/constants.js";
+import {useSSRImprovements} from "assets/js/featureFlagUtils.js";
+import {useRoute as useNativeRoute} from "#vue-router";
 
 const nuxtApp = useNuxtApp()
+const route = useNativeRoute()
 
 const props = defineProps({
   borderBottom: {
@@ -10,9 +13,15 @@ const props = defineProps({
   }
 })
 
-let PROPERTY_VALUE_MIN_HEIGHT
+const enableSSRImprovements = useSSRImprovements(route.path)
 
-const iframeHeight = ref(null)
+const PROPERTY_VALUE_MIN_HEIGHT = 315
+
+// initial height of the iframe is controlled via CSS, until the user interacts (next step loaded)
+const iframeHeightLocked = ref(enableSSRImprovements)
+const iframeHeight = ref(`${PROPERTY_VALUE_MIN_HEIGHT}px`)
+
+
 const includedFormFields = [
   'Anlass der Bewertung',
   'Art der Immobilie',
@@ -24,14 +33,19 @@ const includedFormFields = [
 ]
 
 const iframeMessageListener = (e) => {
-  if (e.origin !== 'https://www.aktuelle-grundstueckspreise.de') {
-    console.error('Invalid origin')
-    return
-  }
+  // TODO: ORIGINS!!
+  // if (e.origin !== 'https://www.aktuelle-grundstueckspreise.de') {
+  //   console.error('Invalid origin')
+  //   return
+  // }
   if (!e.data || typeof e.data !== 'string') {
     return
   }
   if (e.data.startsWith('PROPERTY_VALUE_EVENT__')) {
+    if (iframeHeightLocked) {
+      iframeHeightLocked.value = false
+    }
+
     const jsonEvent = e.data.replace('PROPERTY_VALUE_EVENT__', '')
     const event = JSON.parse(jsonEvent)
     const submitFields = {}
@@ -76,11 +90,6 @@ const iframeLoadListener = () => {
     }
   }
 }
-
-onBeforeMount(() => {
-  PROPERTY_VALUE_MIN_HEIGHT = 315
-  iframeHeight.value = `${PROPERTY_VALUE_MIN_HEIGHT}px`
-})
 
 onMounted(() => {
   window.addEventListener('message', iframeMessageListener)

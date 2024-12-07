@@ -60,8 +60,8 @@
                             fieldsSimple
                         }
                         window.parent.postMessage(
-                            `PROPERTY_VALUE_EVENT__${JSON.stringify(event)}`,
-                            'https://www.aktuelle-grundstueckspreise.de'
+                            `PROPERTY_VALUE_EVENT__${JSON.stringify(event)}`, '*'
+                            // 'https://www.aktuelle-grundstueckspreise.de'
                         )
                         currentStep = stepName
                     }

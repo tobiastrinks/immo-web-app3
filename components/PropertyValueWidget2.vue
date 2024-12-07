@@ -1,7 +1,10 @@
 <script setup>
 import {PATHS} from "assets/js/constants.js";
+import {useSSRImprovements} from "assets/js/featureFlagUtils.js";
+import {useRoute as useNativeRoute} from "#vue-router";
 
 const nuxtApp = useNuxtApp()
+const route = useNativeRoute()
 
 const props = defineProps({
   wrapperClassName: {
@@ -14,9 +17,15 @@ const props = defineProps({
   }
 })
 
-let PROPERTY_VALUE_MIN_HEIGHT
+const enableSSRImprovements = useSSRImprovements(route.path)
 
+let PROPERTY_VALUE_MIN_HEIGHT = 315
+
+// initial height of the iframe is controlled via CSS, until the user interacts (next step loaded)
+const iframeHeightLocked = ref(enableSSRImprovements)
 const iframeHeight = ref(null)
+
+
 const includedFormFields = [
   'Anlass der Bewertung',
   'Art der Immobilie',
@@ -28,14 +37,19 @@ const includedFormFields = [
 ]
 
 const iframeMessageListener = (e) => {
-  if (e.origin !== 'https://www.aktuelle-grundstueckspreise.de') {
-    console.error('Invalid origin')
-    return
-  }
+  // TODO: ORIGINS!!
+  // if (e.origin !== 'https://www.aktuelle-grundstueckspreise.de') {
+  //   console.error('Invalid origin')
+  //   return
+  // }
   if (!e.data || typeof e.data !== 'string') {
     return
   }
   if (e.data.startsWith('PROPERTY_VALUE_EVENT__')) {
+    if (iframeHeightLocked) {
+      iframeHeightLocked.value = false
+    }
+
     const jsonEvent = e.data.replace('PROPERTY_VALUE_EVENT__', '')
     const event = JSON.parse(jsonEvent)
     const submitFields = {}
@@ -62,7 +76,7 @@ const iframeMessageListener = (e) => {
 }
 
 const getIframeElement = () => {
-  return document.querySelector('.property-value-widget-wizard-iframe')
+  return document.querySelector('.property-value-widget-2-wizard-iframe')
 }
 
 const iframeLoadListener = () => {
@@ -81,16 +95,18 @@ const iframeLoadListener = () => {
   }
 }
 
-onBeforeMount(() => {
-  const wrapperWidth = document.querySelector(`.${props.wrapperClassName}`)?.offsetWidth || window.innerWidth
+if (!enableSSRImprovements) {
+  onBeforeMount(() => {
+    const wrapperWidth = document.querySelector(`.${props.wrapperClassName}`)?.offsetWidth || window.innerWidth
 
-  if (wrapperWidth < 690) {
-    PROPERTY_VALUE_MIN_HEIGHT = 460
-  } else {
-    PROPERTY_VALUE_MIN_HEIGHT = 315
-  }
-  iframeHeight.value = `${PROPERTY_VALUE_MIN_HEIGHT}px`
-})
+    if (wrapperWidth < 690) {
+      PROPERTY_VALUE_MIN_HEIGHT = 460
+    } else {
+      PROPERTY_VALUE_MIN_HEIGHT = 315
+    }
+    iframeHeight.value = `${PROPERTY_VALUE_MIN_HEIGHT}px`
+  })
+}
 
 onMounted(() => {
   window.addEventListener('message', iframeMessageListener)
@@ -131,9 +147,9 @@ const instructionSteps = [
       </p>
       <div class="property-value-widget-wizard">
         <iframe
-            class="property-value-widget-wizard-iframe"
+            class="property-value-widget-2-wizard-iframe"
             src="/property-value-2.html?v=2"
-            :style="{ height: iframeHeight }"
+            :style="{ height: !iframeHeightLocked ? iframeHeight : undefined }"
         ></iframe>
         <div class="property-value-widget-wizard-features">
           <div
