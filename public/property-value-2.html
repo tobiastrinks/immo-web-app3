@@ -18,6 +18,25 @@
                 }, 2000)
             })
 
+            // Ensure dataLayer exists
+            window.dataLayer = window.dataLayer || [];
+
+            // Backup the original push method
+            const originalPush = window.dataLayer.push;
+
+            // Override the push method
+            let fieldsSimple = {}
+            window.dataLayer.push = function (...args) {
+                // Call the original push method to preserve functionality
+                const result = originalPush.apply(this, args);
+
+                if (args.length && args[0].event === 'heyflow-change' && args[0].fieldsSimple) {
+                    fieldsSimple = args[0].fieldsSimple
+                }
+
+                return result;
+            };
+
             window.setInterval(() => {
                 if (heightInitialized) {
                     const height = document.getElementById('heyflow-wrapper').offsetHeight
@@ -32,11 +51,19 @@
                         .querySelector('*[flow-id="affiliate-header-immobilienwert-rechner"]')
                         .shadowRoot
                         .querySelector('*[data-id="heyflow-form"] section[name].visible')
-                        .getAttribute('name')
+                    const stepName = step.getAttribute('name')
 
-                    if (step && step !== currentStep) {
-                        window.parent.postMessage(`PROPERTY_VALUE_EVENT__${step}.opened`, '*')
-                        currentStep = step
+                    if (stepName && stepName !== currentStep) {
+                        const event = {
+                            event: 'opened',
+                            stepName,
+                            fieldsSimple
+                        }
+                        window.parent.postMessage(
+                            `PROPERTY_VALUE_EVENT__${JSON.stringify(event)}`,
+                            'https://www.aktuelle-grundstueckspreise.de'
+                        )
+                        currentStep = stepName
                     }
                 } catch (e) {}
             }, 100)

@@ -13,14 +13,39 @@ const props = defineProps({
 let PROPERTY_VALUE_MIN_HEIGHT
 
 const iframeHeight = ref(null)
+const includedFormFields = [
+  'Anlass der Bewertung',
+  'Art der Immobilie',
+  'Art der Bebauung',
+  'Art des Grundstücks',
+  'Art des Hauses',
+  'Expertenbewertung',
+  'Eigentümer',
+]
 
 const iframeMessageListener = (e) => {
+  if (e.origin !== 'https://www.aktuelle-grundstueckspreise.de') {
+    console.error('Invalid origin')
+    return
+  }
   if (!e.data || typeof e.data !== 'string') {
     return
   }
   if (e.data.startsWith('PROPERTY_VALUE_EVENT__')) {
-    const event = e.data.replace('PROPERTY_VALUE_EVENT__', '')
-    nuxtApp.$gtm.push({ event: `heyflow.propertyValueWidget.${event}` })
+    const jsonEvent = e.data.replace('PROPERTY_VALUE_EVENT__', '')
+    const event = JSON.parse(jsonEvent)
+    const submitFields = {}
+
+    includedFormFields.forEach((key) => {
+      if (event.fieldsSimple[key]) {
+        submitFields[key] = event.fieldsSimple[key]
+      }
+    })
+
+    nuxtApp.$gtm.push({
+      event: `heyflow.propertyValueWidget.${event.stepName}.${event.event}`,
+      fieldsSimple: submitFields
+    })
   }
   if (e.data.startsWith('PROPERTY_VALUE_HEIGHT__')) {
     const newHeight = e.data.replace('PROPERTY_VALUE_HEIGHT__', '')
@@ -97,7 +122,7 @@ const instructionSteps = [
       <div class="property-value-widget-wizard">
         <iframe
             class="property-value-widget-wizard-iframe"
-            src="/property-value.html"
+            src="/property-value.html?v=2"
             :style="{ height: iframeHeight }"
         ></iframe>
         <div class="property-value-widget-wizard-features">
