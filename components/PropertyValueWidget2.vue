@@ -36,12 +36,17 @@ const includedFormFields = [
   'Eigentümer',
 ]
 
+const allowedOrigins = [
+  'https://www.aktuelle-grundstueckspreise.de',
+  'https://staging.aktuelle-grundstueckspreise.de',
+  'http://localhost:3000'
+]
+
 const iframeMessageListener = (e) => {
-  // TODO: ORIGINS!!
-  // if (e.origin !== 'https://www.aktuelle-grundstueckspreise.de') {
-  //   console.error('Invalid origin')
-  //   return
-  // }
+  if (!allowedOrigins.includes(e.origin)) {
+    console.error('Invalid origin')
+    return
+  }
   if (!e.data || typeof e.data !== 'string') {
     return
   }
@@ -148,7 +153,7 @@ const instructionSteps = [
       <div class="property-value-widget-wizard">
         <iframe
             class="property-value-widget-2-wizard-iframe"
-            src="/property-value-2.html?v=2"
+            src="/property-value-2.html?v=3"
             :style="{ height: !iframeHeightLocked ? iframeHeight : undefined }"
         ></iframe>
         <div class="property-value-widget-wizard-features">

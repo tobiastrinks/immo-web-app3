@@ -73,7 +73,7 @@ onBeforeUnmount(() => {
         <iframe
           class="wattfox-immo-iframe"
           ref="wattfox-immo"
-          src="/wattfox-immo.html"
+          src="/wattfox-immo.html?v=2"
           :style="{ height: !iframeHeightLocked ? iframeHeight : undefined }"
         ></iframe>
       </div>

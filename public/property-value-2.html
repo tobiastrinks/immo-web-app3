@@ -59,10 +59,14 @@
                             stepName,
                             fieldsSimple
                         }
+                        const allowedOrigins = [
+                            'https://www.aktuelle-grundstueckspreise.de',
+                            'https://staging.aktuelle-grundstueckspreise.de',
+                            'http://localhost:3000'
+                        ]
                         window.parent.postMessage(
                             `PROPERTY_VALUE_EVENT__${JSON.stringify(event)}`,
-                            '*'
-                            // 'https://www.aktuelle-grundstueckspreise.de'
+                            allowedOrigins.find(i => i === window.parent.location.origin) || 'https://www.aktuelle-grundstueckspreise.de'
                         )
                         currentStep = stepName
                     }

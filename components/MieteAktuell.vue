@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
         <iframe
           class="miete-aktuell-iframe"
           ref="miete-aktuell"
-          :src="`/miete-aktuell.html?version=${mieteAktuellVersion || '1'}${zipParam}`"
+          :src="`/miete-aktuell.html?version=${mieteAktuellVersion || '1'}${zipParam}&v=2`"
           :class="{ zipParam }"
           :style="{ height: !iframeHeightLocked ? iframeHeight : undefined }"
         ></iframe>
