@@ -1,7 +1,9 @@
 <script setup>
-let WATTFOX_IMMO_MIN_HEIGHT
+import {useSSRImprovements} from "assets/js/featureFlagUtils.js";
+import {useRoute as useNativeRoute} from "#vue-router";
 
 const nuxtApp = useNuxtApp()
+const route = useNativeRoute()
 
 const props = defineProps({
   sidebar: {
@@ -10,6 +12,12 @@ const props = defineProps({
   }
 })
 
+const enableSSRImprovements = useSSRImprovements(route.path)
+
+let WATTFOX_IMMO_MIN_HEIGHT
+
+// initial height of the iframe is controlled via CSS, until the user interacts (next step loaded)
+const iframeHeightLocked = ref(enableSSRImprovements)
 const iframeHeight = ref(null)
 
 const iframeMessageListener = (e) => {
@@ -17,6 +25,10 @@ const iframeMessageListener = (e) => {
     return
   }
   if (e.data.startsWith('WATTFOX_IMMO_EVENT__')) {
+    if (iframeHeightLocked) {
+      iframeHeightLocked.value = false
+    }
+
     const event = e.data.replace('WATTFOX_IMMO_EVENT__', '')
     nuxtApp.$gtm.push({ event: `heyflow.wattfox.${event}` })
   }
@@ -30,14 +42,16 @@ const iframeMessageListener = (e) => {
   }
 }
 
-onBeforeMount(() => {
-  if (window.innerWidth < 689 || props.sidebar) {
-    WATTFOX_IMMO_MIN_HEIGHT = 600
-  } else {
-    WATTFOX_IMMO_MIN_HEIGHT = 500
-  }
-  iframeHeight.value = `${WATTFOX_IMMO_MIN_HEIGHT}px`
-})
+if (!enableSSRImprovements) {
+  onBeforeMount(() => {
+    if (window.innerWidth < 689 || props.sidebar) {
+      WATTFOX_IMMO_MIN_HEIGHT = 600
+    } else {
+      WATTFOX_IMMO_MIN_HEIGHT = 500
+    }
+    iframeHeight.value = `${WATTFOX_IMMO_MIN_HEIGHT}px`
+  })
+}
 
 onMounted(() => {
   nuxtApp.$gtm.push({ event: 'heyflow.wattfox.loaded' })
@@ -55,17 +69,13 @@ onBeforeUnmount(() => {
       class="wattfox-immo-inner"
       :class="{ noBorder: props.sidebar }"
     >
-      <div
-        class="wattfox-immo-iframe-wrapper"
-        :style="{ height: iframeHeight }"
-      >
-        <client-only>
-          <iframe
-            ref="wattfox-immo"
-            src="/wattfox-immo.html"
-            :style="{ height: iframeHeight }"
-          ></iframe>
-        </client-only>
+      <div class="wattfox-immo-iframe-wrapper">
+        <iframe
+          class="wattfox-immo-iframe"
+          ref="wattfox-immo"
+          src="/wattfox-immo.html?v=2"
+          :style="{ height: !iframeHeightLocked ? iframeHeight : undefined }"
+        ></iframe>
       </div>
       <div class="wattfox-immo-features" :class="{ sidebar: props.sidebar }">
         <div
@@ -122,7 +132,6 @@ onBeforeUnmount(() => {
 
       iframe {
         width: 100%;
-        height: 100%;
         border: none;
         position: relative;
         z-index: 1;

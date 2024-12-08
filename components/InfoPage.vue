@@ -1,4 +1,7 @@
 <script setup>
+import {useSSRImprovements} from "assets/js/featureFlagUtils.js";
+import {useRoute as useNativeRoute} from "#vue-router";
+
 const props = defineProps({
   cfData: {
     type: Object,
@@ -6,6 +9,7 @@ const props = defineProps({
   }
 })
 
+const route = useNativeRoute()
 const abTest = useAbTest()
 const affiliateAbTestType = abTest.getSessionFeature('affiliateWidgets')
 
@@ -21,16 +25,20 @@ const hasAffiliate = computed(() => {
 const getTocSection = (id) => {
   return tocSections.value.find(s => s.id === id)
 }
+
+const enableSSRImprovements = useSSRImprovements(route.path)
 </script>
 
 <template>
   <div class="page-location-nav-active" :class="{ 'margin-top': !hasAffiliate }">
-    <client-only>
-      <InfoPageAffiliate
-          v-if="hasAffiliate"
-          :type="affiliateAbTestType"
-      />
-    </client-only>
+    <template v-if="hasAffiliate">
+      <template v-if="!enableSSRImprovements">
+        <client-only>
+          <InfoPageAffiliate :type="affiliateAbTestType"/>
+        </client-only>
+      </template>
+      <InfoPageAffiliate v-else :type="affiliateAbTestType"/>
+    </template>
     <div class="inner">
       <InnerTemplateLy2
           :headline="props.cfData.headline"

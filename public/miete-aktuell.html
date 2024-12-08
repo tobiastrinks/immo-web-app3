@@ -4,7 +4,7 @@
     <meta name="robots" content="noindex">
     <link rel="canonical" href="https://www.aktuelle-grundstueckspreise.de/miete-aktuell.html">
 </head>
-<body style="margin: 0; padding: 0; overflow-y: auto">
+<body style="margin: 0; padding: 0; overflow-y: auto;">
   <script>
     let partner
     if (location.href.includes('version=2')) {
@@ -93,16 +93,13 @@
         steps.step_43,
       ]
     } else {
-      reducedHeightSteps = [
-        steps.step__start
-      ]
+      reducedHeightSteps = []
     }
 
     let iframeLoaded = false
     let isReducedHeightStep = true
 
     iframe.onload = function() {
-      console.log('iframe loaded')
       iframeLoaded = true
     };
 

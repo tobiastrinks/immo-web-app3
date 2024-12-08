@@ -3,7 +3,8 @@ import { PATHS } from '~/assets/js/constants'
 import {useLocationStore} from "~/store/location.js";
 import {useCfStore} from "~/store/cf.js";
 import {useRoute as useNativeRoute} from "#vue-router";
-import {enableSchemaOrg} from "assets/js/featureFlagUtils.js";
+import {enableSchemaOrg, useSSRImprovements} from "assets/js/featureFlagUtils.js";
+import LocationAffiliate from "~/components/LocationAffiliate.vue";
 
 const TOC_SECTIONS = {
   ANALYSIS: 'auswertung',
@@ -28,15 +29,12 @@ const props = defineProps({
   }
 })
 
-const abTest = useAbTest()
 const locationStore = useLocationStore()
 const cfStore = useCfStore()
 const nuxtApp = useNuxtApp()
 const i18n = useI18n()
 const route = useNativeRoute()
 const config = useRuntimeConfig()
-
-const affiliateAbTestType = abTest.getSessionFeature('affiliateWidgets')
 
 const location = computed(() => {
   return locationStore.activeLocationMainData
@@ -130,6 +128,7 @@ const clickCTA = () => {
 }
 
 const showReview = enableSchemaOrg(route.path)
+const ssrImprovements = useSSRImprovements(route.path)
 </script>
 
 <template>
@@ -151,20 +150,12 @@ const showReview = enableSchemaOrg(route.path)
         <p class="location-inner-ly2-affiliate-paragraph">
           {{ $t('_shared.location.affiliateParagraph') }}
         </p>
-        <div class="location-inner-ly2-affiliate-widget-wrapper">
+        <div v-if="ssrImprovements" class="location-inner-ly2-affiliate-widget-wrapper">
+          <LocationAffiliate />
+        </div>
+        <div v-else class="location-inner-ly2-affiliate-widget-wrapper">
           <client-only>
-            <div
-                v-if="affiliateAbTestType"
-                class="location-inner-ly2-affiliate-widget"
-            >
-              <MieteAktuell v-if="affiliateAbTestType === 'mieteAktuell'" />
-              <WattfoxImmo v-else-if="affiliateAbTestType === 'wattfoxImmo'" />
-              <PropertyValueWidget v-else-if="affiliateAbTestType === 'propertyValueWidget'" />
-              <PropertyValueWidget2
-                  v-else
-                  wrapper-class-name="location-inner-ly2-affiliate-widget-wrapper"
-              />
-            </div>
+            <LocationAffiliate />
           </client-only>
         </div>
       </template>
@@ -344,14 +335,6 @@ const showReview = enableSchemaOrg(route.path)
 
   .location-inner-ly2-affiliate-paragraph {
     text-align: center;
-  }
-
-  .location-inner-ly2-affiliate-widget {
-    margin: 0 -5vw;
-
-    @media #{$lg} {
-      margin: 0;
-    }
   }
 }
 </style>

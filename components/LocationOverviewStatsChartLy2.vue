@@ -149,15 +149,15 @@ watch(() => props.data, (newData, previousData) => {
 </script>
 
 <template>
-  <client-only>
-    <div class="bar-chart">
+  <div class="bar-chart">
+    <client-only>
       <Bar
           class="bar-chart-canvas"
           :data="chartData"
           :options="chartOptions"
       />
-    </div>
-  </client-only>
+    </client-only>
+  </div>
 </template>
 
 <style scoped lang="scss">
