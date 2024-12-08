@@ -119,15 +119,15 @@ const options = {
 </script>
 
 <template>
-  <client-only>
-    <div class="line-chart">
+  <div class="line-chart">
+    <client-only>
       <Line
           class="line-chart-canvas"
           :data="data"
           :options="options"
       />
-    </div>
-  </client-only>
+    </client-only>
+  </div>
 </template>
 
 <style scoped lang="scss">
