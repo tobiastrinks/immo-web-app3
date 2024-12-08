@@ -2,7 +2,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   nitro: {
-    awsAmplify: {}
+    compressPublicAssets: true,
   },
   vite: {
     css: {
@@ -28,6 +28,7 @@ export default defineNuxtConfig({
     vueI18n: './i18n.config.ts',
   },
   googleFonts: {
+    subsets: ['latin'],
     families: {
       'Noto Serif': [400, 600],
       Roboto: [300, 400, 500],
