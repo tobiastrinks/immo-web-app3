@@ -1,5 +1,8 @@
 <script setup>
 useHead({
+  htmlAttrs: {
+    lang: 'de'
+  },
   title: 'Aktuelle Grundstückspreise',
   meta: [
     { charset: 'utf-8' },

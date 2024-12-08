@@ -135,6 +135,7 @@ const instructionSteps = [
       </p>
       <div class="property-value-widget-wizard">
         <iframe
+            title="Immobilie kostenlos bewerten"
             class="property-value-widget-wizard-iframe"
             src="/property-value.html?v=3"
             :style="{ height: iframeHeight }"

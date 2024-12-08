@@ -74,6 +74,7 @@ onBeforeUnmount(() => {
         :class="{ sidebar: props.sidebar }"
       >
         <iframe
+          title="Immobilie kostenlos bewerten"
           class="miete-aktuell-iframe"
           ref="miete-aktuell"
           :src="`/miete-aktuell.html?version=${mieteAktuellVersion || '1'}${zipParam}&v=2`"

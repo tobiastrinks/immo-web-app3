@@ -71,6 +71,7 @@ onBeforeUnmount(() => {
     >
       <div class="wattfox-immo-iframe-wrapper">
         <iframe
+          title="Immobilie kostenlos bewerten"
           class="wattfox-immo-iframe"
           ref="wattfox-immo"
           src="/wattfox-immo.html?v=2"
