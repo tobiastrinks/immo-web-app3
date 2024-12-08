@@ -120,13 +120,11 @@ const options = {
 
 <template>
   <div class="line-chart">
-    <client-only>
-      <Line
-          class="line-chart-canvas"
-          :data="data"
-          :options="options"
-      />
-    </client-only>
+    <Line
+        class="line-chart-canvas"
+        :data="data"
+        :options="options"
+    />
   </div>
 </template>
 

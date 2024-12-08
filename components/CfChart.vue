@@ -1,12 +1,51 @@
+<script setup>
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true
+  }
+})
+
+const labels = computed(() => {
+  return props.data.xValues.split(',')
+})
+
+const dataSets = computed(() => {
+  return props.data.chartDatasets
+      .map(dataset => ({
+        values: dataset.yValues.split(',').map(v => parseFloat(v)),
+        legendLabel: dataset.label,
+        lineColor: dataset.color,
+        yAxisID: dataset.secondaryAxis ? 'secondary' : 'primary'
+      }))
+})
+
+const footerNote = computed(() => {
+  return documentToHtmlString(props.data.footerNote2)
+})
+
+const cfChartMounted = ref(false)
+onMounted(() => {
+  window.setTimeout(() => {
+    cfChartMounted.value = true
+  }, 10000)
+})
+</script>
+
 <template>
   <div class="cf-chart">
-    <LineChart
-      :labels="labels"
-      :data-sets="dataSets"
-      :x-label="data.xLabel"
-      :y-label="data.yLabel"
-      :y-label-secondary="data.yLabelSecondary"
-    />
+    <client-only>
+      <LazyLineChart
+        v-if="cfChartMounted"
+        :labels="labels"
+        :data-sets="dataSets"
+        :x-label="props.data.xLabel"
+        :y-label="props.data.yLabel"
+        :y-label-secondary="props.data.yLabelSecondary"
+      />
+    </client-only>
     <div
       v-if="footerNote"
       class="cf-chart-footer-note"
@@ -14,36 +53,6 @@
     ></div>
   </div>
 </template>
-
-<script>
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-
-export default {
-  props: {
-    data: {
-      type: Object,
-      required: true
-    }
-  },
-  computed: {
-    labels () {
-      return this.data.xValues.split(',')
-    },
-    dataSets () {
-      return this.data.chartDatasets
-        .map(dataset => ({
-          values: dataset.yValues.split(',').map(v => parseFloat(v)),
-          legendLabel: dataset.label,
-          lineColor: dataset.color,
-          yAxisID: dataset.secondaryAxis ? 'secondary' : 'primary'
-        }))
-    },
-    footerNote () {
-      return documentToHtmlString(this.data.footerNote2)
-    }
-  }
-}
-</script>
 
 <style scoped lang="scss">
 .cf-chart {

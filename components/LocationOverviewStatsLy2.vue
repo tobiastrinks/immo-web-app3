@@ -353,10 +353,10 @@ const getXFeatureLocaleKey = (option) => {
       <p class="location-overview-stats-ly2-chart-mobile-y-label">
         {{ yLabel }}
       </p>
-      <LocationOverviewStatsChartLy2
-        class="location-overview-stats-ly2-chart bar"
-        :data="{ chartDataset, chartAverage, xLabel, yLabel, unit }"
-      />
+<!--      <LocationOverviewStatsChartLy2-->
+<!--        class="location-overview-stats-ly2-chart bar"-->
+<!--        :data="{ chartDataset, chartAverage, xLabel, yLabel, unit }"-->
+<!--      />-->
     </div>
     <div class="location-overview-stats-ly2-select-wrapper">
       <BlueArrow class="location-overview-stats-ly2-select-blue-arrow" type="TO_RIGHT_BOTTOM" :text="$t('_shared.locationOverviewStats.select.blueArrowText')" />
@@ -383,13 +383,13 @@ const getXFeatureLocaleKey = (option) => {
         :headline="$t('_shared.locationAnalysis.h3PriceOverTime', { locationName })"
         :level="3"
       />
-      <LineChart
-        :y-label="$t('_shared.locationOverviewStats.yLabel.PRICE_PER_SQM')"
-        :x-label="$t('_shared.locationOverviewStats.xLabel.YEARS')"
-        :data-sets="lineChartDataSets"
-        :labels="lineChartXValues"
-        hide-legend
-      />
+<!--      <LineChart-->
+<!--        :y-label="$t('_shared.locationOverviewStats.yLabel.PRICE_PER_SQM')"-->
+<!--        :x-label="$t('_shared.locationOverviewStats.xLabel.YEARS')"-->
+<!--        :data-sets="lineChartDataSets"-->
+<!--        :labels="lineChartXValues"-->
+<!--        hide-legend-->
+<!--      />-->
       <div class="location-analysis-price-over-time-text">
         <TextArticle
           class="location-analysis-price-over-time-text-article"
