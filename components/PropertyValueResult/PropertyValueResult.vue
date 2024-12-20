@@ -209,7 +209,7 @@ const resultFailedTable = computed(() => {
     sections: [
       {
         title: 'Ergebnis',
-        subTitle: 'Es tut uns Leid! Leider könnten wir für Ihre Immobilie keinen Wert berechnen.',
+        subTitle: 'Es tut uns Leid! Leider konnten wir für Ihre Immobilie keinen Wert berechnen.',
         rows: [
           [
             { text: 'Fehler', paddingBottom: 10 },
