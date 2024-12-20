@@ -341,7 +341,7 @@ onUnmounted(() => {
               />
             </template>
           </div>
-          <div v-if="isSeller && !isFailed" class="property-value-result-content-section">
+          <div v-if="isSeller && !isFailed && result.abTest !== 'HIDE_EXPERTENBEWERTUNG_TEXT'" class="property-value-result-content-section">
             <PropertyValueResultButtonBox :result="result" @button-click="openAppointmentPopup" />
           </div>
           <div
@@ -395,7 +395,10 @@ onUnmounted(() => {
               @click="openAppointmentPopup"
             />
           </div>
-          <p v-if="isSeller && !isFailed" class="property-value-result-footnote">
+          <p
+            v-if="isSeller && !isFailed && result.abTest !== 'HIDE_EXPERTENBEWERTUNG_TEXT'"
+            class="property-value-result-footnote"
+          >
             * Basierend auf einer von März 2017 bis März 2019 durchgeführten Analyse von auf ImmobilienScout24 inserierten Immobilien. Untersucht wurden die Vermarktungspreise von Immobilien mit dem Produkt Schaufenster, welches ausschließlich von Maklern gebucht werden kann, im Verhältnis zu vergleichbaren Standard-inserierten Objekten.
           </p>
         </div>
