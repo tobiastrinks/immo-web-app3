@@ -344,7 +344,10 @@ onUnmounted(() => {
           <div v-if="isSeller && !isFailed" class="property-value-result-content-section">
             <PropertyValueResultButtonBox :result="result" @button-click="openAppointmentPopup" />
           </div>
-          <div v-if="isSeller" class="property-value-result-content-section">
+          <div
+            v-if="isSeller && result.abTest !== 'HIDE_EXPERTENBEWERTUNG_TEXT'"
+            class="property-value-result-content-section"
+          >
             <Headline
               headline="Kostenlose Expertenbewertung"
               :level="2"

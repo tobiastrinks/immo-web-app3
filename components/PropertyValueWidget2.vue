@@ -135,7 +135,7 @@ const features = [
     '100% kostenlos & unverbindlich'
 ]
 const instructionSteps = [
-    'Angaben zur Immobilie machen',
+    'Angaben zum Grundstück machen',
     'Erste Einschätzung sofort online abrufen',
     'Kostenlose Expertenbewertung (optional)'
 ]
@@ -145,10 +145,10 @@ const instructionSteps = [
   <div class="property-value-widget" :class="{ borderBottom: props.borderBottom }">
     <div class="property-value-widget-inner">
       <p class="property-value-widget-headline">
-        Immobilienwert-Rechner
+        Grundstückswert-Rechner
       </p>
       <p  class="property-value-widget-description">
-        Ermitteln Sie jetzt kostenlos den Wert Ihrer Immobilie
+        Ermitteln Sie jetzt kostenlos den Wert Ihres Grundstücks
       </p>
       <div class="property-value-widget-wizard">
         <iframe
