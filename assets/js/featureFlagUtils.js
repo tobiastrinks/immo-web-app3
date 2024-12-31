@@ -4,9 +4,9 @@ export function showLayoutV2 (path) {
 }
 
 export function enableSchemaOrg (path) {
-  return path.startsWith('/deutschland/niedersachsen') || path.startsWith('/deutschland/mecklenburg-vorpommern')
+  return true
 }
 
 export function useSSRImprovements (path) {
-  return path.startsWith('/deutschland/bayern') || path.startsWith('/deutschland/hessen') || path.startsWith('/bodenrichtwerte')
+  return true
 }
