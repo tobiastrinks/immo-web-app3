@@ -1,23 +1,14 @@
 <script setup>
-import {useSSRImprovements} from "assets/js/featureFlagUtils.js";
-import {useRoute as useNativeRoute} from "#vue-router";
-
 const props = defineProps({
   type: {
     type: String,
     required: true
   }
 })
-
-const route = useNativeRoute()
-const enableSSRImprovements = useSSRImprovements(route.path)
 </script>
 
 <template>
-  <div
-      class="info-page-affiliate-wrapper"
-      :class="{ enableSSRImprovements }"
-  >
+  <div class="info-page-affiliate-wrapper">
     <PropertyValueWidget
         v-if="props.type === 'propertyValueWidget'"
         border-bottom
@@ -238,35 +229,32 @@ const enableSSRImprovements = useSSRImprovements(route.path)
     }
   }
 
-  &.enableSSRImprovements {
 
-    .property-value-widget-wizard-iframe {
+  .property-value-widget-wizard-iframe {
+    height: 315px;
+  }
+
+  .property-value-widget-2-wizard-iframe {
+    height: 460px;
+
+    @media screen and (min-width: 700px) {
       height: 315px;
-    }
-
-    .property-value-widget-2-wizard-iframe {
-      height: 460px;
-
-      @media screen and (min-width: 700px) {
-        height: 315px;
-      }
-    }
-
-    .wattfox-immo-iframe {
-      height: 500px;
-
-      @media screen and (min-width: 640px) {
-        height: 350px;
-      }
-
-      @media #{$xxl} { // 900px
-        height: 440px;
-        min-height: 440px;
-      }
     }
   }
 
-  // already enabled globally to fix an existing bug with zips
+  .wattfox-immo-iframe {
+    height: 500px;
+
+    @media screen and (min-width: 640px) {
+      height: 350px;
+    }
+
+    @media #{$xxl} { // 900px
+      height: 440px;
+      min-height: 440px;
+    }
+  }
+
   .miete-aktuell-iframe {
     height: 492px;
 

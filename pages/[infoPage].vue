@@ -2,7 +2,6 @@
 import { getCanonical } from 'assets/js/seoUtils'
 import {useCfStore} from "~/store/cf.js";
 import { useRoute as useNativeRoute } from 'vue-router'
-import {enableSchemaOrg} from "assets/js/featureFlagUtils.js";
 import usePageSchemaOrg from "~/composables/usePageSchemaOrg.js";
 
 const cfStore = useCfStore()

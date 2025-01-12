@@ -1,10 +1,7 @@
 <script setup>
 import {PATHS} from "assets/js/constants.js";
-import {useSSRImprovements} from "assets/js/featureFlagUtils.js";
-import {useRoute as useNativeRoute} from "#vue-router";
 
 const nuxtApp = useNuxtApp()
-const route = useNativeRoute()
 
 const props = defineProps({
   wrapperClassName: {
@@ -17,12 +14,10 @@ const props = defineProps({
   }
 })
 
-const enableSSRImprovements = useSSRImprovements(route.path)
-
 let PROPERTY_VALUE_MIN_HEIGHT = 315
 
 // initial height of the iframe is controlled via CSS, until the user interacts (next step loaded)
-const iframeHeightLocked = ref(enableSSRImprovements)
+const iframeHeightLocked = ref(true)
 const iframeHeight = ref(null)
 
 
@@ -98,19 +93,6 @@ const iframeLoadListener = () => {
       console.log('Iframe redirected to a cross-origin URL.');
     }
   }
-}
-
-if (!enableSSRImprovements) {
-  onBeforeMount(() => {
-    const wrapperWidth = document.querySelector(`.${props.wrapperClassName}`)?.offsetWidth || window.innerWidth
-
-    if (wrapperWidth < 690) {
-      PROPERTY_VALUE_MIN_HEIGHT = 460
-    } else {
-      PROPERTY_VALUE_MIN_HEIGHT = 315
-    }
-    iframeHeight.value = `${PROPERTY_VALUE_MIN_HEIGHT}px`
-  })
 }
 
 onMounted(() => {

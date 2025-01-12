@@ -1,5 +1,5 @@
 <script setup>
-import {enableSchemaOrg, showLayoutV2} from 'assets/js/featureFlagUtils'
+import {showLayoutV2} from 'assets/js/featureFlagUtils'
 import { getCanonical } from 'assets/js/seoUtils'
 import { META_TITLE_MONTHS, X_FEATURES, Y_VALUES } from 'assets/js/constants'
 import {useCfStore} from "~/store/cf.js";
@@ -58,17 +58,15 @@ useHead({
   ].filter(i => !!i)
 })
 
-if (enableSchemaOrg(path)) {
-  const pageSchemaOrg = usePageSchemaOrg()
-  const locationText = useLocationText()
+const pageSchemaOrg = usePageSchemaOrg()
+const locationText = useLocationText()
 
-  pageSchemaOrg.faqAndProductPage({
-      faqItems: cfStore.locationFAQ?.faqItems,
-      reviewCount: locationStore.activeLocationMainData.reviewCount,
-      reviewValue: locationStore.activeLocationMainData.reviewValue,
-      productDescription: locationText.getPriceOverTimeText()
-  })
-}
+pageSchemaOrg.faqAndProductPage({
+    faqItems: cfStore.locationFAQ?.faqItems,
+    reviewCount: locationStore.activeLocationMainData.reviewCount,
+    reviewValue: locationStore.activeLocationMainData.reviewValue,
+    productDescription: locationText.getPriceOverTimeText()
+})
 </script>
 
 <template>

@@ -3,7 +3,6 @@ import { PATHS } from '~/assets/js/constants'
 import {useLocationStore} from "~/store/location.js";
 import {useCfStore} from "~/store/cf.js";
 import {useRoute as useNativeRoute} from "#vue-router";
-import {enableSchemaOrg, useSSRImprovements} from "assets/js/featureFlagUtils.js";
 import LocationAffiliate from "~/components/LocationAffiliate.vue";
 
 const TOC_SECTIONS = {
@@ -126,9 +125,6 @@ const clickCTA = () => {
     nuxtApp.$gtm.push({ event: 'location.body.propertyValueCTA' })
   }
 }
-
-const showReview = enableSchemaOrg(route.path)
-const ssrImprovements = useSSRImprovements(route.path)
 </script>
 
 <template>
@@ -150,13 +146,8 @@ const ssrImprovements = useSSRImprovements(route.path)
         <p class="location-inner-ly2-affiliate-paragraph">
           {{ $t('_shared.location.affiliateParagraph') }}
         </p>
-        <div v-if="ssrImprovements" class="location-inner-ly2-affiliate-widget-wrapper">
+        <div class="location-inner-ly2-affiliate-widget-wrapper">
           <LocationAffiliate />
-        </div>
-        <div v-else class="location-inner-ly2-affiliate-widget-wrapper">
-          <client-only>
-            <LocationAffiliate />
-          </client-only>
         </div>
       </template>
       <template v-slot:sections>
@@ -291,7 +282,7 @@ const ssrImprovements = useSSRImprovements(route.path)
           <InfoPageDropdown :items="locationFAQ.faqItems" />
         </div>
         <Reviews
-            v-if="showReview && location.reviewValue && location.reviewCount"
+            v-if="location.reviewValue && location.reviewCount"
             :count="location.reviewCount"
             :value="location.reviewValue"
         />

@@ -1,9 +1,5 @@
 <script setup>
-import {useSSRImprovements} from "assets/js/featureFlagUtils.js";
-import {useRoute as useNativeRoute} from "#vue-router";
-
 const nuxtApp = useNuxtApp()
-const route = useNativeRoute()
 
 const props = defineProps({
   sidebar: {
@@ -12,12 +8,10 @@ const props = defineProps({
   }
 })
 
-const enableSSRImprovements = useSSRImprovements(route.path)
-
 let WATTFOX_IMMO_MIN_HEIGHT
 
 // initial height of the iframe is controlled via CSS, until the user interacts (next step loaded)
-const iframeHeightLocked = ref(enableSSRImprovements)
+const iframeHeightLocked = ref(true)
 const iframeHeight = ref(null)
 
 const iframeMessageListener = (e) => {
@@ -40,17 +34,6 @@ const iframeMessageListener = (e) => {
     }
     iframeHeight.value = `${newHeightNumber}px`
   }
-}
-
-if (!enableSSRImprovements) {
-  onBeforeMount(() => {
-    if (window.innerWidth < 689 || props.sidebar) {
-      WATTFOX_IMMO_MIN_HEIGHT = 600
-    } else {
-      WATTFOX_IMMO_MIN_HEIGHT = 500
-    }
-    iframeHeight.value = `${WATTFOX_IMMO_MIN_HEIGHT}px`
-  })
 }
 
 onMounted(() => {
