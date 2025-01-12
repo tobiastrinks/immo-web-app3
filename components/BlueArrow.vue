@@ -1,14 +1,4 @@
-<template>
-  <div class="blue-arrow" :class="type">
-    <img
-      :src="`/img/blueArrow/${fileName}`"
-    />
-    <!-- eslint-disable-next-line vue/no-v-html -->
-    <span v-html="text"></span>
-  </div>
-</template>
-
-<script>
+<script setup>
 const IMAGE = {
   TO_TOP_LEFT: 'to-top-left.svg',
   TO_TOP_RIGHT: 'to-top-right.svg',
@@ -20,24 +10,27 @@ const IMAGE = {
   TO_BOTTOM_LEFT_TILTED: 'to-bottom-left-tilted.svg'
 }
 
-export default {
-  props: {
-    type: {
-      type: String,
-      required: true
-    },
-    text: {
-      type: String,
-      required: true
-    }
+const props = defineProps({
+  type: {
+    type: String,
+    required: true
   },
-  computed: {
-    fileName () {
-      return IMAGE[this.type]
-    }
+  text: {
+    type: String, 
+    required: true
   }
-}
+})
 </script>
+
+<template>
+  <div class="blue-arrow" :class="type">
+    <img
+      :src="`/img/blueArrow/${IMAGE[type]}`"
+    />
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <span v-html="text"></span>
+  </div>
+</template>
 
 <style scoped lang="scss">
 .blue-arrow {

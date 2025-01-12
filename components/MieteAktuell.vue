@@ -5,7 +5,6 @@ import {useRoute as useNativeRoute} from "#vue-router";
 const mieteAktuellVersion = useCookie('mieteAktuellVersion')
 const locationStore = useLocationStore()
 const nuxtApp = useNuxtApp()
-const route = useNativeRoute()
 
 const props = defineProps({
   sidebar: {
@@ -15,16 +14,17 @@ const props = defineProps({
 })
 
 const zipParam = computed(() => {
-  if (locationStore?.gemeinde?.gemeinde?.zip) {
-    const { allZips } = locationStore.gemeinde.gemeinde
-    if (!allZips || allZips.length === 1) {
-      return `&zip=${locationStore.gemeinde.gemeinde.zip}`
-    } else {
-      return ''
-    }
-  } else {
-    return ''
-  }
+  return ''
+  // if (locationStore?.gemeinde?.gemeinde?.zip) {
+  //   const { allZips } = locationStore.gemeinde.gemeinde
+  //   if (!allZips || allZips.length === 1) {
+  //     return `&zip=${locationStore.gemeinde.gemeinde.zip}`
+  //   } else {
+  //     return ''
+  //   }
+  // } else {
+  //   return ''
+  // }
 })
 
 // initial height of the iframe is controlled via CSS, until the user interacts (next step loaded)

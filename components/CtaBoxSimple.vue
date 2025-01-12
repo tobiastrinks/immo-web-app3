@@ -1,3 +1,7 @@
+<script setup>
+import {PATHS} from "assets/js/constants.js";
+</script>
+
 <template>
   <div class="cta-box-simple">
     <p class="cta-box-simple-text">
@@ -13,18 +17,6 @@
     </nuxt-link>
   </div>
 </template>
-
-<script>
-import {PATHS} from "assets/js/constants.js";
-
-export default {
-  data () {
-    return {
-      PATHS
-    }
-  }
-}
-</script>
 
 <style scoped lang="scss">
 .cta-box-simple {
