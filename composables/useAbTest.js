@@ -1,4 +1,5 @@
 export default function () {
+
     const tests = {
         // CHECK VARY HEADER WHEN REMOVING -> varyHeader.js
         // default is always first item
@@ -8,6 +9,9 @@ export default function () {
             mieteAktuell: 0.2,
         }
     }
+
+    const selectedValues = {}
+
     /**
      * Random test session assignment
      */
@@ -16,6 +20,7 @@ export default function () {
         const abTestAssignedAtCookie = useCookie(`abTest.${testName}.assignedAt`)
 
         if (abTestCookie.value && Object.keys(options).includes(abTestCookie.value)) {
+            selectedValues[testName] = abTestCookie.value
             return
         }
         const random = Math.random()
@@ -26,6 +31,7 @@ export default function () {
             if (random <= accProbability) {
                 abTestCookie.value = feature
                 abTestAssignedAtCookie.value = new Date().toISOString()
+                selectedValues[testName] = feature
                 return
             }
         }
@@ -33,7 +39,7 @@ export default function () {
 
     return {
         getSessionFeature (testName) {
-            return useCookie(`abTest.${testName}`).value || tests[testName][0]
+            return selectedValues[testName] || tests[testName][0]
         }
     }
 }
