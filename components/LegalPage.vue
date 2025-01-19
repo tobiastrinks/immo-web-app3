@@ -9,7 +9,7 @@ const props = defineProps({
 
 <template>
   <div class="page-location-nav-active margin-top inner">
-    <InnerTemplateLy2
+    <InnerTemplate
         :headline="props.cfData.headline"
         :sub-headline="props.cfData.subHeadline"
         hide-toc
@@ -19,7 +19,7 @@ const props = defineProps({
           <CfArticle :content="props.cfData.text" />
         </div>
       </template>
-    </InnerTemplateLy2>
+    </InnerTemplate>
   </div>
 </template>
 

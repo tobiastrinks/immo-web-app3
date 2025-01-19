@@ -1,5 +1,5 @@
 <template>
-  <div class="headline" :class="[{ centered, noSubHeadline: !subHeadline, ly2 }, `level${level}`]">
+  <div class="headline" :class="[{ centered, noSubHeadline: !subHeadline }, `level${level}`]">
     <p v-if="onlyUseParagraphs" class="headline-main">
       {{ headline }}
     </p>
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import { showLayoutV2 } from '@/assets/js/featureFlagUtils'
-
 export default {
   name: 'Headline',
   props: {
@@ -44,11 +42,6 @@ export default {
       type: Boolean,
       default: false
     }
-  },
-  computed: {
-    ly2 () {
-      return showLayoutV2(this.$route.path)
-    }
   }
 }
 </script>
@@ -69,56 +62,37 @@ export default {
     text-align: center;
   }
 
+  &.level3 {
+    margin-bottom: 10px;
+  }
+
   .headline-main {
     margin-bottom: 10px;
   }
 
   p.headline-main {
     font-family: $fontHeadline;
-    font-size: 144%;
+    font-size: 120%;
     font-weight: 600;
 
     @media #{$md} {
-      font-size: 180%;
+      font-size: 150%;
     }
   }
 
   .headline-sub {
-    font-size: 120%;
+    font-size: 100%;
     font-weight: 300;
     line-height: 1.4;
 
     @media #{$md} {
-      font-size: 130%;
+      font-size: 110%;
     }
   }
 
-  &.ly2 {
-
-    &.level3 {
-      margin-bottom: 10px;
-    }
-
-    p.headline-main {
-      font-size: 120%;
-
-      @media #{$md} {
-        font-size: 150%;
-      }
-    }
-
-    .headline-sub {
-      font-size: 100%;
-
-      @media #{$md} {
-        font-size: 110%;
-      }
-    }
-
-    h3 {
-      font-family: $fontPrimary;
-      font-weight: 500;
-    }
+  h3 {
+    font-family: $fontPrimary;
+    font-weight: 500;
   }
 }
 </style>

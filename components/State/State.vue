@@ -8,7 +8,7 @@ const locationStore = useLocationStore()
 <template>
   <div class="page-location-nav-active margin-top state">
     <div class="inner">
-      <LocationInnerLy2
+      <LocationInner
         :headline="$t('state.overview.headline', { state: locationStore.state.state.name })"
         :sub-headline="$t('state.overview.subHeadline', { state: locationStore.state.state.name })"
       >
@@ -19,7 +19,7 @@ const locationStore = useLocationStore()
           />
           <LocationComparisonSearch />
         </template>
-      </LocationInnerLy2>
+      </LocationInner>
     </div>
     <LocationDisclaimer />
   </div>

@@ -128,8 +128,8 @@ const clickCTA = () => {
 </script>
 
 <template>
-  <div class="location-inner-ly2">
-    <InnerTemplateLy2
+  <div class="location-inner">
+    <InnerTemplate
       :toc-sections="tocSections"
       :toc-arrow-label="$t('_shared.location.tocArrowLabel', { locationName })"
     >
@@ -139,14 +139,14 @@ const clickCTA = () => {
           :sub-headline="subHeadline"
           centered
         />
-        <p class="location-inner-ly2-template-head-last-updated">
+        <p class="location-inner-template-head-last-updated">
           {{ lastUpdatedText }}
         </p>
-        <LocationKPILy2 />
-        <p class="location-inner-ly2-affiliate-paragraph">
+        <LocationKPI />
+        <p class="location-inner-affiliate-paragraph">
           {{ $t('_shared.location.affiliateParagraph') }}
         </p>
-        <div class="location-inner-ly2-affiliate-widget-wrapper">
+        <div class="location-inner-affiliate-widget-wrapper">
           <LocationAffiliate />
         </div>
       </template>
@@ -154,7 +154,7 @@ const clickCTA = () => {
         <div
             v-if="tocSection(TOC_SECTIONS.ANALYSIS)"
             :data-toc="TOC_SECTIONS.ANALYSIS"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.ANALYSIS).headline"
@@ -169,7 +169,7 @@ const clickCTA = () => {
         <div
             v-if="tocSection(TOC_SECTIONS.TREND)"
             :data-toc="TOC_SECTIONS.TREND"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.TREND).headline"
@@ -181,7 +181,7 @@ const clickCTA = () => {
         <div
             v-if="tocSection(TOC_SECTIONS.MARKET_REPORT)"
             :data-toc="TOC_SECTIONS.MARKET_REPORT"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.MARKET_REPORT).headline"
@@ -192,7 +192,7 @@ const clickCTA = () => {
         <div
             v-if="tocSection(TOC_SECTIONS.BODENRICHTWERT)"
             :data-toc="TOC_SECTIONS.BODENRICHTWERT"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.BODENRICHTWERT).headline"
@@ -204,7 +204,7 @@ const clickCTA = () => {
         <div
             v-if="tocSection(TOC_SECTIONS.LOCATION_FAKTOREN)"
             :data-toc="TOC_SECTIONS.LOCATION_FAKTOREN"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.LOCATION_FAKTOREN).headline"
@@ -214,7 +214,7 @@ const clickCTA = () => {
         </div>
         <div
             :data-toc="TOC_SECTIONS.PROPERTY_VALUE"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.PROPERTY_VALUE).headline"
@@ -233,7 +233,7 @@ const clickCTA = () => {
         </div>
         <div
             :data-toc="TOC_SECTIONS.PROPERTY_SELL"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.PROPERTY_SELL).headline"
@@ -247,7 +247,7 @@ const clickCTA = () => {
         </div>
         <div
             :data-toc="TOC_SECTIONS.PROPERTY_BUY"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.PROPERTY_BUY).headline"
@@ -259,7 +259,7 @@ const clickCTA = () => {
         <div
             v-if="tocSection(TOC_SECTIONS.CALC)"
             :data-toc="TOC_SECTIONS.CALC"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.CALC).headline"
@@ -273,7 +273,7 @@ const clickCTA = () => {
         <div
             v-if="tocSection(TOC_SECTIONS.FAQ)"
             :data-toc="TOC_SECTIONS.FAQ"
-            class="inner-template-ly2-sections-item"
+            class="inner-template-sections-item"
         >
           <Headline
             :headline="tocSection(TOC_SECTIONS.FAQ).headline"
@@ -287,12 +287,12 @@ const clickCTA = () => {
             :value="location.reviewValue"
         />
       </template>
-    </InnerTemplateLy2>
+    </InnerTemplate>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.location-inner-ly2 {
+.location-inner {
   display: flex;
   flex-direction: column-reverse;
 
@@ -305,7 +305,7 @@ const clickCTA = () => {
     text-align: justify;
   }
 
-  .location-inner-ly2-template-last-updated {
+  .location-inner-template-last-updated {
     display: none;
 
     @media #{$md} {
@@ -313,7 +313,7 @@ const clickCTA = () => {
     }
   }
 
-  .location-inner-ly2-template-head-last-updated {
+  .location-inner-template-head-last-updated {
     text-align: center;
     font-size: 90%;
     margin: -15px 0 0;
@@ -324,7 +324,7 @@ const clickCTA = () => {
     }
   }
 
-  .location-inner-ly2-affiliate-paragraph {
+  .location-inner-affiliate-paragraph {
     text-align: center;
   }
 }

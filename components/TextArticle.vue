@@ -1,5 +1,5 @@
 <template>
-  <div class="text-article" :class="{ smallMargin, greyBoxSmall, ly2 }">
+  <div class="text-article" :class="{ smallMargin, greyBoxSmall }">
     <h3 v-if="headline" class="text-article-headline" :class="{ smallInnerMargin }">
       {{ headline }}
     </h3>
@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import { showLayoutV2 } from '~/assets/js/featureFlagUtils'
-
 export default {
   props: {
     headline: {
@@ -48,11 +46,6 @@ export default {
       type: Boolean,
       default: false
     }
-  },
-  computed: {
-    ly2 () {
-      return showLayoutV2(this.$route.path)
-    }
   }
 }
 </script>
@@ -62,11 +55,7 @@ export default {
   margin: 50px 0;
 
   &.smallMargin {
-    margin: 30px 0;
-
-    &.ly2 {
-      margin: 10px 0;
-    }
+    margin: 10px 0;
   }
 
   &.greyBoxSmall {

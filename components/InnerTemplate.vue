@@ -25,7 +25,7 @@ const activeTOCItem = ref(null)
 const recalculateSectionOffsetInterval = ref()
 
 const calculateSectionOffsets = () => {
-  sectionOffsets.value = [...document.querySelectorAll('.inner-template-ly2-sections-item[data-toc]')]
+  sectionOffsets.value = [...document.querySelectorAll('.inner-template-sections-item[data-toc]')]
       .map(i => ({
         dataToc: i.attributes.getNamedItem('data-toc').value,
         offsetTop: offsetTop(i)
@@ -64,16 +64,16 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="inner-template-ly2">
-    <div class="inner-template-ly2-columns" :class="{hideToc}">
-      <div v-if="!hideToc" class="inner-template-ly2-toc-sidebar">
-        <InnerTemplateToCLy2
+  <div class="inner-template">
+    <div class="inner-template-columns" :class="{hideToc}">
+      <div v-if="!hideToc" class="inner-template-toc-sidebar">
+        <InnerTemplateToC
             :sections="tocSections"
             :active-item="activeTOCItem"
             sidebar
         />
       </div>
-      <div class="inner-template-ly2-main" :class="{hideToc}">
+      <div class="inner-template-main" :class="{hideToc}">
         <div v-if="headline">
           <Headline
               :headline="headline"
@@ -82,15 +82,15 @@ onBeforeUnmount(() => {
               centered
           />
         </div>
-        <div class="inner-template-ly2-head">
+        <div class="inner-template-head">
           <slot name="head"></slot>
         </div>
-        <div v-if="!hideToc" class="inner-template-ly2-toc-mobile">
-          <InnerTemplateToCLy2
+        <div v-if="!hideToc" class="inner-template-toc-mobile">
+          <InnerTemplateToC
               :sections="tocSections"
           />
         </div>
-        <div class="inner-template-ly2-sections">
+        <div class="inner-template-sections">
           <slot name="sections"></slot>
         </div>
       </div>
@@ -99,9 +99,9 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss">
-.inner-template-ly2 {
+.inner-template {
 
-  .inner-template-ly2-columns {
+  .inner-template-columns {
 
     @media #{$lg} {
       &:not(.hideToc) {
@@ -110,7 +110,7 @@ onBeforeUnmount(() => {
       }
     }
 
-    .inner-template-ly2-toc-sidebar {
+    .inner-template-toc-sidebar {
       display: none;
 
       &:not(.hideToc) {
@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
       }
     }
 
-    .inner-template-ly2-main {
+    .inner-template-main {
 
       &:not(.hideToc) {
         @media #{$lg} {
@@ -141,11 +141,11 @@ onBeforeUnmount(() => {
         }
       }
 
-      .inner-template-ly2-head {
+      .inner-template-head {
         margin-bottom: 40px;
       }
 
-      .inner-template-ly2-toc-mobile {
+      .inner-template-toc-mobile {
 
         @media #{$lg} {
           display: none;
@@ -153,10 +153,10 @@ onBeforeUnmount(() => {
       }
     }
 
-    .inner-template-ly2-sections {
+    .inner-template-sections {
       margin-top: 60px;
 
-      .inner-template-ly2-sections-item {
+      .inner-template-sections-item {
         margin: 60px 0;
 
         @media #{$md} {

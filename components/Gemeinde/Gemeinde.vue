@@ -8,7 +8,7 @@ const locationStore = useLocationStore()
 <template>
   <div class="page-location-nav-active margin-top gemeinde">
     <div class="inner">
-      <LocationInnerLy2
+      <LocationInner
         :headline="$t('gemeinde.overview.headline', { gemeinde: locationStore.gemeinde.gemeinde.name })"
         :sub-headline="$t('gemeinde.overview.subHeadline', { gemeinde: locationStore.gemeinde.gemeinde.name })"
       >
@@ -20,7 +20,7 @@ const locationStore = useLocationStore()
           />
           <LocationComparisonSearch />
         </template>
-      </LocationInnerLy2>
+      </LocationInner>
     </div>
     <LocationDisclaimer />
   </div>

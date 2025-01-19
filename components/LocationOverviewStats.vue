@@ -345,29 +345,29 @@ const getXFeatureLocaleKey = (option) => {
 </script>
 
 <template>
-  <div class="location-overview-stats-ly2">
-    <div class="location-overview-stats-ly2-chart-wrapper" :class="{ loading: overviewStatsStore.loading }">
-      <div class="location-overview-stats-ly2-chart-loading">
+  <div class="location-overview-stats">
+    <div class="location-overview-stats-chart-wrapper" :class="{ loading: overviewStatsStore.loading }">
+      <div class="location-overview-stats-chart-loading">
         <img src="~/assets/img/_shared/loading.svg" />
       </div>
-      <p class="location-overview-stats-ly2-chart-mobile-y-label">
+      <p class="location-overview-stats-chart-mobile-y-label">
         {{ yLabel }}
       </p>
-      <LocationOverviewStatsChartLy2
-        class="location-overview-stats-ly2-chart bar"
+      <LocationOverviewStatsChart
+        class="location-overview-stats-chart bar"
         :data="{ chartDataset, chartAverage, xLabel, yLabel, unit }"
       />
     </div>
-    <div class="location-overview-stats-ly2-select-wrapper">
-      <BlueArrow class="location-overview-stats-ly2-select-blue-arrow" type="TO_RIGHT_BOTTOM" :text="$t('_shared.locationOverviewStats.select.blueArrowText')" />
-      <LocationOverviewStatsSelectLy2
+    <div class="location-overview-stats-select-wrapper">
+      <BlueArrow class="location-overview-stats-select-blue-arrow" type="TO_RIGHT_BOTTOM" :text="$t('_shared.locationOverviewStats.select.blueArrowText')" />
+      <LocationOverviewStatsSelect
         :title="$t('_shared.locationOverviewStats.select.headlineYValues')"
         :title-brackets="$t('_shared.locationOverviewStats.select.headlineYValuesBrackets')"
         :options="getSelectOptions(Object.keys(Y_VALUES))"
         :selected="overviewStatsStore.activeYValue"
         @select="(yValue) => overviewStatsStore.selectOverviewStats(cachedApi, { yValue })"
       />
-      <LocationOverviewStatsSelectLy2
+      <LocationOverviewStatsSelect
         :title="$t('_shared.locationOverviewStats.select.headlineXFeatures')"
         :title-brackets="$t('_shared.locationOverviewStats.select.headlineXFeaturesBrackets')"
         :options="getSelectOptions(Object.keys(X_FEATURES))"
@@ -375,10 +375,10 @@ const getXFeatureLocaleKey = (option) => {
         @select="(xFeature) => overviewStatsStore.selectOverviewStats(cachedApi, { xFeature })"
       />
     </div>
-    <ul class="location-overview-stats-ly2-bullets">
+    <ul class="location-overview-stats-bullets">
       <li v-for="(bullet, index) in bullets" :key="index" v-html="bullet"></li>
     </ul>
-    <div class="location-overview-stats-ly2-price-over-time">
+    <div class="location-overview-stats-price-over-time">
       <Headline
         :headline="$t('_shared.locationAnalysis.h3PriceOverTime', { locationName })"
         :level="3"
@@ -404,11 +404,11 @@ const getXFeatureLocaleKey = (option) => {
 </template>
 
 <style lang="scss">
-.location-overview-stats-ly2 {
+.location-overview-stats {
   width: 100%;
   margin: 0 auto;
 
-  .location-overview-stats-ly2-chart-wrapper {
+  .location-overview-stats-chart-wrapper {
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -418,16 +418,16 @@ const getXFeatureLocaleKey = (option) => {
     }
 
     &.loading {
-      .location-overview-stats-ly2-chart {
+      .location-overview-stats-chart {
         opacity: 0.3;
       }
 
-      .location-overview-stats-ly2-chart-loading {
+      .location-overview-stats-chart-loading {
         display: block;
       }
     }
 
-    .location-overview-stats-ly2-chart-loading {
+    .location-overview-stats-chart-loading {
       display: none;
       position: absolute;
       left: 50%;
@@ -439,7 +439,7 @@ const getXFeatureLocaleKey = (option) => {
       }
     }
 
-    .location-overview-stats-ly2-chart-mobile-y-label {
+    .location-overview-stats-chart-mobile-y-label {
       color: #6a6a6a;
       font-size: 12px;
       font-weight: 400;
@@ -450,7 +450,7 @@ const getXFeatureLocaleKey = (option) => {
     }
   }
 
-  .location-overview-stats-ly2-select-wrapper {
+  .location-overview-stats-select-wrapper {
     position: relative;
     border: 1px solid #C4C4C4;
     padding: 15px 20px;
@@ -463,14 +463,14 @@ const getXFeatureLocaleKey = (option) => {
       margin-left: 75px;
     }
 
-    .location-overview-stats-ly2-select-blue-arrow {
+    .location-overview-stats-select-blue-arrow {
       position: absolute;
       top: 50px;
       right: calc(100% + 10px);
     }
   }
 
-  .location-overview-stats-ly2-bullets {
+  .location-overview-stats-bullets {
     margin: 30px 0;
     text-align: justify;
     padding-left: 20px;
@@ -484,10 +484,10 @@ const getXFeatureLocaleKey = (option) => {
     }
   }
 
-  .location-overview-stats-ly2-price-over-time {
+  .location-overview-stats-price-over-time {
     margin: 50px 0;
 
-    .location-overview-stats-ly2-chart {
+    .location-overview-stats-chart {
       margin: 20px 0;
     }
 
