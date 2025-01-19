@@ -6,6 +6,8 @@ import {useOverviewStatsStore} from "~/store/overviewStats.js";
 import {useLocationStore} from "~/store/location.js";
 import { useRoute as useNativeRoute } from 'vue-router'
 import usePageSchemaOrg from "~/composables/usePageSchemaOrg.js";
+import cfLocationFaktoren from "assets/cf/cfLocationFaktoren.json";
+import cfLocationFAQ from "assets/cf/cfLocationFAQ.json";
 
 const nuxtApp = useNuxtApp()
 const overviewStatsStore = useOverviewStatsStore()
@@ -17,7 +19,10 @@ const { path } = useNativeRoute()
 const config = useRuntimeConfig()
 
 await useAsyncData(async () => {
+  locationStore.marketReport = null
   cfStore.resetBodenrichtwert()
+  cfStore.locationFaktoren = cfLocationFaktoren
+  cfStore.locationFAQ = cfLocationFAQ
 
   await Promise.all([
     locationStore.getGermany(cachedApi),
