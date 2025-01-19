@@ -47,13 +47,13 @@ const hasRanking = computed(() => {
       :headline="$t('_shared.locationAnalysis.h3Market', { locationName })"
       :level="3"
     />
-    <LocationOverviewStatsLy2 />
+    <LocationOverviewStats />
     <div v-if="hasRanking" class="location-analysis-ranking">
       <Headline
         :headline="$t('_shared.locationAnalysis.h3Ranking', { locationName })"
         :level="3"
       />
-      <LocationRankingLy2 />
+      <LocationRanking />
     </div>
     <div class="location-analysis-nearby">
       <Headline

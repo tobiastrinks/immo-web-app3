@@ -29,7 +29,7 @@ const getTocSection = (id) => {
       <InfoPageAffiliate :type="affiliateAbTestType"/>
     </template>
     <div class="inner">
-      <InnerTemplateLy2
+      <InnerTemplate
           :headline="props.cfData.headline"
           :sub-headline="props.cfData.subHeadline"
           :toc-sections="tocSections"
@@ -49,7 +49,7 @@ const getTocSection = (id) => {
               v-for="(infoSection, index) in props.cfData.infoSections"
               :key="index"
               :data-toc="infoSection.id"
-              class="inner-template-ly2-sections-item"
+              class="inner-template-sections-item"
           >
             <InfoSection
                 :info-section="infoSection"
@@ -62,7 +62,7 @@ const getTocSection = (id) => {
               :value="cfData.reviewValue"
           />
         </template>
-      </InnerTemplateLy2>
+      </InnerTemplate>
     </div>
   </div>
 </template>

@@ -137,7 +137,7 @@ const featureBarItems = computed(() => {
     <FeatureBar :items="featureBarItems" />
     <div class="calc-seo-info-content">
       <div class="inner">
-        <InnerTemplateLy2
+        <InnerTemplate
             :toc-sections="tocSections"
             :toc-arrow-label="$t('_shared.infoPage.tocArrowLabel')"
             :toc-arrow-x-offset="200"
@@ -155,7 +155,7 @@ const featureBarItems = computed(() => {
                 v-for="(infoSection, index) in cfData.infoSections"
                 :key="index"
                 :data-toc="infoSection.id"
-                class="inner-template-ly2-sections-item"
+                class="inner-template-sections-item"
             >
               <InfoSection
                   :info-section="infoSection"
@@ -163,7 +163,7 @@ const featureBarItems = computed(() => {
               />
             </div>
           </template>
-        </InnerTemplateLy2>
+        </InnerTemplate>
       </div>
     </div>
     <InvestmentDisclaimer />

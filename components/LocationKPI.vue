@@ -28,18 +28,18 @@ const scrollToExplanation = () => {
 </script>
 
 <template>
-  <div class="location-kpi-ly2">
-    <div class="location-kpi-ly2-header">
-      <p class="location-kpi-ly2-header-headline">
+  <div class="location-kpi">
+    <div class="location-kpi-header">
+      <p class="location-kpi-header-headline">
         {{ $t('_shared.locationKPI.withCTA.priceLabel') }}
       </p>
-      <p class="location-kpi-ly2-header-price">
+      <p class="location-kpi-header-price">
         {{ $t('_shared.locationKPI.withCTA.price', {
         priceFrom: $n(pricePerSqmFrom, { maximumFractionDigits: 0 }),
         priceTo: $n(pricePerSqmTo, { maximumFractionDigits: 0 })
       }) }}
       </p>
-      <p class="location-kpi-ly2-header-price-explanation" @click="scrollToExplanation">
+      <p class="location-kpi-header-price-explanation" @click="scrollToExplanation">
         {{ $t('_shared.locationKPI.withCTA.priceExplanation') }}
       </p>
     </div>
@@ -47,19 +47,19 @@ const scrollToExplanation = () => {
 </template>
 
 <style scoped lang="scss">
-.location-kpi-ly2 {
+.location-kpi {
   max-width: 550px;
   margin: 40px auto;
   text-align: center;
 
-  .location-kpi-ly2-header {
+  .location-kpi-header {
     line-height: 160%;
 
-    .location-kpi-ly2-header-headline {
+    .location-kpi-header-headline {
       font-weight: 400;
     }
 
-    .location-kpi-ly2-header-price {
+    .location-kpi-header-price {
       font-weight: 500;
       font-size: 135%;
       background-color: $greyMedium;
@@ -69,7 +69,7 @@ const scrollToExplanation = () => {
       margin: 10px 0 5px 0;
     }
 
-    .location-kpi-ly2-header-price-explanation {
+    .location-kpi-header-price-explanation {
       text-decoration: underline;
       font-size: 70%;
       cursor: pointer;
@@ -77,10 +77,10 @@ const scrollToExplanation = () => {
     }
   }
 
-  .location-kpi-ly2-body {
+  .location-kpi-body {
     padding: 15px;
 
-    .location-kpi-ly2-body-text {
+    .location-kpi-body-text {
       margin-bottom: 10px;
     }
   }

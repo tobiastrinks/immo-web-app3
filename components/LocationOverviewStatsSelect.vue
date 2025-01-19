@@ -1,27 +1,27 @@
 <template>
-  <div class="location-overview-stats-select-ly2">
-    <div class="location-overview-stats-select-ly2-title">
-      <p class="location-overview-stats-select-ly2-title-text">
-        <span class="location-overview-stats-select-ly2-title-text-main">
+  <div class="location-overview-stats-select">
+    <div class="location-overview-stats-select-title">
+      <p class="location-overview-stats-select-title-text">
+        <span class="location-overview-stats-select-title-text-main">
           {{ title }}
         </span>
-        <span class="location-overview-stats-select-ly2-title-text-brackets">
+        <span class="location-overview-stats-select-title-text-brackets">
           {{ titleBrackets }}
         </span>
       </p>
     </div>
-    <div class="location-overview-stats-select-ly2-options">
+    <div class="location-overview-stats-select-options">
       <div
         v-for="(option, index) in options"
         :key="index"
-        class="location-overview-stats-select-ly2-options-item"
+        class="location-overview-stats-select-options-item"
         :class="{ selected: option.val === selected, disabled: option.disabled }"
         @click="selectStats(option)"
       >
-        <div class="location-overview-stats-select-ly2-options-item-radio">
-          <div class="location-overview-stats-select-ly2-options-item-radio-inner"></div>
+        <div class="location-overview-stats-select-options-item-radio">
+          <div class="location-overview-stats-select-options-item-radio-inner"></div>
         </div>
-        <p class="location-overview-stats-select-ly2-options-item-text">
+        <p class="location-overview-stats-select-options-item-text">
           {{ $t(`_shared.locationOverviewStats.select.labels.${option.localeKey}`) }}
         </p>
       </div>
@@ -72,7 +72,7 @@ export default {
 <style scoped lang="scss">
 $customBreakpoint: "screen and (min-width : 700px)";
 
-.location-overview-stats-select-ly2 {
+.location-overview-stats-select {
   width: 100%;
 
   &:last-child {
@@ -83,7 +83,7 @@ $customBreakpoint: "screen and (min-width : 700px)";
     }
   }
 
-  .location-overview-stats-select-ly2-title {
+  .location-overview-stats-select-title {
     font-weight: 400;
     margin: 0 auto;
 
@@ -91,25 +91,25 @@ $customBreakpoint: "screen and (min-width : 700px)";
       margin-bottom: 15px;
     }
 
-    .location-overview-stats-select-ly2-title-text {
+    .location-overview-stats-select-title-text {
       display: flex;
       align-items: center;
 
-      .location-overview-stats-select-ly2-title-text-main {
+      .location-overview-stats-select-title-text-main {
         font-size: 130%;
         font-weight: 500;
         margin-right: 10px;
       }
 
-      .location-overview-stats-select-ly2-title-text-brackets {
+      .location-overview-stats-select-title-text-brackets {
         font-weight: 300;
       }
     }
   }
 
-  .location-overview-stats-select-ly2-options {
+  .location-overview-stats-select-options {
 
-    .location-overview-stats-select-ly2-options-item {
+    .location-overview-stats-select-options-item {
       font-weight: 400;
       display: flex;
       align-items: center;
@@ -119,9 +119,9 @@ $customBreakpoint: "screen and (min-width : 700px)";
       &.selected {
         font-weight: 700;
 
-        .location-overview-stats-select-ly2-options-item-radio {
+        .location-overview-stats-select-options-item-radio {
 
-          .location-overview-stats-select-ly2-options-item-radio-inner {
+          .location-overview-stats-select-options-item-radio-inner {
             display: block;
           }
         }
@@ -134,12 +134,12 @@ $customBreakpoint: "screen and (min-width : 700px)";
 
       &:not(.disabled):hover {
 
-        .location-overview-stats-select-ly2-options-item-text {
+        .location-overview-stats-select-options-item-text {
           transform: scale(1.05);
         }
       }
 
-      .location-overview-stats-select-ly2-options-item-radio {
+      .location-overview-stats-select-options-item-radio {
         width: 18px;
         height: 18px;
         margin-right: 10px;
@@ -147,7 +147,7 @@ $customBreakpoint: "screen and (min-width : 700px)";
         border-radius: 30px;
         flex-shrink: 0;
 
-        .location-overview-stats-select-ly2-options-item-radio-inner {
+        .location-overview-stats-select-options-item-radio-inner {
           display: none;
           width: 100%;
           height: 100%;
@@ -158,7 +158,7 @@ $customBreakpoint: "screen and (min-width : 700px)";
         }
       }
 
-      .location-overview-stats-select-ly2-options-item-text {
+      .location-overview-stats-select-options-item-text {
         transition: transform .4s;
         text-align: center;
       }

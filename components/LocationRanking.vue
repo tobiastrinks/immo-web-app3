@@ -29,7 +29,7 @@ const rankingParagraphs = computed(() => {
 
   if (kreisRankingPosition && kreisRankingCount > 1) {
     paragraphs.push(
-        i18n.t('_shared.locationRankingLy2.article.kreis.template', {
+        i18n.t('_shared.locationRanking.article.kreis.template', {
           kreisName: location.value.kreisName,
           gemeindeName: location.value.name,
           position: i18n.n(kreisRankingPosition),
@@ -39,9 +39,9 @@ const rankingParagraphs = computed(() => {
   }
   if (stateRankingPosition) {
     paragraphs.push(
-        i18n.t('_shared.locationRankingLy2.article.state.template', {
+        i18n.t('_shared.locationRanking.article.state.template', {
           stateName: location.value.stateName,
-          location: i18n.t(`_shared.locationRankingLy2.article.state.location.${localeLocationKey}`, {
+          location: i18n.t(`_shared.locationRanking.article.state.location.${localeLocationKey}`, {
             name: location.value.name
           }),
           position: i18n.n(stateRankingPosition),
@@ -51,8 +51,8 @@ const rankingParagraphs = computed(() => {
   }
   if (germanyRankingPosition) {
     paragraphs.push(
-        i18n.t('_shared.locationRankingLy2.article.germany.template', {
-          location: i18n.t(`_shared.locationRankingLy2.article.germany.location.${localeLocationKey}`, {
+        i18n.t('_shared.locationRanking.article.germany.template', {
+          location: i18n.t(`_shared.locationRanking.article.germany.location.${localeLocationKey}`, {
             name: location.value.name
           }),
           position: i18n.n(germanyRankingPosition),
@@ -75,35 +75,35 @@ const parentLink = computed(() => {
       const { stateIdName, stateName } = kreis.kreis
       return { type: LOCATION_TYPE.STATE, name: stateName, link: getPathForLocationIdNames({ stateIdName }) }
     } else if (state) {
-      return { type: LOCATION_TYPE.GERMANY, name: i18n.t('_shared.locationRankingLy2.germanySubject'), link: PATHS.GERMANY }
+      return { type: LOCATION_TYPE.GERMANY, name: i18n.t('_shared.locationRanking.germanySubject'), link: PATHS.GERMANY }
     }
   })()
   return {
-    text: i18n.t(`_shared.locationRankingLy2.parentLink.text.${parent.type}`, { name: parent.name }),
+    text: i18n.t(`_shared.locationRanking.parentLink.text.${parent.type}`, { name: parent.name }),
     link: parent.link,
-    buttonLabel: i18n.t('_shared.locationRankingLy2.parentLink.buttonLabel', { name: parent.name })
+    buttonLabel: i18n.t('_shared.locationRanking.parentLink.buttonLabel', { name: parent.name })
   }
 })
 </script>
 
 <template>
-  <div class="location-ranking-ly2">
-    <table class="location-ranking-ly2-table">
+  <div class="location-ranking">
+    <table class="location-ranking-table">
       <tbody>
         <tr>
-          <td>{{ $t('_shared.locationRankingLy2.germanySubject') }}</td>
-          <td>{{ $t('_shared.locationRankingLy2.position', { position: $n(ranking.germanyRankingPosition) }) }}</td>
-          <td>{{ $t('_shared.locationRankingLy2.totalCount', { count: $n(ranking.germanyRankingCount) }) }}</td>
+          <td>{{ $t('_shared.locationRanking.germanySubject') }}</td>
+          <td>{{ $t('_shared.locationRanking.position', { position: $n(ranking.germanyRankingPosition) }) }}</td>
+          <td>{{ $t('_shared.locationRanking.totalCount', { count: $n(ranking.germanyRankingCount) }) }}</td>
         </tr>
         <tr v-if="location.stateName && ranking.stateRankingCount > 1">
           <td>{{ location.stateName }}</td>
-          <td>{{ $t('_shared.locationRankingLy2.position', { position: $n(ranking.stateRankingPosition) }) }}</td>
-          <td>{{ $t('_shared.locationRankingLy2.totalCount', { count: $n(ranking.stateRankingCount) }) }}</td>
+          <td>{{ $t('_shared.locationRanking.position', { position: $n(ranking.stateRankingPosition) }) }}</td>
+          <td>{{ $t('_shared.locationRanking.totalCount', { count: $n(ranking.stateRankingCount) }) }}</td>
         </tr>
         <tr v-if="location.kreisName && ranking.kreisRankingCount > 1">
           <td>{{ location.kreisName }}</td>
-          <td>{{ $t('_shared.locationRankingLy2.position', { position: $n(ranking.kreisRankingPosition) }) }}</td>
-          <td>{{ $t('_shared.locationRankingLy2.totalCount', { count: $n(ranking.kreisRankingCount) }) }}</td>
+          <td>{{ $t('_shared.locationRanking.position', { position: $n(ranking.kreisRankingPosition) }) }}</td>
+          <td>{{ $t('_shared.locationRanking.totalCount', { count: $n(ranking.kreisRankingCount) }) }}</td>
         </tr>
       </tbody>
     </table>
@@ -117,9 +117,9 @@ const parentLink = computed(() => {
 </template>
 
 <style scoped lang="scss">
-.location-ranking-ly2 {
+.location-ranking {
 
-  .location-ranking-ly2-table {
+  .location-ranking-table {
     border-collapse: collapse;
     margin: 20px 0;
 

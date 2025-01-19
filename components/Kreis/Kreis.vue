@@ -8,7 +8,7 @@ const locationStore = useLocationStore()
 <template>
   <div class="page-location-nav-active margin-top kreis">
     <div class="inner">
-      <LocationInnerLy2
+      <LocationInner
         :headline="$t('kreis.overview.headline', { kreis: locationStore.kreis.kreis.name })"
         :sub-headline="$t('kreis.overview.subHeadline', { kreis: locationStore.kreis.kreis.name })"
       >
@@ -19,7 +19,7 @@ const locationStore = useLocationStore()
           />
           <LocationComparisonSearch />
         </template>
-      </LocationInnerLy2>
+      </LocationInner>
     </div>
     <LocationDisclaimer />
   </div>

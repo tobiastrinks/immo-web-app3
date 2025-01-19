@@ -1,5 +1,5 @@
 <template>
-  <div class="location-immo-portals ly2">
+  <div class="location-immo-portals">
     <a href="https://www.immobilienscout24.de/wohnen/grundstueckserwerb.html" target="_blank">
       <nuxt-img src="/img/immoPortals/immoscout.png" format="webp" />
     </a>
@@ -30,11 +30,7 @@
   text-align: center;
 
   @media #{$lg} {
-    margin-bottom: 150px;
-
-    &.ly2 {
-      margin-bottom: 200px;
-    }
+    margin-bottom: 200px;
   }
 
   img {

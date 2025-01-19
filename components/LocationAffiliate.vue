@@ -6,20 +6,20 @@ const affiliateAbTestType = abTest.getSessionFeature('affiliateWidgets')
 <template>
   <div
       v-if="affiliateAbTestType"
-      class="location-inner-ly2-affiliate-widget"
+      class="location-inner-affiliate-widget"
   >
     <MieteAktuell v-if="affiliateAbTestType === 'mieteAktuell'" />
     <WattfoxImmo v-else-if="affiliateAbTestType === 'wattfoxImmo'" />
     <PropertyValueWidget v-else-if="affiliateAbTestType === 'propertyValueWidget'" />
     <PropertyValueWidget2
         v-else
-        wrapper-class-name="location-inner-ly2-affiliate-widget-wrapper"
+        wrapper-class-name="location-inner-affiliate-widget-wrapper"
     />
   </div>
 </template>
 
 <style lang="scss">
-.location-inner-ly2-affiliate-widget {
+.location-inner-affiliate-widget {
   margin: 0 -5vw;
 
   @media #{$lg} {

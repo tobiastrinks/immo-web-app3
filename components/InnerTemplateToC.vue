@@ -70,7 +70,7 @@ onMounted(() => {
   const { fullPath } = route
   scrollToHash(fullPath)
 
-  const firstTocItemLabel = document.querySelector('.inner-template-toc-ly2-item .inner-template-toc-ly2-item-label')
+  const firstTocItemLabel = document.querySelector('.inner-template-toc-item .inner-template-toc-item-label')
   if (firstTocItemLabel) {
     arrowLeft.value = firstTocItemLabel.clientWidth + (props.arrowXOffset || 50)
   }
@@ -83,27 +83,27 @@ watch(() => route.fullPath, () => {
 
 <template>
   <div
-      class="inner-template-toc-ly2"
+      class="inner-template-toc"
       :class="{ navMinified: mainStore.navMinified, sidebar: props.sidebar }"
   >
-    <p class="inner-template-toc-ly2-headline">
+    <p class="inner-template-toc-headline">
       {{ $t('_shared.locationToc.headline') }}
     </p>
     <nuxt-link
       v-for="(section, index) in sections"
       :key="index"
-      class="inner-template-toc-ly2-item"
+      class="inner-template-toc-item"
       :to="`#${section.id}`"
       @click.native="scrollIfAlreadyActive(section.id)"
     >
-      <p class="inner-template-toc-ly2-item-label" :class="{ active: activeItem === section.id, sidebar }">
-        <span class="inner-template-toc-ly2-item-label-number">{{ index + 1 }}.</span>
+      <p class="inner-template-toc-item-label" :class="{ active: activeItem === section.id, sidebar }">
+        <span class="inner-template-toc-item-label-number">{{ index + 1 }}.</span>
         {{ section.headline.split(' ').slice(1).join(' ') }}
       </p>
     </nuxt-link>
     <BlueArrow
       v-if="arrowLabel"
-      class="inner-template-toc-ly2-arrow"
+      class="inner-template-toc-arrow"
       :style="{ left: `${arrowLeft}px` }"
       type="TO_LEFT_BOTTOM"
       :text="arrowLabel"
@@ -112,7 +112,7 @@ watch(() => route.fullPath, () => {
 </template>
 
 <style scoped lang="scss">
-.inner-template-toc-ly2 {
+.inner-template-toc {
   line-height: 1.4;
   width: 100%;
   transition: top $minifyNavAnimationSpeed;
@@ -134,7 +134,7 @@ watch(() => route.fullPath, () => {
     position: sticky;
   }
 
-  .inner-template-toc-ly2-headline {
+  .inner-template-toc-headline {
     font-size: 120%;
     margin-bottom: 10px;
     font-weight: 500;
@@ -144,7 +144,7 @@ watch(() => route.fullPath, () => {
     }
   }
 
-  .inner-template-toc-ly2-item {
+  .inner-template-toc-item {
     display: flex;
     margin: 10px 0;
 
@@ -156,12 +156,12 @@ watch(() => route.fullPath, () => {
     &:hover {
       cursor: pointer;
 
-      .inner-template-toc-ly2-item-icon {
+      .inner-template-toc-item-icon {
         transform: translateX(5px) scale(1.2);
       }
     }
 
-    .inner-template-toc-ly2-item-icon {
+    .inner-template-toc-item-icon {
       color: $colorPrimary;
       margin-top: 5px;
       margin-right: 10px;
@@ -169,7 +169,7 @@ watch(() => route.fullPath, () => {
       flex-shrink: 0;
     }
 
-    .inner-template-toc-ly2-item-label {
+    .inner-template-toc-item-label {
       display: flex;
 
       &:hover {
@@ -184,7 +184,7 @@ watch(() => route.fullPath, () => {
         opacity: .75;
       }
 
-      .inner-template-toc-ly2-item-label-number {
+      .inner-template-toc-item-label-number {
         text-align: right;
         flex-shrink: 0;
         width: 25px;

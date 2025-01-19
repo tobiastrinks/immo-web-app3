@@ -187,45 +187,6 @@
       "optionalRadius": " Für {locationName} selbst liegen uns leider nur wenige Grundstücke vor. Der Umkreis der Auswertung wurde daher auf {propertyRadius} km erhöht."
     },
     "locationRanking": {
-      "headline": "Grundstückspreise-Ranking {locationName}",
-      "subHeadline": {
-        "STATE": "{locationName} im Ranking der Bundesländer",
-        "KREIS": "{locationName} im Ranking der Regionen",
-        "GEMEINDE": "{locationName} im Gemeinde-Ranking"
-      },
-      "position": "Rank {position}",
-      "totalCount": "von {count}",
-      "germanySubject": "Deutschland",
-      "article": {
-        "germany": {
-          "template": "Im bundesweiten Vergleich liegen die durchschnittlichen Bodenpreise {location} auf Rank {position}.",
-          "location": {
-            "GEMEINDE": "der Gemeinde {name}",
-            "KREIS": "des Kreises {name}",
-            "STATE": "des Bundeslandes {name}"
-          }
-        },
-        "state": {
-          "template": "Im Vergleich innerhalb von {stateName} liegt {location} auf Rank {position}.",
-          "location": {
-            "GEMEINDE": "die Gemeinde {name}",
-            "KREIS": "der Kreis {name}"
-          }
-        },
-        "kreis": {
-          "template": "Innerhalb des Kreises {kreisName} liegen die Grundstückspreise in {gemeindeName} auf Rank {position}."
-        }
-      },
-      "parentLink": {
-        "text": {
-          "GERMANY": "Hier gelangen Sie zur Übersicht der Grundstückspreise für ganz Deutschland:",
-          "STATE": "Hier gelangen Sie zur Übersicht der Grundstückspreise für ganz {name}:",
-          "KREIS": "Hier gelangen Sie zur Übersicht der Grundstückspreise für den Kreis {name}:"
-        },
-        "buttonLabel": "Grundstückspreise {name}"
-      }
-    },
-    "locationRankingLy2": {
       "position": "Platz {position}",
       "totalCount": "von {count}",
       "germanySubject": "Deutschland",

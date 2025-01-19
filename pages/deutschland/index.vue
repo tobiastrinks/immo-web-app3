@@ -1,5 +1,4 @@
 <script setup>
-import {showLayoutV2} from 'assets/js/featureFlagUtils'
 import { getCanonical } from 'assets/js/seoUtils'
 import { META_TITLE_MONTHS, X_FEATURES, Y_VALUES } from 'assets/js/constants'
 import {useCfStore} from "~/store/cf.js";
@@ -39,11 +38,7 @@ await useAsyncData(async () => {
     cfStore.fetchLocationBodenrichtwert(nuxtApp.$cfClient, {}),
     cfStore.fetchLocationTrend(nuxtApp.$cfClient, {})
   ])
-  let defaultXFeature = 'YEARS'
-  if (showLayoutV2(path)) {
-    defaultXFeature = 'PLOT_SIZE'
-  }
-  await overviewStatsStore.selectOverviewStats(cachedApi, { location: {}, xFeature: defaultXFeature, yValue: 'PRICE_PER_SQM' })
+  await overviewStatsStore.selectOverviewStats(cachedApi, { location: {}, xFeature: 'PLOT_SIZE', yValue: 'PRICE_PER_SQM' })
   return true
 })
 
