@@ -341,66 +341,6 @@ onUnmounted(() => {
               />
             </template>
           </div>
-          <div v-if="isSeller && !isFailed && result.abTest !== 'HIDE_EXPERTENBEWERTUNG_TEXT'" class="property-value-result-content-section">
-            <PropertyValueResultButtonBox :result="result" @button-click="openAppointmentPopup" />
-          </div>
-          <div
-            v-if="isSeller && result.abTest !== 'HIDE_EXPERTENBEWERTUNG_TEXT'"
-            class="property-value-result-content-section"
-          >
-            <Headline
-              headline="Kostenlose Expertenbewertung"
-              :level="2"
-            />
-            <TextArticle
-              :paragraphs="[
-                'Unser kostenloser und unverbindlicher Service ermöglicht es Ihnen, bis zu drei Immobilienmakler kennenzulernen und eine professionelle Bewertung Ihrer Immobilie zu erhalten. Ziel ist es, Ihnen eine fundierte Einschätzung des aktuellen Marktwerts zu bieten – und das ganz ohne Verpflichtungen oder Kosten.'
-              ]"
-              small-margin
-            />
-            <BulletBox
-              headline="So funktioniert der Service"
-              :rows="[
-                { number: '1.', text: '<b>Unverbindlich Makler kennenlernen:</b> Wir stellen Ihnen bis zu drei erfahrene Immobilienmakler vor, die für Ihr Objekt infrage kommen.' },
-                { number: '2.', text: '<b>Kostenlose Bewertung:</b> Jeder Makler führt eine individuelle, professionelle Bewertung Ihrer Immobilie durch, basierend auf Marktdaten und seiner Expertise.' },
-                { number: '3.', text: '<b>Entscheidungsfreiheit:</b> Nach der Bewertung können Sie in Ruhe entscheiden, ob und mit welchem Makler Sie zusammenarbeiten möchten – ohne jegliche Verpflichtung.' }
-              ]"
-            />
-            <TextArticle
-              headline="Vorteile der kostenlosen Bewertung"
-              :paragraphs="[
-                'Die Bewertung bietet Ihnen einen realistischen Überblick über den Marktwert Ihrer Immobilie. Dies hilft Ihnen, realistische Verkaufspreise zu ermitteln und die richtigen Entscheidungen zu treffen. Der gesamte Prozess ist für Sie risikofrei und kostenfrei, sodass Sie ohne Druck agieren können.'
-              ]"
-              small-inner-margin
-            />
-            <TextArticle
-              headline="Warum bieten Makler diesen Service an?"
-              :paragraphs="[
-                'Makler bieten diesen Service an, um ihre Expertise zu demonstrieren und Vertrauen bei potenziellen Verkäufern aufzubauen. Ihr Ziel ist es, sich als verlässlicher Partner für einen möglichen Immobilienverkauf zu empfehlen. Für Sie bedeutet dies, dass der Makler sich von seiner besten Seite zeigt, ohne dabei Druck auszuüben – er möchte durch gute Beratung überzeugen.'
-              ]"
-              small-inner-margin
-            />
-            <TextArticle
-              headline="Keine Verpflichtungen und kein Druck"
-              :paragraphs="[
-                'Wir verstehen, dass viele Verkäufer befürchten, nach der Bewertung zu einem Auftrag gedrängt zu werden. Daher garantieren wir, dass der Service völlig unverbindlich ist. Sie sind zu keinem Zeitpunkt verpflichtet, einen Makler zu beauftragen. Zudem versichern wir Ihnen, dass Sie nach der Bewertung nicht mit weiteren Anrufen oder E-Mails belästigt werden.'
-              ]"
-              small-inner-margin
-            />
-            <Button
-              label="Kostenlose Expertenbewertung vereinbaren"
-              active
-              inline-block
-              small
-              @click="openAppointmentPopup"
-            />
-          </div>
-          <p
-            v-if="isSeller && !isFailed && result.abTest !== 'HIDE_EXPERTENBEWERTUNG_TEXT'"
-            class="property-value-result-footnote"
-          >
-            * Basierend auf einer von März 2017 bis März 2019 durchgeführten Analyse von auf ImmobilienScout24 inserierten Immobilien. Untersucht wurden die Vermarktungspreise von Immobilien mit dem Produkt Schaufenster, welches ausschließlich von Maklern gebucht werden kann, im Verhältnis zu vergleichbaren Standard-inserierten Objekten.
-          </p>
         </div>
         <div v-if="isSeller" class="property-value-result-appointment-desktop">
           <PropertyValueResultAppointment @open-popup="openAppointmentPopup" />
