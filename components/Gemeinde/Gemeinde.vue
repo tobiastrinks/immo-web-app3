@@ -12,7 +12,7 @@ const locationStore = useLocationStore()
         :headline="$t('gemeinde.overview.headline', { gemeinde: locationStore.gemeinde.gemeinde.name })"
         :sub-headline="$t('gemeinde.overview.subHeadline', { gemeinde: locationStore.gemeinde.gemeinde.name })"
       >
-        <template slot="comparison">
+        <template v-slot:comparison>
           <LocationComparisonTable
             :data="locationStore.gemeinde.nearbyGemeindeWithStats"
             :location-type="LOCATION_TYPE.GEMEINDE"
