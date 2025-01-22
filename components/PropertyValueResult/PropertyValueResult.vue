@@ -25,7 +25,12 @@ const inputsTable = computed(() => {
   let artGrundstueck = result.value.request.artGrundstueck
   let erschliessung = result.value.request.erschliessung
 
-  if (result.value.request.istBebaut === 'Ja') {
+  const istBebaut = (
+      result.value.request.istBebaut === 'Ja' ||
+      ['Haus', 'Gewerbe', 'Wohnung'].includes(result.value.request.artImmobilie)
+  )
+
+  if (istBebaut) {
     artGrundstueck = 'Bauland'
     erschliessung = 'Erschlossen'
   }
@@ -87,13 +92,13 @@ const inputsTable = computed(() => {
             { text: 'Erschließungsgrad' },
             { text: erschliessung, bold: true }
           ],
-          result.value.request.istBebaut && [
+          [
             { text: 'Bebaut' },
-            { text: result.value.request.istBebaut, bold: true }
+            { text: istBebaut ? 'Ja' : 'Nein', bold: true }
           ]
         ].filter(i => !!i)
       },
-      result.value.request.istBebaut === 'Ja' && {
+      (istBebaut) && {
         title: 'Bebauung',
         rows: [
           result.value.request.artBebauung && [
