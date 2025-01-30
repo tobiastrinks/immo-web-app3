@@ -242,16 +242,23 @@ const selectTimeframe = async (timeframe) => {
 }
 
 let appointmentPopupTimeout
+let debounceTimeout = null;
 
 function handleOnScroll() {
-  if (appointmentPopupTimeout) {
-    return
-  }
-  appointmentPopupTimeout = window.setTimeout(() => {
+  clearTimeout(debounceTimeout);
+  debounceTimeout = setTimeout(() => {
+    apiFetch(`/property-value/result/${result.value.id}/updates`)
+  }, 3000);
+
+  if (!appointmentPopupTimeout) {
     if (!window.localStorage.getItem('property-value-result-popup-shown')) {
-      openAppointmentPopup()
+      appointmentPopupTimeout = window.setTimeout(() => {
+        if (!window.localStorage.getItem('property-value-result-popup-shown')) {
+          openAppointmentPopup()
+        }
+      }, 10000)
     }
-  }, 10000)
+  }
 }
 
 onMounted(() => {
@@ -260,9 +267,7 @@ onMounted(() => {
     e.returnValue = 'Sicher?'
   }
 
-  if (!window.localStorage.getItem('property-value-result-popup-shown')) {
-    window.addEventListener('scroll', handleOnScroll)
-  }
+  window.addEventListener('scroll', handleOnScroll)
 })
 onUnmounted(() => {
   window.onbeforeunload = () => {}
