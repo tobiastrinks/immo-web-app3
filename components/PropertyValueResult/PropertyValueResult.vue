@@ -227,7 +227,6 @@ const resultFailedTable = computed(() => {
 })
 
 const openAppointmentPopup = () => {
-  window.localStorage.setItem('property-value-result-popup-shown', '1')
   showAppointmentPopup.value = true
 }
 const closeAppointmentPopup = () => {
@@ -241,7 +240,6 @@ const selectTimeframe = async (timeframe) => {
   })
 }
 
-let appointmentPopupTimeout
 let debounceTimeout = null;
 
 function handleOnScroll() {
@@ -249,16 +247,6 @@ function handleOnScroll() {
   debounceTimeout = setTimeout(() => {
     apiFetch(`/property-value/result/${result.value.id}/updates`)
   }, 3000);
-
-  if (!appointmentPopupTimeout) {
-    if (!window.localStorage.getItem('property-value-result-popup-shown')) {
-      appointmentPopupTimeout = window.setTimeout(() => {
-        if (!window.localStorage.getItem('property-value-result-popup-shown')) {
-          openAppointmentPopup()
-        }
-      }, 10000)
-    }
-  }
 }
 
 onMounted(() => {
@@ -271,10 +259,6 @@ onMounted(() => {
 })
 onUnmounted(() => {
   window.onbeforeunload = () => {}
-
-  if (appointmentPopupTimeout) {
-    window.clearTimeout(appointmentPopupTimeout)
-  }
   window.removeEventListener('scroll', handleOnScroll)
 })
 </script>
