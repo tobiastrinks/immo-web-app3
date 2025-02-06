@@ -13,16 +13,12 @@ const router = useRouter()
 
 const pollForResult = () => {
   return setInterval(async () => {
-    try {
-      const res = await apiFetch('/property-value/request/search', {
-        params: { phone: props.phone }
-      })
-      const resultId = res.id
+    const res = await apiFetch('/property-value/request/search', {
+      params: { phone: props.phone }
+    })
+    const resultId = res?.id
+    if (resultId) {
       await router.replace(PATHS.PROPERTY_VALUE_RESULT(resultId))
-    } catch (e) {
-      if (e.response?.status !== 404) {
-        throw e
-      }
     }
   }, 3000)
 }
