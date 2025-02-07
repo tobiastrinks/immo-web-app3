@@ -163,9 +163,9 @@ onBeforeUnmount(() => {
       </div>
       <div class="nav-inner top">
         <CustomNuxtLink to="/">
-          <nuxt-img
+          <img
               class="nav-top-logo"
-              format="webp"
+
               src="/img/logo.png"
               alt="Aktuelle Grundstückspreise Logo"
           />

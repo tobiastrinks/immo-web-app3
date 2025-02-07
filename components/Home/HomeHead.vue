@@ -1,9 +1,8 @@
 <template>
   <div class="home-head">
     <div class="home-head-bg">
-      <NuxtImg
+      <img
           src="/img/home/headBg.jpg"
-          format="webp"
           class="home-head-bg-img"
       />
     </div>

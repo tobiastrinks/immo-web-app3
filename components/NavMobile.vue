@@ -69,7 +69,7 @@ onBeforeUnmount(() => {
   <div class="nav-mobile" :class="{ active, isCalc, isMinimalNav }">
     <div class="nav-mobile-head" :class="{ minified: headMinified && !active && !isMinimalNav }">
       <CustomNuxtLink to="/">
-        <nuxt-img src="/img/logo-small.png" format="webp" />
+        <img src="/img/logo-small.png" />
       </CustomNuxtLink>
       <SearchInput class="nav-mobile-head-search" full-width-results />
       <div

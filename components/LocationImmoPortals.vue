@@ -1,19 +1,19 @@
 <template>
   <div class="location-immo-portals">
     <a href="https://www.immobilienscout24.de/wohnen/grundstueckserwerb.html" target="_blank">
-      <nuxt-img src="/img/immoPortals/immoscout.png" format="webp" />
+      <img src="/img/immoPortals/immoscout.png" />
     </a>
     <a href="https://www.immowelt.de/suche/grundstuecke/kaufen" target="_blank">
-      <nuxt-img src="/img/immoPortals/immowelt.png" format="webp" />
+      <img src="/img/immoPortals/immowelt.png" />
     </a>
     <a href="https://www.ebay-kleinanzeigen.de/s-grundstuecke-garten/c207" target="_blank">
-      <nuxt-img src="/img/immoPortals/ebaykleinanzeigen.png" format="webp" />
+      <img src="/img/immoPortals/ebaykleinanzeigen.png" />
     </a>
     <a href="https://www.immonet.de/grundstueck.html" target="_blank">
-      <nuxt-img src="/img/immoPortals/immonet.png" format="webp" />
+      <img src="/img/immoPortals/immonet.png" />
     </a>
     <a href="https://www.meinestadt.de/meine/immobilien/hausbau/grundstueck-kaufen" target="_blank">
-      <nuxt-img src="/img/immoPortals/meinestadt.png" format="webp" />
+      <img src="/img/immoPortals/meinestadt.png" />
     </a>
     <BlueArrow
       class="location-immo-portals-arrow"

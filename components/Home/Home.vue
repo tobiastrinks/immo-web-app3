@@ -45,10 +45,9 @@ const cf = computed(() => {
         </div>
       </template>
       <template v-slot:image>
-        <nuxt-img
+        <img
             src="/img/home/section1.jpg"
             alt="Grundstückspreise und Bodenrichtwerte für ganz Deutschland"
-            format="webp"
         />
       </template>
     </HomeColumnSectionTemplate>
@@ -70,10 +69,10 @@ const cf = computed(() => {
         <p>{{ $t('home.section2.content.note') }}</p>
       </template>
       <template v-slot:image>
-        <nuxt-img
+        <img
             src="/img/home/section2.jpg"
             alt="online Grundstückswert ermitteln"
-            format="webp"
+
         />
       </template>
     </HomeColumnSectionTemplate>
@@ -92,10 +91,10 @@ const cf = computed(() => {
         <p>{{ $t('home.section3.content.note') }}</p>
       </template>
       <template v-slot:image>
-        <nuxt-img
+        <img
             src="/img/home/section3.jpg"
             alt="Grundstück verkaufen mit Makler oder ohne Makler"
-            format="webp"
+
         />
       </template>
     </HomeColumnSectionTemplate>
