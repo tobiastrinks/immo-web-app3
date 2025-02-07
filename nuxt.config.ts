@@ -16,7 +16,6 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
-    '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxtjs/google-fonts',
     '@nuxtjs/sitemap',

@@ -122,7 +122,7 @@ const featureBarItems = computed(() => {
           <p class="calc-seo-teaser-img-label">
             {{ $t('calcSEO.teaser.screenshotLabel') }}
           </p>
-          <nuxt-img src="/img/calcSEO/example.png" format="webp" />
+          <img src="/img/calcSEO/example.png" />
         </div>
       </div>
     </div>

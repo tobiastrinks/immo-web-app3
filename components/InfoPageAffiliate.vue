@@ -30,16 +30,16 @@ const props = defineProps({
           <MieteAktuell />
           <div class="info-page-affiliate-iframe-miete-aktuell-bg">
             <div class="info-page-affiliate-iframe-miete-aktuell-bg-overlay"></div>
-            <nuxt-img src="/img/affiliate/bg-property.jpg" format="webp" class="info-page-affiliate-iframe-hausgold-bg-img1" />
-            <nuxt-img src="/img/affiliate/bg-couple-2-cropped.jpg" format="webp" class="info-page-affiliate-iframe-hausgold-bg-img2" />
+            <img src="/img/affiliate/bg-property.jpg" class="info-page-affiliate-iframe-hausgold-bg-img1" />
+            <img src="/img/affiliate/bg-couple-2-cropped.jpg" class="info-page-affiliate-iframe-hausgold-bg-img2" />
           </div>
         </div>
         <div v-else class="info-page-affiliate-iframe-wattfox-immo">
           <WattfoxImmo />
           <div class="info-page-affiliate-iframe-wattfox-immo-bg">
             <div class="info-page-affiliate-iframe-wattfox-immo-bg-overlay"></div>
-            <nuxt-img src="/img/affiliate/bg-property.jpg" format="webp" class="info-page-affiliate-iframe-wattfox-immo-bg-img1" />
-            <nuxt-img src="/img/affiliate/bg-couple-2-cropped.jpg" format="webp" class="info-page-affiliate-iframe-wattfox-immo-bg-img2" />
+            <img src="/img/affiliate/bg-property.jpg" class="info-page-affiliate-iframe-wattfox-immo-bg-img1" />
+            <img src="/img/affiliate/bg-couple-2-cropped.jpg" class="info-page-affiliate-iframe-wattfox-immo-bg-img2" />
           </div>
         </div>
         <BlueArrow

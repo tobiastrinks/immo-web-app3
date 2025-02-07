@@ -1,10 +1,9 @@
 <template>
   <div class="home-section-features-item">
-    <nuxt-img
+    <img
       class="home-section-features-item-img"
       :src="`/img/home/${imgFilename}`"
       :alt="imgAlt"
-      format="webp"
     />
     <div class="home-section-features-item-text">
       <div class="home-section-features-item-text-headline">
