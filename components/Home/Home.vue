@@ -72,7 +72,6 @@ const cf = computed(() => {
         <img
             src="/img/home/section2.jpg"
             alt="online Grundstückswert ermitteln"
-
         />
       </template>
     </HomeColumnSectionTemplate>
@@ -94,7 +93,6 @@ const cf = computed(() => {
         <img
             src="/img/home/section3.jpg"
             alt="Grundstück verkaufen mit Makler oder ohne Makler"
-
         />
       </template>
     </HomeColumnSectionTemplate>

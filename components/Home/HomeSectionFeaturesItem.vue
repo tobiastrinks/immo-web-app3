@@ -4,7 +4,6 @@
       class="home-section-features-item-img"
       :src="`/img/home/${imgFilename}`"
       :alt="imgAlt"
-
     />
     <div class="home-section-features-item-text">
       <div class="home-section-features-item-text-headline">
