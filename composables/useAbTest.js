@@ -4,8 +4,7 @@ export default function () {
         // CHECK VARY HEADER WHEN REMOVING -> varyHeader.js
         // default is always first item
         affiliateWidgets: {
-            propertyValueWidget: 0.6,
-            propertyValueWidget2: 0.3,
+            propertyValueWidget: 0.9,
             mieteAktuell: 0.1,
         }
     }
