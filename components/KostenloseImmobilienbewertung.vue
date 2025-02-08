@@ -138,7 +138,7 @@ onBeforeUnmount(() => {
             </span>
           </p>
           <div class="kostenlose-immobilienbewertung-instructions-button">
-            <a href="https://hausbewertung.aktuelle-grundstueckspreise.de/">
+            <a href="https://immobilienbewertung.aktuelle-grundstueckspreise.de/">
               <Button
                   label="Mehr erfahren"
                   active
