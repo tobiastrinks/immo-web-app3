@@ -1,10 +1,23 @@
 <script setup>
+import {offsetTop} from "assets/js/scrollUtils.js";
+
 const props = defineProps({
   content: {
     type: Object,
     required: true
   }
 })
+
+const scrollToIncompleteSection = () => {
+  const item = document.getElementById('property-value-result-appointment-section-incomplete')
+  if (item) {
+    scrollTo({
+      top: offsetTop(item) - 100,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }
+}
 </script>
 
 <template>
@@ -32,7 +45,15 @@ const props = defineProps({
               'border-bottom': cell.borderBottom && '1px solid #D7D7D7FF'
             }"
           >
-            <span v-if="cell.text" v-html="cell.text"></span>
+            <div class="td-inner">
+              <span v-if="cell.text" v-html="cell.text"></span>
+              <img
+                  v-if="cell.warning"
+                  src="@/assets/img/_shared/warning.svg"
+                  class="property-value-result-table-cell-warning"
+                  @click="scrollToIncompleteSection"
+              />
+            </div>
           </td>
         </tr>
       </table>
@@ -86,6 +107,16 @@ const props = defineProps({
 
           &.bold {
             font-weight: 400;
+          }
+
+          .td-inner {
+            display: flex;
+          }
+
+          .property-value-result-table-cell-warning {
+            width: 20px;
+            margin-left: 5px;
+            cursor: pointer;
           }
         }
       }

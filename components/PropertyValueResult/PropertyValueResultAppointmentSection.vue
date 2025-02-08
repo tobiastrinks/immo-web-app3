@@ -18,7 +18,7 @@ const timeframes = [
 const features = [
   'Bewertung durch Immobilienexperten',
   'Berücksichtigung der individuellen Eigenschaften Ihrer Immobilie',
-  '100% kostenlos & unverbindlich'
+  '100% kostenlos'
 ]
 
 const selectTimeframe = (timeframe) => {

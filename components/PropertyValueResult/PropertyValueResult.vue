@@ -13,14 +13,18 @@ const result = computed(() => {
 const isFailed = computed(() => {
   return result.value.status !== 'SUCCESSFUL'
 })
-const isSeller = computed(() => {
+const isTargetGroup = computed(() => {
   const anlass = result.value.request.anlass
-  return !anlass || anlass?.toLowerCase()?.includes('verkauf')
+  return (
+      !anlass ||
+      anlass?.toLowerCase()?.includes('verkauf') || [
+        'Erbe oder Schenkung',
+        'Vermögensaufteilung',
+        'Sonstiges'
+      ].includes(anlass)
+  )
 })
-const isInterestedInExpertenbewertung = computed(() => {
-  const val = result?.value?.request?.expertenbewertung
-  return val === 'Interesse' || val === 'Mehr Informationen'
-})
+
 const inputsTable = computed(() => {
   let artGrundstueck = result.value.request.artGrundstueck
   let erschliessung = result.value.request.erschliessung
@@ -160,8 +164,8 @@ const resultPricePerSqmTable = computed(() => {
         title: 'Geschätzte Quadratmeterpreise',
         rows: [
           [
-            { text: 'Grundstücksfläche (ohne Bebauung)', paddingBottom: 10 },
-            { text: `${pricePerSqmEstimateFrom} - ${pricePerSqmEstimateTo} €/m²`, bold: true, paddingBottom: 10 }
+            { text: 'Grundstücksfläche <br />(ohne Bebauung)', paddingBottom: 10 },
+            { text: `${pricePerSqmEstimateFrom} - ${pricePerSqmEstimateTo} €/m²`, bold: true, paddingBottom: 10, warning: isTargetGroup.value }
           ],
           result.value.request.wohnflaeche && [
             { text: 'Wohnfläche', paddingBottom: !!result.value.request.gewerbeflaeche && 10 },
@@ -189,7 +193,7 @@ const resultTable = computed(() => {
         rows: [
           [
             { text: 'Geschätzter Marktwert des Grundstücks<br /> (ohne Bebauung)', paddingBottom: 10 },
-            { text: `${marketValueFrom} - ${marketValueTo} €`, bold: true, paddingBottom: 10 }
+            { text: `${marketValueFrom} - ${marketValueTo} €`, bold: true, paddingBottom: 10, warning: isTargetGroup.value }
           ],
           result.value.request.wohnflaeche && [
             { text: 'Wohnfläche', paddingBottom: !!result.value.request.gewerbeflaeche && 10 },
@@ -272,7 +276,7 @@ onUnmounted(() => {
             :headline="`Bewertungsergebnis für ${result.request.firstName} ${result.request.lastName}`"
             :sub-headline="`Berechnung vom ${$d(new Date(result.createdAt), 'short')}`"
           />
-          <div v-if="isSeller" class="property-value-result-appointment-mobile">
+          <div v-if="isTargetGroup" class="property-value-result-appointment-mobile">
             <PropertyValueResultAppointment @open-popup="openAppointmentPopup" />
           </div>
           <div class="property-value-result-content-section">
@@ -301,7 +305,14 @@ onUnmounted(() => {
               ]"
               small-margin
             />
-            <template v-if="!isFailed">
+            <template v-if="isFailed">
+              <PropertyValueResultTable :content="resultFailedTable" />
+              <PropertyValueResultAppointmentSectionIncomplete
+                  v-if="isTargetGroup"
+                  @select-timeframe="selectTimeframe"
+              />
+            </template>
+            <template v-else>
               <PropertyValueResultTable
                 :content="resultPricePerSqmTable"
               />
@@ -309,9 +320,8 @@ onUnmounted(() => {
                 :content="resultTable"
                 @button-click="openAppointmentPopup"
               />
-              <PropertyValueResultAppointmentSection
-                  v-if="isSeller"
-                  :is-interested="isInterestedInExpertenbewertung"
+              <PropertyValueResultAppointmentSectionIncomplete
+                  v-if="isTargetGroup"
                   @select-timeframe="selectTimeframe"
               />
               <TextArticle
@@ -319,24 +329,16 @@ onUnmounted(() => {
                   `Diese Schätzung basiert auf den Marktdaten vom ${$d(new Date(result.createdAt), 'short')}.`,
                   `<b>Hinweis:</b> Unsere Marktpreisschätzung kann ein guter Orientierungspunkt sein, ersetzt aber nicht die Wertermittlung durch einen erfahrenen Experten. Wir können leider nicht alle Merkmale Ihrer Immobilie berücksichtigen.
                    <b>Daher ist es nicht ungewöhnlich, dass sich der tatsächlich am Markt zu erzielende Preis (Verkehrswert) in der Praxis um bis zu 20 Prozent und mehr vom errechneten Wert unterscheidet.</b>
-                   ${isSeller ? 'Gerne unterstützen wir Sie in einem persönlichen Telefonat bei der genauen Wertermittlung.' : ''}
+                   ${isTargetGroup ? 'Gerne unterstützen wir Sie in einem persönlichen Telefonat bei der genauen Wertermittlung.' : ''}
                   `
                 ]"
                 small-margin
                 use-raw-html
               />
             </template>
-            <template v-else>
-              <PropertyValueResultTable :content="resultFailedTable" />
-              <PropertyValueResultAppointmentSection
-                  v-if="isSeller"
-                  :is-interested="isInterestedInExpertenbewertung"
-                  @select-timeframe="selectTimeframe"
-              />
-            </template>
           </div>
         </div>
-        <div v-if="isSeller" class="property-value-result-appointment-desktop">
+        <div v-if="isTargetGroup" class="property-value-result-appointment-desktop">
           <PropertyValueResultAppointment @open-popup="openAppointmentPopup" />
         </div>
       </div>
