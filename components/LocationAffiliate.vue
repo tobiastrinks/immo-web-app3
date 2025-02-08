@@ -42,6 +42,10 @@ const affiliateAbTestType = abTest.getSessionFeature('affiliateWidgets')
     }
   }
 
+  .kostenlose-immobilienbewertung-wizard-iframe {
+    height: 315px;
+  }
+
   .wattfox-immo-iframe {
     height: 500px;
 

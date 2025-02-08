@@ -241,6 +241,10 @@ const props = defineProps({
     }
   }
 
+  .kostenlose-immobilienbewertung-wizard-iframe {
+    height: 315px;
+  }
+
   .wattfox-immo-iframe {
     height: 500px;
 

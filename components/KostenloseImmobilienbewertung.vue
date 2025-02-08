@@ -1,6 +1,4 @@
 <script setup>
-import {PATHS} from "assets/js/constants.js";
-
 const nuxtApp = useNuxtApp()
 
 const props = defineProps({
@@ -99,7 +97,7 @@ onBeforeUnmount(() => {
         Kostenlose Immobilienbewertung
       </p>
       <p  class="kostenlose-immobilienbewertung-description">
-        Erhalten Sie in wenigen Schritten realistische Marktpreiseinschätzungen – 100% kostenfrei.
+        Erhalten Sie in wenigen Schritten realistische Marktwertschätzungen – 100% kostenfrei.
       </p>
       <div class="kostenlose-immobilienbewertung-wizard">
         <iframe
@@ -255,12 +253,12 @@ onBeforeUnmount(() => {
           flex-grow: 1;
 
           @media #{$md} {
-            margin-left: 20px;
-            margin-bottom: 40px;
+            margin-left: 40px;
           }
 
           .kostenlose-immobilienbewertung-instructions-steps-headline {
-            font-weight: 400;
+            font-weight: 500;
+            font-size: 105%;
             margin-bottom: 8px;
           }
 
