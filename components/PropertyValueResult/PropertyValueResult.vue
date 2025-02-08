@@ -169,11 +169,11 @@ const resultPricePerSqmTable = computed(() => {
           ],
           result.value.request.wohnflaeche && [
             { text: 'Wohnfläche', paddingBottom: !!result.value.request.gewerbeflaeche && 10 },
-            { text: 'Weitere Angaben benötigt', bold: true, paddingBottom: !!result.value.request.gewerbeflaeche && 10 }
+            { text: 'Berechnung unvollständig', bold: true, paddingBottom: !!result.value.request.gewerbeflaeche && 10 }
           ],
           result.value.request.gewerbeflaeche && [
             { text: 'Gewerbefläche' },
-            { text: 'Weitere Angaben benötigt', bold: true }
+            { text: 'Berechnung unvollständig', bold: true }
           ]
         ].filter(i => !!i)
       }
@@ -197,11 +197,11 @@ const resultTable = computed(() => {
           ],
           result.value.request.wohnflaeche && [
             { text: 'Wohnfläche', paddingBottom: !!result.value.request.gewerbeflaeche && 10 },
-            { text: 'Weitere Angaben benötigt', bold: true, paddingBottom: !!result.value.request.gewerbeflaeche && 10 }
+            { text: 'Berechnung unvollständig', bold: true, paddingBottom: !!result.value.request.gewerbeflaeche && 10 }
           ],
           result.value.request.gewerbeflaeche && [
             { text: 'Gewerbefläche' },
-            { text: 'Weitere Angaben benötigt', bold: true }
+            { text: 'Berechnung unvollständig', bold: true }
           ]
         ].filter(i => !!i)
       }
