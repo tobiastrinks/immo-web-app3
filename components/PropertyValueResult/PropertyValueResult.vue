@@ -15,12 +15,23 @@ const isFailed = computed(() => {
 })
 const isSeller = computed(() => {
   const anlass = result.value.request.anlass
-  return !anlass || anlass?.toLowerCase()?.includes('verkauf')
+  return (
+      !anlass ||
+      anlass?.toLowerCase()?.includes('verkauf') || [
+        'Erbe oder Schenkung',
+        'Vermögensaufteilung'
+      ].includes(anlass)
+  )
 })
 const isInterestedInExpertenbewertung = computed(() => {
   const val = result?.value?.request?.expertenbewertung
   return val === 'Interesse' || val === 'Mehr Informationen'
 })
+
+const isIncomplete = computed(() => {
+  return !isInterestedInExpertenbewertung.value
+})
+
 const inputsTable = computed(() => {
   let artGrundstueck = result.value.request.artGrundstueck
   let erschliessung = result.value.request.erschliessung
@@ -161,7 +172,7 @@ const resultPricePerSqmTable = computed(() => {
         rows: [
           [
             { text: 'Grundstücksfläche (ohne Bebauung)', paddingBottom: 10 },
-            { text: `${pricePerSqmEstimateFrom} - ${pricePerSqmEstimateTo} €/m²`, bold: true, paddingBottom: 10 }
+            { text: `${pricePerSqmEstimateFrom} - ${pricePerSqmEstimateTo} €/m²`, bold: true, paddingBottom: 10, warning: isIncomplete.value }
           ],
           result.value.request.wohnflaeche && [
             { text: 'Wohnfläche', paddingBottom: !!result.value.request.gewerbeflaeche && 10 },
@@ -189,7 +200,7 @@ const resultTable = computed(() => {
         rows: [
           [
             { text: 'Geschätzter Marktwert des Grundstücks<br /> (ohne Bebauung)', paddingBottom: 10 },
-            { text: `${marketValueFrom} - ${marketValueTo} €`, bold: true, paddingBottom: 10 }
+            { text: `${marketValueFrom} - ${marketValueTo} €`, bold: true, paddingBottom: 10, warning: isIncomplete.value }
           ],
           result.value.request.wohnflaeche && [
             { text: 'Wohnfläche', paddingBottom: !!result.value.request.gewerbeflaeche && 10 },
@@ -309,11 +320,17 @@ onUnmounted(() => {
                 :content="resultTable"
                 @button-click="openAppointmentPopup"
               />
-              <PropertyValueResultAppointmentSection
-                  v-if="isSeller"
-                  :is-interested="isInterestedInExpertenbewertung"
-                  @select-timeframe="selectTimeframe"
-              />
+              <template v-if="isSeller">
+                <PropertyValueResultAppointmentSectionIncomplete
+                    v-if="isIncomplete"
+                    @select-timeframe="selectTimeframe"
+                />
+                <PropertyValueResultAppointmentSection
+                    v-else
+                    :is-interested="isInterestedInExpertenbewertung"
+                    @select-timeframe="selectTimeframe"
+                />
+              </template>
               <TextArticle
                 :paragraphs="[
                   `Diese Schätzung basiert auf den Marktdaten vom ${$d(new Date(result.createdAt), 'short')}.`,

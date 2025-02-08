@@ -3,12 +3,16 @@ const props = defineProps({
   title: {
     type: String,
     required: true
+  },
+  highlighted: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
 
 <template>
-  <div class="property-value-result-box">
+  <div class="property-value-result-box" :class="{ highlighted: props.highlighted }">
     <p class="property-value-result-box-title">
       {{ props.title }}
     </p>
@@ -24,6 +28,10 @@ const props = defineProps({
   padding: 10px;
   margin: 20px 0;
   border: 1px solid $colorStroke;
+
+  &.highlighted {
+    background-color: #FBF2EB;
+  }
 
   @media #{$sm} {
     padding: 20px;
