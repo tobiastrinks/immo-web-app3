@@ -78,7 +78,7 @@ const instructionSteps = [
     'Formular ausfüllen',
     'Telefonisches Vorgespräch',
     'Vermittlung von bis zu 3 lokalen Immobilienexperten',
-    'Kostenlose und unverbindliche Bewertung erhalten',
+    'Kostenlose und unverbindliche Bewertungen erhalten',
     'Sie entscheiden, wie es weiter geht'
 ]
 
