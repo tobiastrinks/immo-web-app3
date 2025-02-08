@@ -1,0 +1,77 @@
+<html>
+<head>
+    <script src="https://assets.prd.heyflow.com/builder/widget/latest/webview.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body style="margin: 0; padding: 0; overflow-y: auto; background-color: #ffffff;">
+<div id="heyflow-wrapper">
+    <heyflow-wrapper flow-id="szepiaIUuzB2bgYWOBB6" dynamic-height scroll-up-on-navigation style-config='{"width": "100%"}'></heyflow-wrapper>
+</div>
+<script>
+    let currentStep = null
+    let latestHeight = 0
+
+    let heightInitialized = false
+    window.addEventListener('heyflow-init', (event) => {
+        window.setTimeout(() => {
+            heightInitialized = true
+        }, 2000)
+    })
+
+    // Ensure dataLayer exists
+    window.dataLayer = window.dataLayer || [];
+
+    // Backup the original push method
+    const originalPush = window.dataLayer.push;
+
+    // Override the push method
+    let fieldsSimple = {}
+    window.dataLayer.push = function (...args) {
+        // Call the original push method to preserve functionality
+        const result = originalPush.apply(this, args);
+
+        if (args.length && args[0].event === 'heyflow-change' && args[0].fieldsSimple) {
+            fieldsSimple = args[0].fieldsSimple
+        }
+
+        return result;
+    };
+
+    window.setInterval(() => {
+        if (heightInitialized) {
+            const height = document.getElementById('heyflow-wrapper').offsetHeight
+            if (height !== latestHeight) {
+                window.parent.postMessage(`KOSTENLOSE_IMMOBILIENBEWERTUNG_HEIGHT__${height}`, '*')
+                latestHeight = height
+            }
+        }
+
+        try {
+            const step = document
+                .querySelector('*[flow-id="szepiaIUuzB2bgYWOBB6"]')
+                .shadowRoot
+                .querySelector('*[data-id="heyflow-form"] section[name].visible')
+            const stepName = step.getAttribute('name')
+
+            if (stepName && stepName !== currentStep) {
+                const event = {
+                    event: 'opened',
+                    stepName,
+                    fieldsSimple
+                }
+                const allowedOrigins = [
+                    'https://www.aktuelle-grundstueckspreise.de',
+                    'https://staging.aktuelle-grundstueckspreise.de',
+                    'http://localhost:3000'
+                ]
+                window.parent.postMessage(
+                    `KOSTENLOSE_IMMOBILIENBEWERTUNG_EVENT__${JSON.stringify(event)}`,
+                    allowedOrigins.find(i => i === window.parent.location.origin) || 'https://www.aktuelle-grundstueckspreise.de'
+                )
+                currentStep = stepName
+            }
+        } catch (e) {}
+    }, 100)
+</script>
+</body>
+</html>

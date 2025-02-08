@@ -9,12 +9,8 @@ const affiliateAbTestType = abTest.getSessionFeature('affiliateWidgets')
       class="location-inner-affiliate-widget"
   >
     <MieteAktuell v-if="affiliateAbTestType === 'mieteAktuell'" />
-    <WattfoxImmo v-else-if="affiliateAbTestType === 'wattfoxImmo'" />
-    <PropertyValueWidget v-else-if="affiliateAbTestType === 'propertyValueWidget'" />
-    <PropertyValueWidget2
-        v-else
-        wrapper-class-name="location-inner-affiliate-widget-wrapper"
-    />
+    <KostenloseImmobilienbewertung v-else-if="affiliateAbTestType === 'kostenloseImmobilienbewertung'" />
+    <PropertyValueWidget v-else />
   </div>
 </template>
 
