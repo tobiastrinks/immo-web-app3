@@ -13,9 +13,8 @@ const props = defineProps({
         v-if="props.type === 'propertyValueWidget'"
         border-bottom
     />
-    <PropertyValueWidget2
-        v-else-if="props.type === 'propertyValueWidget2'"
-        wrapper-class-name="info-page-affiliate-wrapper"
+    <KostenloseImmobilienbewertung
+        v-else-if="props.type === 'kostenloseImmobilienbewertung'"
         border-bottom
     />
     <div v-else class="info-page-affiliate" :class="props.type">
@@ -240,6 +239,10 @@ const props = defineProps({
     @media screen and (min-width: 700px) {
       height: 315px;
     }
+  }
+
+  .kostenlose-immobilienbewertung-wizard-iframe {
+    height: 315px;
   }
 
   .wattfox-immo-iframe {
