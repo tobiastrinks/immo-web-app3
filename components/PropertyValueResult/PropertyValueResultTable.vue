@@ -45,13 +45,15 @@ const scrollToIncompleteSection = () => {
               'border-bottom': cell.borderBottom && '1px solid #D7D7D7FF'
             }"
           >
-            <span v-if="cell.text" v-html="cell.text"></span>
-            <img
-                v-if="cell.warning"
-                src="@/assets/img/_shared/warning.svg"
-                class="property-value-result-table-cell-warning"
-                @click="scrollToIncompleteSection"
-            />
+            <div class="td-inner">
+              <span v-if="cell.text" v-html="cell.text"></span>
+              <img
+                  v-if="cell.warning"
+                  src="@/assets/img/_shared/warning.svg"
+                  class="property-value-result-table-cell-warning"
+                  @click="scrollToIncompleteSection"
+              />
+            </div>
           </td>
         </tr>
       </table>
@@ -98,7 +100,6 @@ const scrollToIncompleteSection = () => {
           padding: 0;
           width: 50%;
           vertical-align: top;
-          display: flex;
 
           &:first-child {
             padding-right: 3px;
@@ -106,6 +107,10 @@ const scrollToIncompleteSection = () => {
 
           &.bold {
             font-weight: 400;
+          }
+
+          .td-inner {
+            display: flex;
           }
 
           .property-value-result-table-cell-warning {
